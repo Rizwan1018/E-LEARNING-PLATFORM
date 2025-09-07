@@ -1,0 +1,64 @@
+<!-- src/app/modules/student/course-list/course-list.component.html -->
+<div class="mb-3">
+  <div class="row g-2 align-items-end">
+    <div class="col-md-3">
+      <label class="form-label small">Student</label>
+      <select class="form-select" [(ngModel)]="selectedStudentId">
+        <option *ngFor="let s of students" [value]="s.id">{{ s.name }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label small">Search</label>
+      <input class="form-control" [(ngModel)]="search" (keyup.enter)="load()" placeholder="title or tag" />
+    </div>
+
+    <div class="col-md-2">
+      <label class="form-label small">Domain</label>
+      <select class="form-select" [(ngModel)]="domain">
+        <option value="">Any</option>
+        <option *ngFor="let d of domains" [value]="d">{{ d }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <label class="form-label small">Level</label>
+      <select class="form-select" [(ngModel)]="level">
+        <option value="">Any</option>
+        <option *ngFor="let l of levels" [value]="l">{{ l }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-1 d-grid">
+      <button class="btn btn-primary" (click)="load()">Apply</button>
+    </div>
+  </div>
+</div>
+
+<p class="text-success small mb-2" *ngIf="message">{{ message }}</p>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+  <div class="col" *ngFor="let c of courses">
+    <div class="card h-100">
+      <div class="card-body d-flex flex-column">
+        <div class="mb-2">
+          <div class="course-title">{{ c.title }}</div>
+          <small class="text-muted">{{ c.domain }} • {{ c.level }} • {{ c.durationHrs ? c.durationHrs + 'h' : '' }}</small>
+        </div>
+
+        <p class="small text-muted mb-2">{{ c.description }}</p>
+
+        <div class="mb-3">
+          <span class="badge bg-light text-dark border badge-tag" *ngFor="let t of c.tags">{{ t }}</span>
+        </div>
+
+        <div class="mt-auto d-grid">
+          <button class="btn btn-success" (click)="enroll(c.id)">Enroll</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="courses.length === 0" class="text-center text-muted my-5">
+  <p class="mb-0">No courses found.</p>
+</div>

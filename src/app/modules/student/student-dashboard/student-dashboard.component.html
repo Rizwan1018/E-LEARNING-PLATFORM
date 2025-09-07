@@ -1,0 +1,14 @@
+<!-- src/app/modules/student/student-dashboard/student-dashboard.component.html -->
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Student Dashboard</h2>
+    <div class="btn-group" role="group">
+      <a routerLink="courses" class="btn btn-outline-primary btn-sm">Catalog</a>
+      <a routerLink="enrollments" class="btn btn-outline-secondary btn-sm">My Enrollments</a>
+    </div>
+  </div>
+
+  <div class="card p-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>

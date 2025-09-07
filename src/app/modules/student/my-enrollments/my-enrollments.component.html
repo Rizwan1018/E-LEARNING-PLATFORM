@@ -1,0 +1,38 @@
+<div>
+  <div class="d-flex align-items-center gap-3 mb-3">
+    <div style="min-width:200px;">
+      <label class="form-label small">Student</label>
+      <select class="form-select" [(ngModel)]="studentId" (change)="load()">
+        <option *ngFor="let s of students" [value]="s.id">{{ s.name }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="!enrollments.length" class="alert alert-info">No enrollments yet.</div>
+
+  <ul class="list-group" *ngIf="enrollments.length">
+    <li class="list-group-item" *ngFor="let e of enrollments">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ coursesById.get(e.courseId)?.title }}</strong>
+          <div class="small text-muted">Enrolled: {{ e.enrollmentDate }}</div>
+        </div>
+
+        <div style="width:220px;">
+          <div class="d-flex align-items-center gap-2">
+            <div class="w-100">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" [style.width.%]="e.progress">{{ e.progress }}%</div>
+              </div>
+            </div>
+            <span class="badge" [ngClass]="{
+              'bg-success': e.status==='completed',
+              'bg-warning text-dark': e.status==='enrolled',
+              'bg-secondary': e.status==='paused'
+            }">{{ e.status }}</span>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

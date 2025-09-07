@@ -1,0 +1,15 @@
+<!-- src/app/modules/instructor/instructor-dashboard/instructor-dashboard.component.html -->
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Instructor Dashboard</h2>
+    <div class="btn-group">
+      <a routerLink="courses" class="btn btn-outline-success btn-sm">Manage Courses</a>
+      <a routerLink="enrollments" class="btn btn-outline-secondary btn-sm">Course Enrollments</a>
+    </div>
+  </div>
+
+  <div class="card p-3">
+    <router-outlet></router-outlet> <!-- important so /instructor/courses loads here -->
+  </div>
+</div>
+<router-outlet></router-outlet>

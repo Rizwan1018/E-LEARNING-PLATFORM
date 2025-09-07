@@ -1,0 +1,39 @@
+<!-- src/app/modules/home/home.component.html -->
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <h1 class="h-hero">Enrollment <br/>Management</h1>
+      <p class="text-muted">E-Learning Platform — choose your area</p>
+
+      <div class="row g-3 mt-4">
+        <div class="col-sm-6">
+          <div class="card p-3 h-100 d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="mb-1">Student Area</h5>
+              <p class="text-muted small">Browse courses, enroll and track progress.</p>
+            </div>
+            <a routerLink="/student" class="btn btn-primary mt-2">Go to Student</a>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="card p-3 h-100 d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="mb-1">Instructor Area</h5>
+              <p class="text-muted small">Create and manage courses, view enrollments.</p>
+            </div>
+            <a routerLink="/instructor" class="btn btn-success mt-2">Go to Instructor</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 d-none d-lg-block">
+      <div class="card p-3">
+        <h6 class="mb-2">Quick links</h6>
+        <a class="d-block mb-1" routerLink="/student">Student catalog</a>
+        <a class="d-block" routerLink="/instructor">Instructor tools</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+{
+  "students": [
+    { "id": 1, "name": "Sashmit Kabi", "email": "sashmit@example.com" },
+    { "id": 2, "name": "Basant", "email": "basant@example.com" },
+    { "id": 3, "name": "Tanmay", "email": "tanmay@example.com" }
+  ],
+  "instructors": [
+    { "id": 1001, "name": "Dr. Patel", "email": "patel@uni.edu" },
+    { "id": 1002, "name": "Ms. Rao", "email": "rao@uni.edu" }
+  ],
+  "courses": [
+    {
+      "id": 101,
+      "title": "Intro to Web Programming",
+      "instructorId": 1001,
+      "domain": "Web",
+      "level": "Beginner",
+      "durationHrs": 20,
+      "tags": ["HTML", "CSS", "JS"],
+      "description": "Foundations of web development with practical labs."
+    },
+    {
+      "id": 102,
+      "title": "Angular Fundamentals",
+      "instructorId": 1002,
+      "domain": "Frontend",
+      "level": "Intermediate",
+      "durationHrs": 24,
+      "tags": ["Angular", "TypeScript"],
+      "description": "Components, services, routing, and forms."
+    },
+    {
+      "id": 103,
+      "title": "Data Structures",
+      "instructorId": 1001,
+      "domain": "CS Core",
+      "level": "Beginner",
+      "durationHrs": 30,
+      "tags": ["Arrays", "Trees", "Graphs"],
+      "description": "Core DS with hands-on exercises."
+    }
+  ],
+  "enrollments": [
+    {
+      "id": 10001,
+      "studentId": 1,
+      "courseId": 101,
+      "enrollmentDate": "2025-09-06",
+      "progress": 15,
+      "status": "enrolled"
+    }
+  ]
+}
