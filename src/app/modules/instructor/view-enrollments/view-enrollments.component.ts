@@ -21,7 +21,7 @@ export class ViewEnrollmentsComponent implements OnInit {
 
   ngOnInit() {
     this.catalog.getCourses({}).subscribe(cs => this.courses = cs);
-    this.catalog.getStudents().subscribe(ss => ss.forEach(s => this.studentsMap.set(s.id, s)));
+    this.catalog.getStudents().subscribe(ss => ss.forEach(s => this.studentsMap.set(Number(s.id), s)));
   }
 
   load() {

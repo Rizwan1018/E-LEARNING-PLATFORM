@@ -11,7 +11,7 @@ import { Student } from '../../../models/student';
 })
 export class CourseListComponent implements OnInit {
   courses: Course[] = [];
-  students: Student[] = [];
+  students: Student[]=[];
   selectedStudentId = 1;
   search = '';
   domain = '';

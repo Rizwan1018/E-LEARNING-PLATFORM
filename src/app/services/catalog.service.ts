@@ -23,6 +23,7 @@ export class CatalogService {
   updateCourse(c: Course) { return this.api.put<Course>(`courses/${c.id}`, c); }
   deleteCourse(id: number) { return this.api.delete<void>(`courses/${id}`); }
 
-  getStudents() { return this.api.get<Student[]>('students'); }
+  getStudents() { console.log( this.api.get<Student[]>('students'));
+    return this.api.get<Student[]>('students'); }
   getInstructors() { return this.api.get<Instructor[]>('instructors'); }
 }

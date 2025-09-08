@@ -1,52 +1,101 @@
 {
   "students": [
-    { "id": 1, "name": "Sashmit Kabi", "email": "sashmit@example.com" },
-    { "id": 2, "name": "Basant", "email": "basant@example.com" },
-    { "id": 3, "name": "Tanmay", "email": "tanmay@example.com" }
+    {
+      "id": "1",
+      "name": "Sashmit Kabi",
+      "email": "sashmit@example.com"
+    },
+    {
+      "id": "2",
+      "name": "Basant",
+      "email": "basant@example.com"
+    },
+    {
+      "id": "3",
+      "name": "Tanmay",
+      "email": "tanmay@example.com"
+    }
   ],
   "instructors": [
-    { "id": 1001, "name": "Dr. Patel", "email": "patel@uni.edu" },
-    { "id": 1002, "name": "Ms. Rao", "email": "rao@uni.edu" }
+    {
+      "id": "1001",
+      "name": "Dr. Patel",
+      "email": "patel@uni.edu"
+    },
+    {
+      "id": "1002",
+      "name": "Ms. Rao",
+      "email": "rao@uni.edu"
+    }
   ],
   "courses": [
     {
-      "id": 101,
+      "id": "101",
       "title": "Intro to Web Programming",
       "instructorId": 1001,
       "domain": "Web",
       "level": "Beginner",
       "durationHrs": 20,
-      "tags": ["HTML", "CSS", "JS"],
+      "tags": [
+        "HTML",
+        "CSS",
+        "JS"
+      ],
       "description": "Foundations of web development with practical labs."
     },
     {
-      "id": 102,
+      "id": "102",
       "title": "Angular Fundamentals",
       "instructorId": 1002,
       "domain": "Frontend",
       "level": "Intermediate",
       "durationHrs": 24,
-      "tags": ["Angular", "TypeScript"],
+      "tags": [
+        "Angular",
+        "TypeScript"
+      ],
       "description": "Components, services, routing, and forms."
     },
     {
-      "id": 103,
-      "title": "Data Structures",
+      "id": 1757324771686,
+      "title": "Bootfcxhf ",
       "instructorId": 1001,
-      "domain": "CS Core",
-      "level": "Beginner",
-      "durationHrs": 30,
-      "tags": ["Arrays", "Trees", "Graphs"],
-      "description": "Core DS with hands-on exercises."
+      "domain": "utfcygv",
+      "level": "intermediate",
+      "durationHrs": 25,
+      "tags": [
+        "sbwgiydiye"
+      ],
+      "description": "wjebdbibec"
+    },
+    {
+      "id": 1757326130107,
+      "title": "sdfghn",
+      "instructorId": 1001,
+      "domain": "aszxcvbnm",
+      "level": "asdfg",
+      "durationHrs": 9,
+      "tags": [
+        "gg"
+      ],
+      "description": "gg"
     }
   ],
   "enrollments": [
     {
-      "id": 10001,
+      "id": "10001",
       "studentId": 1,
       "courseId": 101,
       "enrollmentDate": "2025-09-06",
       "progress": 15,
+      "status": "enrolled"
+    },
+    {
+      "id": "88f7",
+      "studentId": 1,
+      "courseId": "102",
+      "enrollmentDate": "2025-09-08",
+      "progress": 0,
       "status": "enrolled"
     }
   ]
