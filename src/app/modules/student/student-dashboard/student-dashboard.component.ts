@@ -3,7 +3,6 @@ import { EnrollmentService } from '../../../services/enrollment.service';
 import { CatalogService } from '../../../services/catalog.service';
 import { Enrollment } from '../../../models/enrollment';
 import { Course } from '../../../models/course';
-
 @Component({
   selector: 'app-student-dashboard',
   standalone: false,

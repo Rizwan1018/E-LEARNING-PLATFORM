@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-dark px-4"  data-aos="fade-down" data-aos-duration="1000">
+    <div class="container-fluid">
+        <a class="navbar-brand mx-2 fw-bold" href="#">
+  <img src="inco.svg" alt="Your Logo" width="62" height="62">
+</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse mt-3 " id="navbarNav"> 
+        <ul class="navbar-nav me-auto gap-2 mx-5  mb-2 mb-lg-0">
+            <li class="nav-item "> <a class="nav-link" routerLinkActive="active" routerLink="/courses">Courses</a> </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " href="#" id="categoriesDeopdown" role="button" data-bs-toggle="dropdown">
+                    Categories
+                </a>
+                <ul class="dropdown-menu bg-dark">
+                    <li> <a class="dropdown-item"  href="#">Web Development</a> </li>
+                    <li> <a class="dropdown-item" href="#">Data Science</a> </li>
+                    <li> <a class="dropdown-item" href="#">Digital Marketing</a> </li>
+                    <li> <a class="dropdown-item" href="#">UI/UX Desing</a> </li>
+                    <li> <a class="dropdown-item" href="#">Brouse all Courses ></a> </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="communityDeopdown" role="button" data-bs-toggle="dropdown">
+                    Community
+                </a>
+                <ul class="dropdown-menu bg-dark">
+                    <li> <a class="dropdown-item" href="#">Webinars</a> </li>
+                    <li> <a class="dropdown-item" href="#">Live Q&As</a> </li>
+                </ul>
+            </li>
+            <li class="nav-item"> <a class="nav-link" href="#">About Us</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#">Support</a> </li>
+        </ul>
+    
+        <div class="d-flex align-items-center gap-3">
+            <span class="text-white">EN</span>
+            <a routerLink="/login" class="btn btn-outline-dark text-white px-4"> Log in</a>
+            <a routerLink="/signup" class="btn btn-outline-dark px-4"> Create an account</a>
+        </div>
+    </div>
+    </div>
+</nav>
+
+   

@@ -28,18 +28,23 @@ import { StudentRoutingModule } from './student-routing.module';
 import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { MyEnrollmentsComponent } from './my-enrollments/my-enrollments.component';
+import { SharedModule } from '../../shared/shared.module';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
+
 
 @NgModule({
   declarations: [
     StudentDashboardComponent,
     CourseListComponent,
     MyEnrollmentsComponent
+    
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    StudentRoutingModule
+    StudentRoutingModule,
+    SharedModule
   ]
 })
 export class StudentModule {}
