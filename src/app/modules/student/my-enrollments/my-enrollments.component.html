@@ -1,35 +1,30 @@
-<div>
-  <div class="d-flex align-items-center gap-3 mb-3">
-    <div style="min-width:200px;">
-      <label class="form-label small">Student</label>
-      <select class="form-select" [(ngModel)]="studentId" (change)="load()">
-        <option *ngFor="let s of students" [value]="s.id">{{ s.name }}</option>
-      </select>
-    </div>
-  </div>
+<div *ngIf="!studentId" class="alert alert-info">Select a student from the dashboard to view enrollments.</div>
 
-  <div *ngIf="!enrollments.length" class="alert alert-info">No enrollments yet.</div>
-
-  <div class="row row-cols-1 row-cols-md-3 g-4" *ngIf="enrollments.length">
-    <div class="col" *ngFor="let e of enrollments">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body d-flex flex-column">
-          <h6 class="fw-bold">{{ coursesById.get(e.courseId)?.title }}</h6>
-          <p class="small text-muted">Enrolled: {{ e.enrollmentDate }}</p>
-
-          <div class="progress mb-2">
-            <div class="progress-bar" role="progressbar" [style.width.%]="e.progress">{{ e.progress }}%</div>
+<ul class="list-group" *ngIf="enrollments?.length">
+  <li class="list-group-item" *ngFor="let e of enrollments">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <strong>{{ coursesById.get(e.courseId)?.title }}</strong>
+        <div class="small text-muted">Enrolled: {{ e.enrollmentDate }}</div>
+      </div>
+      <div style="width:220px;">
+        <div class="d-flex align-items-center gap-2">
+          <div class="w-100">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" [style.width.%]="e.progress">{{ e.progress }}%</div>
+            </div>
           </div>
-
-          <span class="badge bg-success" *ngIf="e.status==='completed'">Completed</span>
-          <span class="badge bg-warning text-dark" *ngIf="e.status==='enrolled'">In Progress</span>
-          <span class="badge bg-secondary" *ngIf="e.status==='paused'">Paused</span>
-
-          <div class="mt-auto">
-            <button class="btn btn-outline-primary btn-sm w-100">Continue Learning</button>
-          </div>
+          <span class="badge" [ngClass]="{
+            'bg-success': e.status==='completed',
+            'bg-warning text-dark': e.status==='enrolled',
+            'bg-secondary': e.status==='paused'
+          }">{{ e.status }}</span>
         </div>
       </div>
     </div>
-  </div>
+  </li>
+</ul>
+
+<div *ngIf="studentId && !enrollments?.length" class="alert alert-warning mt-3">
+  No enrollments yet for this student.
 </div>

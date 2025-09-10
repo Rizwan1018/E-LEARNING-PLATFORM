@@ -1,36 +1,36 @@
 {
   "students": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Sashmit Kabi",
       "email": "sashmit@example.com"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Basant",
       "email": "basant@example.com"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Tanmay",
       "email": "tanmay@example.com"
     }
   ],
   "instructors": [
     {
-      "id": 1001,
+      "id": "1001",
       "name": "Dr. Patel",
       "email": "patel@uni.edu"
     },
     {
-      "id": 1002,
+      "id": "1002",
       "name": "Ms. Rao",
       "email": "rao@uni.edu"
     }
   ],
   "courses": [
     {
-      "id": 101,
+      "id": "101",
       "title": "Intro to Web Programming",
       "instructorId": 1001,
       "domain": "Web",
@@ -47,7 +47,7 @@
       "studentsCount": 15420
     },
     {
-      "id": 102,
+      "id": "102",
       "title": "Angular Fundamentals",
       "instructorId": 1002,
       "domain": "Frontend",
@@ -63,7 +63,7 @@
       "studentsCount": 12780
     },
     {
-      "id": 103,
+      "id": "103",
       "title": "Data Structure With Java",
       "instructorId": 1002,
       "domain": "Programming",
@@ -81,7 +81,7 @@
   ],
   "enrollments": [
     {
-      "id": 10001,
+      "id": "10001",
       "studentId": 1,
       "courseId": 101,
       "enrollmentDate": "2025-09-06",
@@ -92,6 +92,22 @@
       "id": "b732",
       "studentId": "2",
       "courseId": 103,
+      "enrollmentDate": "2025-09-10",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "f31d",
+      "studentId": "2",
+      "courseId": "101",
+      "enrollmentDate": "2025-09-10",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "cdc8",
+      "studentId": "1",
+      "courseId": "102",
       "enrollmentDate": "2025-09-10",
       "progress": 0,
       "status": "enrolled"

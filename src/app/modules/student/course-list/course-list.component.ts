@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+// src/app/modules/student/course-list/course-list.component.ts
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CatalogService } from '../../../services/catalog.service';
 import { EnrollmentService } from '../../../services/enrollment.service';
 import { Course } from '../../../models/course';
 import { Student } from '../../../models/student';
+import { StudentContextService } from '../../../services/student-context.service';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-course-list',
-  standalone: false,
   templateUrl: './course-list.component.html',
-  styleUrl: './course-list.component.css'
+  standalone:false,
+  styleUrls: ['./course-list.component.css']
 })
-export class CourseListComponent implements OnInit {
+export class CourseListComponent implements OnInit, OnDestroy {
   courses: Course[] = [];
-  students: Student[]=[];
-  selectedStudentId = 1;
+  students: Student[] = [];
+  selectedStudentId: number | null = null;
   search = '';
   domain = '';
   level = '';
@@ -21,11 +25,25 @@ export class CourseListComponent implements OnInit {
   domains = ['Web', 'Frontend', 'CS Core'];
   levels = ['Beginner', 'Intermediate', 'Advanced'];
 
-  constructor(private catalog: CatalogService, private enrollSvc: EnrollmentService) {}
+  private sub = new Subscription();
+
+  constructor(private catalog: CatalogService, private enrollSvc: EnrollmentService, private studentContext: StudentContextService) {}
 
   ngOnInit() {
-    this.catalog.getStudents().subscribe(s => this.students = s);
+    const s1 = this.catalog.getStudents().subscribe(s => this.students = s);
+    this.sub.add(s1);
+
+    // watch for selected student
+    const s2 = this.studentContext.studentId$.subscribe(id => {
+      this.selectedStudentId = id;
+    });
+    this.sub.add(s2);
+
     this.load();
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   load() {
@@ -34,6 +52,10 @@ export class CourseListComponent implements OnInit {
   }
 
   enroll(courseId: number) {
+    if (!this.selectedStudentId) {
+      this.message = 'Please select a student from the dashboard first.';
+      return;
+    }
     this.message = 'Processing...';
     this.enrollSvc.enroll(this.selectedStudentId, courseId).subscribe((res: any) => {
       this.message = res.success ? '✅ Enrollment successful' : '⚠️ ' + res.message;
