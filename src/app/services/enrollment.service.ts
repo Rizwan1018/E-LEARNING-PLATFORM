@@ -4,9 +4,7 @@ import { ApiService } from './api.service';
 import { Enrollment } from '../models/enrollment';
 import { Observable, of, map, switchMap } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class EnrollmentService {
   constructor(private api: ApiService) {}
 
@@ -25,12 +23,15 @@ export class EnrollmentService {
   enroll(studentId: number, courseId: number) {
     return this.getEnrollments().pipe(
       map(list =>
-        list.some(e => e.studentId === studentId && e.courseId === courseId)
+        list.some(e =>
+          Number(e.studentId) === Number(studentId) &&
+          Number(e.courseId) === Number(courseId)
+        )
       ),
       switchMap(exists => {
-        if (exists)
+        if (exists) {
           return of({ success: false, message: 'Already enrolled' });
-
+        }
         const newEnrollment: Enrollment = {
           studentId,
           courseId,
@@ -38,9 +39,7 @@ export class EnrollmentService {
           progress: 0,
           status: 'enrolled'
         };
-
-        return this.api
-          .post<Enrollment>('enrollments', newEnrollment)
+        return this.api.post<Enrollment>('enrollments', newEnrollment)
           .pipe(map(data => ({ success: true, message: 'Enrolled', data })));
       })
     );
@@ -48,17 +47,13 @@ export class EnrollmentService {
 
   updateProgress(id: number, progress: number) {
     return this.api.get<Enrollment>(`enrollments/${id}`).pipe(
-      switchMap(e =>
-        this.api.put<Enrollment>(`enrollments/${id}`, { ...e, progress })
-      )
+      switchMap(e => this.api.put<Enrollment>(`enrollments/${id}`, { ...e, progress }))
     );
   }
 
   setStatus(id: number, status: string) {
     return this.api.get<Enrollment>(`enrollments/${id}`).pipe(
-      switchMap(e =>
-        this.api.put<Enrollment>(`enrollments/${id}`, { ...e, status })
-      )
+      switchMap(e => this.api.put<Enrollment>(`enrollments/${id}`, { ...e, status }))
     );
   }
 }

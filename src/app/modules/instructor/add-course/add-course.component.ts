@@ -38,57 +38,43 @@ export class AddCourseComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (!this.courseForm.valid) {
-      this.message = 'Please fill required fields.';
-      return;
-    }
+OnSubmit() {
+  if (this.courseForm.invalid) return;
 
-    const fv = this.courseForm.value;
-    const tagsArray: string[] = fv.tags
-      ? fv.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0)
+  const fv = this.courseForm.value;
+
+  const tagsArray =
+    fv.tags && typeof fv.tags === 'string'
+      ? fv.tags.split(',').map((tag: string) => tag.trim())
       : [];
 
-    const courseData: Course = {
-      id: this.editingCourseId ?? Date.now(),   // ✅ use existing id if editing
-      title: fv.title,
-      instructorId: +fv.instructorId,
-      domain: fv.domain,
-      level: fv.level,
-      durationHrs: fv.durationHrs ? +fv.durationHrs : undefined,
-      tags: tagsArray,
-      description: fv.description
-    };
+  // Common payload (exclude `id` here)
+  const courseData: Omit<Course, 'id'> = {
+    title: fv.title,
+    instructorId: +fv.instructorId,
+    domain: fv.domain,
+    level: fv.level,
+    durationHrs: fv.durationHrs ? +fv.durationHrs : undefined,
+    tags: tagsArray,
+    description: fv.description
+  };
 
-    if (this.editingCourseId) {
-      // ✅ update course
-      this.courseService.updateCourse(this.editingCourseId, courseData).subscribe({
-        next: () => {
-          this.message = '✏️ Course updated successfully';
-          this.courseForm.reset();
-          this.editingCourseId = null;
-          this.loadCourses();
-        },
-        error: (err) => {
-          console.error(err);
-          this.message = '❌ Failed to update course';
-        }
+  if (this.editingCourseId) {
+    // ✅ Update existing course (id must be included here)
+    this.courseService
+      .updateCourse(this.editingCourseId, { ...courseData, id: this.editingCourseId })
+      .subscribe(() => {
+        this.courseForm.reset();
+        this.loadCourses();
       });
-    } else {
-      // ✅ add new course
-      this.courseService.addCourse(courseData).subscribe({
-        next: () => {
-          this.message = '✅ Course added successfully';
-          this.courseForm.reset();
-          this.loadCourses();
-        },
-        error: (err) => {
-          console.error(err);
-          this.message = '❌ Failed to add course';
-        }
-      });
-    }
+  } else {
+    // ✅ Add new course (let json-server auto-generate id)
+    this.courseService.addCourse(courseData as Course).subscribe(() => {
+      this.courseForm.reset();
+      this.loadCourses();
+    });
   }
+}
 
   // ✅ delete course
   remove(courseId: number) {

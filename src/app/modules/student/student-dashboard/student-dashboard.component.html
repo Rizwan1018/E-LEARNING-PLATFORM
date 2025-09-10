@@ -1,14 +1,40 @@
-<!-- src/app/modules/student/student-dashboard/student-dashboard.component.html -->
-<div class="container py-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Student Dashboard</h2>
-    <div class="btn-group" role="group">
-      <a routerLink="courses" class="btn btn-outline-primary btn-sm">Catalog</a>
-      <a routerLink="enrollments" class="btn btn-outline-secondary btn-sm">My Enrollments</a>
+<div class="hero-banner mb-4">
+  <h2>Welcome back, Student!</h2>
+  <p>Continue your learning journey</p>
+  <button class="btn btn-light btn-sm mt-2">Start Learning Today</button>
+</div>
+
+<div class="row text-center mb-4">
+  <div class="col-md-3">
+    <div class="stats-card">
+      <h4 class="text-primary">{{ enrolledCoursesCount }}</h4>
+      <p>Enrolled Courses</p>
     </div>
   </div>
-
-  <div class="card p-3">
-    <router-outlet></router-outlet>
+  <div class="col-md-3">
+    <div class="stats-card">
+      <h4 class="text-success">{{ totalLearningHours }}</h4>
+      <p>Learning Hours</p>
+    </div>
   </div>
+  <div class="col-md-3">
+    <div class="stats-card">
+      <h4 class="text-warning">{{ certificatesCount }}</h4>
+      <p>Certificates</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stats-card">
+      <h4 class="text-info">{{ avgProgress }}%</h4>
+      <p>Average Progress</p>
+    </div>
+  </div>
+</div>
+
+<div class="card p-3">
+  <app-my-enrollments></app-my-enrollments>
+</div>
+<br>
+<div class="card p-3">
+  <app-course-list></app-course-list>
 </div>
