@@ -2,3 +2,6 @@ a{
     text-decoration: none;
     color: gray;
 }
+img{
+    border-radius: 10px;
+}
