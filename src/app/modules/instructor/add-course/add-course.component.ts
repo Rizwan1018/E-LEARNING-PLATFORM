@@ -62,15 +62,14 @@ OnSubmit() {
   if (this.editingCourseId) {
     // ✅ Update existing course (id must be included here)
     this.courseService
-      .updateCourse(this.editingCourseId, { ...courseData, id: this.editingCourseId })
+      .updateCourse(this.editingCourseId, { id: this.editingCourseId, ...courseData })
       .subscribe(() => {
-        this.courseForm.reset();
+        // this.courseForm.reset();
         this.loadCourses();
       });
   } else {
     // ✅ Add new course (let json-server auto-generate id)
     this.courseService.addCourse(courseData as Course).subscribe(() => {
-      this.courseForm.reset();
       this.loadCourses();
     });
   }

@@ -33,6 +33,7 @@ import { InstructorRoutingModule } from './instructor-routing.module';
 import { InstructorDashboardComponent } from './instructor-dashboard/instructor-dashboard.component';
 import { AddCourseComponent } from './add-course/add-course.component';
 import { ViewEnrollmentsComponent } from './view-enrollments/view-enrollments.component';
+import { SharedModule } from "../../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ViewEnrollmentsComponent } from './view-enrollments/view-enrollments.co
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    InstructorRoutingModule
-  ]
+    InstructorRoutingModule,
+    SharedModule
+]
 })
 export class InstructorModule {}

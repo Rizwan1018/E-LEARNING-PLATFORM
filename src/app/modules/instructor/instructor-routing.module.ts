@@ -7,7 +7,8 @@ import { ViewEnrollmentsComponent } from './view-enrollments/view-enrollments.co
 const routes: Routes = [
   { path: '', component: InstructorDashboardComponent },
   { path: 'add-course', component: AddCourseComponent },
-  { path: 'view-enrollments', component: ViewEnrollmentsComponent }
+  { path: 'view-enrollments', component: ViewEnrollmentsComponent },
+ 
 ];
 
 @NgModule({

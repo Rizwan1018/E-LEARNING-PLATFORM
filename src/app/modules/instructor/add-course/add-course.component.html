@@ -1,4 +1,7 @@
-<form [formGroup]="courseForm" (ngSubmit)="OnSubmit()">
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+<form [formGroup]="courseForm">
   <div class="row g-3">
     <div class="col-md-8">
       <div class="card p-3">
@@ -43,7 +46,7 @@
         </div>
 
         <div class="d-flex gap-2 mt-2">
-          <button type="submit" class="btn btn-success">Save course</button>
+          <button type="submit" class="btn btn-success" (click)="OnSubmit()" (click)="courseForm.reset()">Save course</button>
           <button type="button" class="btn btn-outline-secondary" (click)="courseForm.reset()">Reset</button>
         </div>
 
@@ -74,3 +77,5 @@
     </div>
   </div>
 </form>
+
+</div>
