@@ -55,6 +55,31 @@
         "TypeScript"
       ],
       "description": "Components, services, routing, and forms."
+    },
+    {
+      "id": "92b5",
+      "title": "sadasda",
+      "instructorId": 1001,
+      "domain": "dasdasda",
+      "level": "sddsadsasa",
+      "durationHrs": 1,
+      "tags": [
+        "1wdsadd"
+      ],
+      "description": "SDSDS"
+    },
+    {
+      "id": "c7a5",
+      "title": "Angular Fundamental",
+      "instructorId": 1001,
+      "domain": "Frontend",
+      "level": "Intermediate",
+      "durationHrs": 24,
+      "tags": [
+        "Angular",
+        "TypeScript"
+      ],
+      "description": "Components, services, routing, and forms."
     }
   ],
   "enrollments": [

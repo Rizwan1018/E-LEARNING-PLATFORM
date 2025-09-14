@@ -2,6 +2,10 @@ a{
     text-decoration: none;
     color: gray;
 }
-img{
-    border-radius: 10px;
+
+.src-img{
+    max-height: 230px;
+    object-fit: cover;
+    width: 100%;  
+    border-radius: 8px; 
 }

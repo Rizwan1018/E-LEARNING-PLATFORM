@@ -2,3 +2,11 @@
 .course-title { font-weight: 600; font-size: 1.02rem; }
 .badge-tag { margin-right: .3rem; margin-bottom: .25rem; }
 .mb-sm { margin-bottom: .6rem; }
+
+.src-img{
+    max-height: 220px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 8px;
+
+}
