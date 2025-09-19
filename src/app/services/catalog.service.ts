@@ -1,21 +1,29 @@
+
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Course } from '../models/course';
 import { Student } from '../models/student';
 import { Instructor } from '../models/instructor';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class CatalogService {
   constructor(private api: ApiService) {}
 
-  getCourses(filter?: { search?: string; domain?: string; level?: string; instructorId?: number }): Observable<Course[]> {
-    const params: any = {};
-    if (filter?.search) params.q = filter.search;
-    if (filter?.domain) params.domain = filter.domain;
-    if (filter?.level) params.level = filter.level;
-    if (filter?.instructorId) params.instructorId = filter.instructorId;
-    return this.api.get<Course[]>('courses', params);
+  getCourses(filter?: { search?: string }): Observable<Course[]> {
+    return this.api.get<Course[]>('courses').pipe(
+      map(courses => {
+        if (filter?.search) {
+          const term = filter.search.toLowerCase();
+          return courses.filter(c =>
+            c.title.toLowerCase().includes(term) ||
+            (c.tags && c.tags.some(tag => tag.toLowerCase().includes(term)))
+          );
+        }
+        return courses;
+      })
+    );
   }
 
   getCourse(id: number) { return this.api.get<Course>(`courses/${id}`); }

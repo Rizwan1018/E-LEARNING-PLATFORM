@@ -1,0 +1,101 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <h1 class="display-5">Welcome back, Student!</h1>
+      <p class="text-muted">Continue your learning journey</p>
+    </div>
+
+    <div class="d-flex align-items-end gap-3">
+      <div>
+        <label class="form-label small">Select Student</label>
+        <select class="form-select" [(ngModel)]="selectedStudentId" (change)="onStudentChange()">
+          <option *ngFor="let s of students" [value]="s.id">{{ s.name }}</option>
+        </select>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary"
+                [routerLink]="['/student/enrollments']"
+                [queryParams]="{ studentId: selectedStudentId }">
+          Start Learning Today
+        </button>
+
+        <button class="btn btn-outline-secondary"
+                [routerLink]="['/student/courses']"
+                [queryParams]="{ studentId: selectedStudentId }">
+          Browse Courses
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <div class="h3 mb-0">{{ enrolledCount }}</div>
+        <div class="small text-muted">Enrolled Courses</div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <div class="h3 mb-0">{{ learningHours }}</div>
+        <div class="small text-muted">Learning Hours</div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <div class="h3 mb-0">{{ certificates }}</div>
+        <div class="small text-muted">Certificates</div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <div class="h3 mb-0">{{ averageProgress }}%</div>
+        <div class="small text-muted">Average Progress</div>
+      </div>
+    </div>
+  </div>
+
+  <h4>My Enrollments</h4>
+
+  <div *ngIf="enrollments.length; else none" class="row g-4">
+    <div class="col-md-4" *ngFor="let e of enrollments">
+      <div class="card h-100">
+        <img [src]="courseFor(e)?.thumbnail || 'https://picsum.photos/800/400?text=Course'"
+             class="card-img-bottom" alt="thumbnail">
+
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ courseFor(e)?.title }}</h5>
+          <p class="small text-muted mb-2">
+            {{ courseFor(e)?.domain }} • {{ courseFor(e)?.level }}
+            <span *ngIf="courseFor(e)?.durationHrs"> • {{ courseFor(e)?.durationHrs }}h</span>
+          </p>
+
+          <p class="small text-truncate mb-2">{{ courseFor(e)?.description }}</p>
+
+          <div class="mt-auto">
+            <div class="mb-2 small text-muted">Enrolled: {{ e.enrollmentDate }}</div>
+            <div class="progress mb-2">
+              <div class="progress-bar" role="progressbar" [style.width.%]="e.progress">
+                {{ e.progress }}%
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-warning text-dark">{{ e.status }}</span>
+              <button class="btn btn-sm btn-primary"
+                      [routerLink]="['/student/player', courseFor(e)?.id]"
+                      [queryParams]="{ enrollmentId: e.id }">
+                Continue Learning
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #none>
+    <div class="alert alert-info">No enrollments yet.</div>
+  </ng-template>
+</div>

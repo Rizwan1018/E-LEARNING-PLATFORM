@@ -41,84 +41,77 @@
         "CSS",
         "JS"
       ],
-      "description": "Foundations of web development with practical labs."
+      "description": "Foundations of web development with practical labs.",
+      "thumbnail": "https://utfs.io/f/mMbSyFqocdYGoyWHUeXA7npSGrhZX9NcIHO3JgUjB16z02ER",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "price": 49.99,
+      "rating": 4.7,
+      "studentsCount": 15420
     },
     {
-      "id": "e40a",
-      "title": "asdadf",
-      "instructorId": 1001,
-      "domain": "afsfas",
-      "level": "asfs",
+      "id": "102",
+      "title": "Angular Fundamentals",
+      "instructorId": 1002,
+      "domain": "Frontend",
+      "level": "Intermediate",
+      "durationHrs": 24,
       "tags": [
         "safsfsa"
       ],
-      "description": "safsasfsafa"
+      "description": "Components, services, routing, and forms.",
+      "thumbnail": "https://miro.medium.com/v2/resize:fit:1400/1*bMgQ8MhbnQexpqHgIgBJPA.png",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "price": 59.99,
+      "rating": 4.8,
+      "studentsCount": 12780
     },
     {
-      "id": "9fe0",
-      "title": "asdadf",
-      "instructorId": 1001,
-      "domain": "afsfas",
-      "level": "asfs",
-      "tags": [
-        "safsfsa"
-      ],
-      "description": "safsasfsafa"
-    },
-    {
-      "id": "5b46",
-      "title": "asdadf",
-      "instructorId": 1001,
-      "domain": "afsfas",
-      "level": "asfs",
-      "tags": [
-        "safsfsa"
-      ],
-      "description": "safsasfsafa"
-    },
-    {
-      "id": "8c9b",
-      "title": "asdadf",
-      "instructorId": 1001,
-      "domain": "afsfas",
-      "level": "asfs",
-      "tags": [
-        "safsfsa"
-      ],
-      "description": "safsasfsafa"
-    },
-    {
-      "id": "61fc",
-      "title": "asdadf",
-      "instructorId": 1001,
-      "domain": "afsfas",
-      "level": "asfs",
-      "tags": [
-        "safsfsa"
-      ],
-      "description": "safsasfsafa"
-    },
-    {
-      "id": "ea3b",
-      "title": "asdadf",
-      "instructorId": 1001,
-      "domain": "afsfas",
-      "level": "asfs",
-      "tags": [
-        "safsfsa"
-      ],
-      "description": "safsasfsafa"
-    },
-    {
-      "id": "3a16",
-      "title": "dddd",
-      "instructorId": 1001,
-      "domain": "ddd",
-      "level": "d",
+      "id": "103",
+      "title": "Data Structures With Java",
+      "instructorId": 1002,
+      "domain": "Programming",
+      "level": "Beginner",
+      "durationHrs": 30,
       "tags": [
         "dd"
       ],
-      "description": "ddd"
+      "description": "Zero to Hero in DSA.",
+      "thumbnail": "https://i.ytimg.com/vi/XyDKchVvlCg/maxresdefault.jpg",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "price": 39.99,
+      "rating": 4.6,
+      "studentsCount": 9800
+    },
+    {
+      "title": "Programming With C++",
+      "instructorId": 1001,
+      "domain": "Programming",
+      "level": "Beginner",
+      "durationHrs": 30,
+      "tags": [
+        "C",
+        "CPP"
+      ],
+      "description": "Basic of C++ with OOPs concepts.",
+      "price": 49.5,
+      "rating": 4,
+      "studentsCount": 1000,
+      "thumbnail": "https://cdn.eduonix.com/assets/images/header_img/2022072907300913947.jpg",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "id": "7833"
+    },
+    {
+      "id": "b272",
+      "title": "sssss",
+      "instructorId": 1001,
+      "domain": "ssss",
+      "level": "sssss",
+      "tags": [
+        "ssss"
+      ],
+      "description": "sss",
+      "thumbnail": "sss",
+      "videoUrl": "ssss"
     }
   ],
   "enrollments": [
@@ -131,10 +124,10 @@
       "status": "enrolled"
     },
     {
-      "id": "b732",
-      "studentId": "2",
-      "courseId": 103,
-      "enrollmentDate": "2025-09-10",
+      "id": "b906",
+      "studentId": 2,
+      "courseId": "102",
+      "enrollmentDate": "2025-09-13",
       "progress": 0,
       "status": "enrolled"
     }
