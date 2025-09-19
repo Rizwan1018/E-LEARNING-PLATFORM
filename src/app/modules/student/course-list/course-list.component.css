@@ -1,4 +1,21 @@
-/* course-list.component.css */
-.course-title { font-weight: 600; font-size: 1.02rem; }
-.badge-tag { margin-right: .3rem; margin-bottom: .25rem; }
-.mb-sm { margin-bottom: .6rem; }
+.card {
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.35em 0.6em;
+}

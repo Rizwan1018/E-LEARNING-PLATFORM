@@ -42,6 +42,8 @@
         "JS"
       ],
       "description": "Foundations of web development with practical labs.",
+      "thumbnail": "https://utfs.io/f/mMbSyFqocdYGoyWHUeXA7npSGrhZX9NcIHO3JgUjB16z02ER",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
       "price": 49.99,
       "rating": 4.7,
       "studentsCount": 15420
@@ -58,13 +60,15 @@
         "TypeScript"
       ],
       "description": "Components, services, routing, and forms.",
+      "thumbnail": "https://miro.medium.com/v2/resize:fit:1400/1*bMgQ8MhbnQexpqHgIgBJPA.png",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
       "price": 59.99,
       "rating": 4.8,
       "studentsCount": 12780
     },
     {
       "id": "103",
-      "title": "Data Structure With Java",
+      "title": "Data Structures With Java",
       "instructorId": 1002,
       "domain": "Programming",
       "level": "Beginner",
@@ -74,9 +78,29 @@
         "DSA"
       ],
       "description": "Zero to Hero in DSA.",
+      "thumbnail": "https://i.ytimg.com/vi/XyDKchVvlCg/maxresdefault.jpg",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
       "price": 39.99,
       "rating": 4.6,
       "studentsCount": 9800
+    },
+    {
+      "title": "Programming With C++",
+      "instructorId": 1001,
+      "domain": "Programming",
+      "level": "Beginner",
+      "durationHrs": 30,
+      "tags": [
+        "C",
+        "CPP"
+      ],
+      "description": "Basic of C++ with OOPs concepts.",
+      "price": 49.5,
+      "rating": 4,
+      "studentsCount": 1000,
+      "thumbnail": "https://cdn.eduonix.com/assets/images/header_img/2022072907300913947.jpg",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "id": "7833"
     }
   ],
   "enrollments": [
@@ -89,26 +113,10 @@
       "status": "enrolled"
     },
     {
-      "id": "b732",
-      "studentId": "2",
-      "courseId": 103,
-      "enrollmentDate": "2025-09-10",
-      "progress": 0,
-      "status": "enrolled"
-    },
-    {
-      "id": "f31d",
-      "studentId": "2",
-      "courseId": "101",
-      "enrollmentDate": "2025-09-10",
-      "progress": 0,
-      "status": "enrolled"
-    },
-    {
-      "id": "cdc8",
-      "studentId": "1",
+      "id": "b906",
+      "studentId": 2,
       "courseId": "102",
-      "enrollmentDate": "2025-09-10",
+      "enrollmentDate": "2025-09-13",
       "progress": 0,
       "status": "enrolled"
     }

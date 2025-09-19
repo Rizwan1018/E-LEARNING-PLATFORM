@@ -9,8 +9,12 @@ export interface Course {
   tags?: string[];
   description?: string;
 
-  // ✅ added new fields based on updated db.json
+  // optional fields used for student UI
   price?: number;
   rating?: number;
   studentsCount?: number;
+
+  // media fields (optional)
+  thumbnail?: string;
+  videoUrl?: string;
 }

@@ -1,30 +1,35 @@
 <div *ngIf="!studentId" class="alert alert-info">Select a student from the dashboard to view enrollments.</div>
 
-<ul class="list-group" *ngIf="enrollments?.length">
-  <li class="list-group-item" *ngFor="let e of enrollments">
-    <div class="d-flex justify-content-between align-items-center">
-      <div>
-        <strong>{{ coursesById.get(e.courseId)?.title }}</strong>
-        <div class="small text-muted">Enrolled: {{ e.enrollmentDate }}</div>
-      </div>
-      <div style="width:220px;">
-        <div class="d-flex align-items-center gap-2">
-          <div class="w-100">
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" [style.width.%]="e.progress">{{ e.progress }}%</div>
-            </div>
+
+
+<div class="container py-4 mt-3" *ngIf="enrollments?.length">
+  <h4>My Enrollments</h4>
+  <div class="col-10 col-md-6 col-lg-4" *ngFor="let e of enrollments">
+    <div class="card h-100">
+
+      <img [src]="courseThumb(e.courseId)" class="card-img-top" alt="thumb">
+
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ courseTitle(e.courseId) }}</h5>
+        <p class="small text-muted mb-2">Enrolled: {{ e.enrollmentDate }}</p>
+
+        <div class="mb-2">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [style.width.%]="e.progress">{{ e.progress }}%</div>
           </div>
+        </div>
+
+        <div class="mt-auto d-flex justify-content-between align-items-center">
           <span class="badge" [ngClass]="{
             'bg-success': e.status==='completed',
             'bg-warning text-dark': e.status==='enrolled',
             'bg-secondary': e.status==='paused'
           }">{{ e.status }}</span>
+          <button class="btn btn-primary btn-sm" (click)="continueLearning(e.courseId)">Continue Learning</button>
         </div>
       </div>
     </div>
-  </li>
-</ul>
-
-<div *ngIf="studentId && !enrollments?.length" class="alert alert-warning mt-3">
-  No enrollments yet for this student.
+  </div>
 </div>
+
+<div *ngIf="studentId && !enrollments?.length" class="alert alert-warning">No enrollments yet for this student.</div>
