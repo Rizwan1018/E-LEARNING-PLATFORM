@@ -44,42 +44,81 @@
       "description": "Foundations of web development with practical labs."
     },
     {
-      "id": "102",
-      "title": "Angular Fundamental",
-      "instructorId": 1002,
-      "domain": "Frontend",
-      "level": "Intermediate",
-      "durationHrs": 24,
+      "id": "e40a",
+      "title": "asdadf",
+      "instructorId": 1001,
+      "domain": "afsfas",
+      "level": "asfs",
       "tags": [
-        "Angular",
-        "TypeScript"
+        "safsfsa"
       ],
-      "description": "Components, services, routing, and forms."
+      "description": "safsasfsafa"
     },
     {
-      "id": "92b5",
-      "title": "sadasda",
+      "id": "9fe0",
+      "title": "asdadf",
       "instructorId": 1001,
-      "domain": "dasdasda",
-      "level": "sddsadsasa",
-      "durationHrs": 1,
+      "domain": "afsfas",
+      "level": "asfs",
       "tags": [
-        "1wdsadd"
+        "safsfsa"
       ],
-      "description": "SDSDS"
+      "description": "safsasfsafa"
     },
     {
-      "id": "c7a5",
-      "title": "Angular Fundamental",
+      "id": "5b46",
+      "title": "asdadf",
       "instructorId": 1001,
-      "domain": "Frontend",
-      "level": "Intermediate",
-      "durationHrs": 24,
+      "domain": "afsfas",
+      "level": "asfs",
       "tags": [
-        "Angular",
-        "TypeScript"
+        "safsfsa"
       ],
-      "description": "Components, services, routing, and forms."
+      "description": "safsasfsafa"
+    },
+    {
+      "id": "8c9b",
+      "title": "asdadf",
+      "instructorId": 1001,
+      "domain": "afsfas",
+      "level": "asfs",
+      "tags": [
+        "safsfsa"
+      ],
+      "description": "safsasfsafa"
+    },
+    {
+      "id": "61fc",
+      "title": "asdadf",
+      "instructorId": 1001,
+      "domain": "afsfas",
+      "level": "asfs",
+      "tags": [
+        "safsfsa"
+      ],
+      "description": "safsasfsafa"
+    },
+    {
+      "id": "ea3b",
+      "title": "asdadf",
+      "instructorId": 1001,
+      "domain": "afsfas",
+      "level": "asfs",
+      "tags": [
+        "safsfsa"
+      ],
+      "description": "safsasfsafa"
+    },
+    {
+      "id": "3a16",
+      "title": "dddd",
+      "instructorId": 1001,
+      "domain": "ddd",
+      "level": "d",
+      "tags": [
+        "dd"
+      ],
+      "description": "ddd"
     }
   ],
   "enrollments": [

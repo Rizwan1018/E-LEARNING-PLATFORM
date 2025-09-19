@@ -7,7 +7,6 @@ import { LandingComponent } from './modules/landing/landing.component';
 const routes: Routes = [
   {path:'', component:LandingComponent},
   { path: 'home', component: HomeComponent },
-  { path: 'student', loadChildren: () => import('./modules/student/student.module').then(m => m.StudentModule) },
   { path: 'instructor', loadChildren: () => import('./modules/instructor/instructor.module').then(m => m.InstructorModule) },
   { path: '**', redirectTo: '' }
 ];

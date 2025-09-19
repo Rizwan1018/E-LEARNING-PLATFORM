@@ -73,6 +73,10 @@ OnSubmit() {
       this.loadCourses();
     });
   }
+
+  if(!this.courseForm.valid){
+    this.message = 'Please fill required fields'
+  }
 }
 
   // ✅ delete course

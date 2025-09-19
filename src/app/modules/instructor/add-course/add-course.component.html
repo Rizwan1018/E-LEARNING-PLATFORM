@@ -1,60 +1,65 @@
 <app-navbar></app-navbar>
-
-<div class="container mt-4">
+<div class="container">
 <form [formGroup]="courseForm">
-  <div class="row g-3">
-    <div class="col-md-8">
-      <div class="card p-3">
-        <h5 class="mb-3">{{ courseForm.value.id ? 'Edit Course' : 'Create Course' }}</h5>
+  <div class="card p-3">
+    <h5 class="mb-3">{{ editingCourseId ? 'Edit Course' : 'Create Course' }}</h5>
 
-        <div class="mb-2">
-          <label class="form-label">Title *</label>
-          <input class="form-control" formControlName="title" />
-        </div>
-
-        <div class="row g-2">
-          <div class="col-md-6">
-            <label class="form-label">Domain *</label>
-            <input class="form-control" formControlName="domain" />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Level *</label>
-            <input class="form-control" formControlName="level" />
-          </div>
-        </div>
-
-        <div class="row g-2 mt-2">
-          <div class="col-md-6">
-            <label class="form-label">Duration (hrs)</label>
-            <input class="form-control" type="number" formControlName="durationHrs" />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Instructor</label>
-            <input class="form-control" formControlName="instructorId" type="number" />
-            <div class="form-text small">Use instructor id (see API)</div>
-          </div>
-        </div>
-
-        <div class="mb-2 mt-2">
-          <label class="form-label">Tags (comma separated)</label>
-          <input class="form-control" formControlName="tags" placeholder="e.g. Angular,TypeScript" />
-        </div>
-
-        <div class="mb-2">
-          <label class="form-label">Description</label>
-          <textarea class="form-control" rows="3" formControlName="description"></textarea>
-        </div>
-
-        <div class="d-flex gap-2 mt-2">
-          <button type="submit" class="btn btn-success" (click)="OnSubmit()" (click)="courseForm.reset()">Save course</button>
-          <button type="button" class="btn btn-outline-secondary" (click)="courseForm.reset()">Reset</button>
-        </div>
-
-        <div *ngIf="message" class="mt-3">
-          <div class="alert alert-info">{{ message }}</div>
-        </div>
+    <div class="row g-2">
+      <div class="col-md-6">
+        <label class="form-label">Title *</label>
+        <input class="form-control" formControlName="title" />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Instructor ID *</label>
+        <input class="form-control" type="number" formControlName="instructorId" />
       </div>
     </div>
+
+    <div class="row g-2 mt-2">
+      <div class="col-md-6">
+        <label class="form-label">Domain *</label>
+        <input class="form-control" formControlName="domain" />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Level *</label>
+        <input class="form-control" formControlName="level" />
+      </div>
+    </div>
+    <br>
+    
+    <div class="mt-2">
+      <div class="col-md-6 mb-2">
+        <label class="form-label">Tags</label>
+        <input class="form-control" formControlName="tags" placeholder="e.g. Angular,TypeScript" />
+      </div>
+
+    <div>
+      <label class="form-label">Thumbnail URL</label>
+      <input class="form-control" formControlName="thumbnail" />
+    </div>
+
+    </div>
+
+    <div class="mt-2">
+      <label class="form-label">Video URL</label>
+      <input class="form-control" formControlName="videoUrl" />
+    </div>
+
+    <div class="mt-2">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" rows="3" formControlName="description"></textarea>
+    </div>
+
+    <div class="d-flex gap-2 mt-3">
+      <button type="submit" class="btn btn-success" (click)="OnSubmit()" (click)="courseForm.reset()">Save Course</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="courseForm.reset()">Reset</button>
+    </div>
+
+    <div *ngIf="message" class="mt-3">
+      <div class="alert alert-info">{{ message }}</div>
+    </div>
+    <br>
+
 
     <div class="col-md-4">
       <!-- Quick list of existing courses -->

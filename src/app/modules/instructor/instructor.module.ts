@@ -39,8 +39,8 @@ import { SharedModule } from "../../shared/shared.module";
   declarations: [
     InstructorDashboardComponent,
     AddCourseComponent,
-    ViewEnrollmentsComponent
-  ],
+    ViewEnrollmentsComponent,
+    ],
   imports: [
     CommonModule,
     FormsModule,
