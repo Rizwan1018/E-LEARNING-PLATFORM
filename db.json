@@ -131,5 +131,23 @@
       "progress": 0,
       "status": "enrolled"
     }
+  ],
+  "users": [
+    {
+      "id": "c417",
+      "fullname": "vishal",
+      "email": "vishal@example.com",
+      "mobile": "1234567890",
+      "password": "1234567@A",
+      "role": "student"
+    },
+    {
+      "id": "306b",
+      "fullname": "ADITYA SINGH SISODIYA",
+      "email": "an@example.com",
+      "mobile": "9340921538",
+      "password": "1234567A@",
+      "role": "instructor"
+    }
   ]
 }
