@@ -7,12 +7,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './modules/home/home.component';
 import { LandingComponent } from './modules/landing/landing.component';
 import { SharedModule } from './shared/shared.module';
+import { LoginComponentComponent } from './modules/authentication/login-component/login-component.component';
+import { SignupComponent } from './modules/authentication/signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LandingComponent
+    LandingComponent,
+    LoginComponentComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
