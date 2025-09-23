@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentService } from '../../../../services/assessment.service';
 import { switchMap } from 'rxjs/operators';
 import { Assessment, Question } from '../../../../models/assessment';
@@ -41,7 +41,8 @@ export class TakeAssessmentComponent implements OnInit {
   studentAnswers:{[key:number]:number}={};
   constructor(
     private route: ActivatedRoute,
-    private assessmentService: AssessmentService
+    private assessmentService: AssessmentService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
