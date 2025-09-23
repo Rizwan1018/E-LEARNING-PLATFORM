@@ -5,12 +5,16 @@ import { StudentDashboardComponent } from './student-dashboard/student-dashboard
 import { CourseListComponent } from './course-list/course-list.component';
 import { MyEnrollmentsComponent } from './my-enrollments/my-enrollments.component';
 import { CoursePlayerComponent } from './course-player/course-player.component';
+import { StudentAssessmentComponent } from './student-assessment/student-assessment.component';
+import { TakeAssessmentComponent } from './student-assessment/take-assessment/take-assessment.component';
 
 const routes: Routes = [
   { path: '', component: StudentDashboardComponent },
   { path: 'courses', component: CourseListComponent },
   { path: 'enrollments', component: MyEnrollmentsComponent },
-  { path: 'player/:courseId', component: CoursePlayerComponent }
+  { path: 'player/:courseId', component: CoursePlayerComponent },
+  {path: 'student/assessments', component:StudentAssessmentComponent},
+  {path: 'take-assessment/:id', component:TakeAssessmentComponent}
 ];
 
 @NgModule({

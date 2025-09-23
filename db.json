@@ -131,5 +131,142 @@
       "progress": 0,
       "status": "enrolled"
     }
+  ],
+   "assessments": [
+    {
+      "id": "1",
+      "title": "Algebra Basics",
+      "description": "Fundamentals of algebra",
+      "questions": [
+        {
+          "text": "2 + 2 = ?",
+          "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "correctAnswer": 1
+        }
+      ]
+    },
+    {
+      "id": "203e",
+      "title": "C++ Fundamentals",
+      "description": "Important questions on C++.",
+      "questions": [
+        {
+          "text": "What is the correct syntax for a for loop in C++?",
+          "options": [
+            "for (int i = 0; i < 5; i++)",
+            "for (i = 0; i < 5; i++)",
+            "for (int i = 0; i < 5)",
+            "for i = 0 to 5"
+          ],
+          "correctAnswer": 0
+        }
+      ]
+    },
+    {
+      "id": "ab5a",
+      "title": "Java Basics",
+      "description": "Important Java concepts.",
+      "questions": [
+        {
+          "text": "What is the 'super' keyword used for in Java?",
+          "options": [
+            "To create a new instance of a class",
+            "To access members of the parent class",
+            "To define a static method",
+            "To handle exceptions"
+          ],
+          "correctAnswer": 1
+        }
+      ]
+    },
+    {
+      "id": "4749",
+      "title": "ReactJS",
+      "description": "React concepts.",
+      "questions": [
+        {
+          "text": "Is React a framework or a library?",
+          "options": [
+            "A framework",
+            "A complete language",
+            "A library",
+            "A database"
+          ],
+          "correctAnswer": 2
+        }
+      ]
+    },
+    {
+      "id": "11ed",
+      "title": "Web Basics",
+      "description": "General web development questions.",
+      "questions": [
+        {
+          "text": "Which tag is used to create a hyperlink in HTML?",
+          "options": [
+            "<body>",
+            "<a href='...'>",
+            "<img>",
+            "<p>"
+          ],
+          "correctAnswer": 1
+        }
+      ]
+    },
+    {
+      "id": "bf5c",
+      "title": "Basic Math",
+      "description": "Simple math questions.",
+      "questions": [
+        {
+          "text": "What is the value of pi?",
+          "options": [
+            "3.14",
+            "2.71",
+            "1.618",
+            "4.0"
+          ],
+          "correctAnswer": 0
+        }
+      ]
+    },
+    {
+      "id": "e342",
+      "title": "Angular Framework",
+      "description": "Introduction to Angular.",
+      "questions": [
+        {
+          "text": "Which command is used to generate a new component?",
+          "options": [
+            "ng generate service",
+            "ng new component",
+            "ng generate component",
+            "npm install component"
+          ],
+          "correctAnswer": 2
+        },
+        {
+          "text": "What is TypeScript?",
+          "options": [
+            "A superset of JavaScript",
+            "A type of CSS",
+            "A backend language",
+            "A database"
+          ],
+          "correctAnswer": 0
+        }
+      ]
+    },
+    {
+      "id": "95a1",
+      "title": "",
+      "description": "",
+      "questions": []
+    }
   ]
 }
