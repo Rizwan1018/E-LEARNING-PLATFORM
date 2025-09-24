@@ -1,0 +1,24 @@
+<div class="container py-3">
+  <h4>Create Announcement</h4>
+  <form (ngSubmit)="create()">
+    <div class="mb-2">
+      <label class="form-label">Course</label>
+      <select class="form-select" [(ngModel)]="model.courseId" name="courseId" required>
+        <option value="">-- Select course --</option>
+        <option *ngFor="let c of courses" [value]="c.id">
+          {{ c.title }} - {{ c.domain }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-2">
+      <input class="form-control" name="title" placeholder="Title" [(ngModel)]="model.title" required />
+    </div>
+
+    <div class="mb-2">
+      <textarea class="form-control" name="message" rows="4" placeholder="Message" [(ngModel)]="model.message" required></textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Publish</button>
+  </form>
+</div>

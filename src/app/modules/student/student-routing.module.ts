@@ -7,6 +7,7 @@ import { MyEnrollmentsComponent } from './my-enrollments/my-enrollments.componen
 import { CoursePlayerComponent } from './course-player/course-player.component';
 import { StudentAssessmentComponent } from './student-assessment/student-assessment.component';
 import { TakeAssessmentComponent } from './student-assessment/take-assessment/take-assessment.component';
+import { StudentNotificationsComponent } from './student-notifications/student-notifications.component';
 
 const routes: Routes = [
   { path: '', component: StudentDashboardComponent },
@@ -15,6 +16,8 @@ const routes: Routes = [
   { path: 'player/:courseId', component: CoursePlayerComponent },
   {path: 'student/assessments', component:StudentAssessmentComponent},
   {path: 'take-assessment/:id', component:TakeAssessmentComponent},
+  { path: 'notifications', component: StudentNotificationsComponent }
+
 ];
 
 @NgModule({

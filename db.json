@@ -292,5 +292,43 @@
       "password": "1234567A@",
       "role": "instructor"
     }
+  ],
+  "announcements": [
+    {
+      "id": "1",
+      "courseId": "101",
+      "instructorId": "1001",
+      "title": "Assignment 1 Deadline",
+      "message": "Submit before Sept 25",
+      "createdAt": "2025-09-15T11:00:00Z"
+    },
+    {
+      "id": "0eff",
+      "courseId": "101",
+      "instructorId": 1001,
+      "title": "1234567asdfghj",
+      "message": "f ghjkl̥",
+      "createdAt": "2025-09-24T17:59:26.961Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "1",
+      "userId": "1",
+      "courseId": "101",
+      "type": "enrollment",
+      "message": "You enrolled in Intro to Web Programming",
+      "createdAt": "2025-09-10T10:01:00Z",
+      "read": false
+    },
+    {
+      "id": "d162",
+      "userId": 1,
+      "courseId": "101",
+      "type": "announcement",
+      "message": "New announcement: 1234567asdfghj",
+      "createdAt": "2025-09-24T17:59:31.967Z",
+      "read": false
+    }
   ]
 }

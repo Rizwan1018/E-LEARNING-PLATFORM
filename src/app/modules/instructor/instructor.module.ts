@@ -34,12 +34,14 @@ import { InstructorDashboardComponent } from './instructor-dashboard/instructor-
 import { AddCourseComponent } from './add-course/add-course.component';
 import { ViewEnrollmentsComponent } from './view-enrollments/view-enrollments.component';
 import { SharedModule } from "../../shared/shared.module";
+import { InstructorAnnouncementsCreateComponent } from './instructor-announcements-create/instructor-announcements-create.component';
 
 @NgModule({
   declarations: [
     InstructorDashboardComponent,
     AddCourseComponent,
     ViewEnrollmentsComponent,
+    InstructorAnnouncementsCreateComponent,
     ],
   imports: [
     CommonModule,

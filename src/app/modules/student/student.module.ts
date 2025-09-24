@@ -30,6 +30,7 @@ import { StudentDashboardComponent } from './student-dashboard/student-dashboard
 import { CourseListComponent } from './course-list/course-list.component';
 import { MyEnrollmentsComponent } from './my-enrollments/my-enrollments.component';
 import { CoursePlayerComponent } from './course-player/course-player.component';
+import { StudentNotificationsComponent } from './student-notifications/student-notifications.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CoursePlayerComponent } from './course-player/course-player.component';
     CourseListComponent,
     CoursePlayerComponent,
     MyEnrollmentsComponent,
+    StudentNotificationsComponent,
   ],
   imports: [
     CommonModule,
