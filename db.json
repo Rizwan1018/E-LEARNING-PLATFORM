@@ -30,23 +30,17 @@
   ],
   "courses": [
     {
-      "id": "101",
-      "title": "Intro to Web Programming",
+      "title": "Intro to Web Programming Basics",
       "instructorId": 1001,
       "domain": "Web",
       "level": "Beginner",
-      "durationHrs": 20,
-      "tags": [
-        "HTML",
-        "CSS",
-        "JS"
-      ],
       "description": "Foundations of web development with practical labs.",
-      "thumbnail": "https://utfs.io/f/mMbSyFqocdYGoyWHUeXA7npSGrhZX9NcIHO3JgUjB16z02ER",
-      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
       "price": 49.99,
       "rating": 4.7,
-      "studentsCount": 15420
+      "studentsCount": 15420,
+      "thumbnail": "https://utfs.io/f/mMbSyFqocdYGoyWHUeXA7npSGrhZX9NcIHO3JgUjB16z02ER",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "id": "101"
     },
     {
       "id": "102",
@@ -99,19 +93,6 @@
       "thumbnail": "https://cdn.eduonix.com/assets/images/header_img/2022072907300913947.jpg",
       "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
       "id": "7833"
-    },
-    {
-      "id": "b272",
-      "title": "sssss",
-      "instructorId": 1001,
-      "domain": "ssss",
-      "level": "sssss",
-      "tags": [
-        "ssss"
-      ],
-      "description": "sss",
-      "thumbnail": "sss",
-      "videoUrl": "ssss"
     }
   ],
   "enrollments": [
