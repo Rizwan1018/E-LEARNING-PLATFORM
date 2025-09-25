@@ -1,16 +1,18 @@
-<div *ngIf="!studentId" class="alert alert-info">Select a student from the dashboard to view enrollments.</div>
+<app-student-navbar></app-student-navbar>
 
-
+<div *ngIf="!studentId" class="alert alert-info">
+  Please log in as a student to view enrollments.
+</div>
 
 <div class="container py-4 mt-3" *ngIf="enrollments?.length">
   <h4>My Enrollments</h4>
   <div class="col-10 col-md-6 col-lg-4" *ngFor="let e of enrollments">
     <div class="card h-100">
-
-      <img [src]="courseThumb(e.courseId)" class="card-img-top" alt="thumb">
+      <img [src]="e.course?.thumbnail || ('https://picsum.photos/seed/' + e.courseId + '/800/450')"
+           class="card-img-top" alt="thumb">
 
       <div class="card-body d-flex flex-column">
-        <h5 class="card-title">{{ courseTitle(e.courseId) }}</h5>
+        <h5 class="card-title">{{ e.course?.title }}</h5>
         <p class="small text-muted mb-2">Enrolled: {{ e.enrollmentDate }}</p>
 
         <div class="mb-2">
@@ -25,11 +27,15 @@
             'bg-warning text-dark': e.status==='enrolled',
             'bg-secondary': e.status==='paused'
           }">{{ e.status }}</span>
-          <button class="btn btn-primary btn-sm" (click)="continueLearning(e.courseId)">Continue Learning</button>
+          <button class="btn btn-primary btn-sm" (click)="continueLearning(e.courseId)">
+            Continue Learning
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div *ngIf="studentId && !enrollments?.length" class="alert alert-warning">No enrollments yet for this student.</div>
+<div *ngIf="studentId && !enrollments?.length" class="alert alert-warning">
+  No enrollments yet for this student.
+</div>

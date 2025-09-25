@@ -1,8 +1,8 @@
 // src/app/models/course.ts
 export interface Course {
-  id: number;
+  id: number|string;
   title: string;
-  instructorId: number;
+  instructorId: number|string;
   domain: string;
   level: string;
   durationHrs?: number;

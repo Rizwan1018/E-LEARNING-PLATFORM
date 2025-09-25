@@ -16,7 +16,7 @@ import { SignupComponent } from './modules/authentication/signup/signup.componen
     HomeComponent,
     LandingComponent,
     LoginComponentComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

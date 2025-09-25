@@ -30,19 +30,33 @@ export class SignupComponent {
   }
 
  signUp() {
-    if (this.signupForm.valid) {
-      this.http.post<any>('http://localhost:3000/users', this.signupForm.value)
-        .subscribe(res => {
-          alert('Signup successful!');
-          this.signupForm.reset();
-          this.router.navigate(['login']);
-        }, err => {
-          alert('Something went wrong');
-        });
-    } else {
-      this.signupForm.markAllAsTouched(); // Show all errors
-    }
+  if (this.signupForm.valid) {
+    const newUser = this.signupForm.value;
+
+    this.http.post<any>('http://localhost:3000/users', newUser).subscribe(user => {
+      if (user.role === 'student') {
+        this.http.post('http://localhost:3000/students', {
+          id: user.id,
+          name: user.fullname,
+          email: user.email
+        }).subscribe();
+      } else if (user.role === 'instructor') {
+        this.http.post('http://localhost:3000/instructors', {
+          id: user.id,
+          name: user.fullname,
+          email: user.email
+        }).subscribe();
+      }
+
+      alert('Signup successful!');
+      this.signupForm.reset();
+      this.router.navigate(['login']);
+    }, err => {
+      alert('Something went wrong');
+    });
   }
+}
+
 
  get f() {
   return this.signupForm.controls;

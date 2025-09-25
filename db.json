@@ -14,6 +14,11 @@
       "id": "3",
       "name": "Tanmay",
       "email": "tanmay@example.com"
+    },
+    {
+      "id": "b2f3",
+      "name": "Rizwan Shaik",
+      "email": "rizwan@example.com"
     }
   ],
   "instructors": [
@@ -112,12 +117,26 @@
       "description": "sss",
       "thumbnail": "sss",
       "videoUrl": "ssss"
+    },
+    {
+      "id": "c9ae",
+      "title": "Python",
+      "instructorId": 1002,
+      "domain": "Programming",
+      "level": "Beginner",
+      "durationHrs": 16,
+      "tags": [
+        "python"
+      ],
+      "description": "A complete python course for beginners.",
+      "thumbnail": "https://i.ytimg.com/vi/m0LdKZ-prto/maxresdefault.jpg",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4"
     }
   ],
   "enrollments": [
     {
       "id": "10001",
-      "studentId": 1,
+      "studentId": "1",
       "courseId": 101,
       "enrollmentDate": "2025-09-06",
       "progress": 15,
@@ -125,29 +144,109 @@
     },
     {
       "id": "b906",
-      "studentId": 2,
+      "studentId": "2",
       "courseId": "102",
       "enrollmentDate": "2025-09-13",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "be63",
+      "studentId": "2",
+      "courseId": "7833",
+      "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "8886",
+      "studentId": "3",
+      "courseId": "101",
+      "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "6b7d",
+      "studentId": "b2f3",
+      "courseId": "103",
+      "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "8d2f",
+      "studentId": "b2f3",
+      "courseId": "102",
+      "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "651c",
+      "studentId": "3",
+      "courseId": "7833",
+      "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "f409",
+      "studentId": "1",
+      "courseId": "102",
+      "enrollmentDate": "2025-09-24",
       "progress": 0,
       "status": "enrolled"
     }
   ],
   "users": [
     {
-      "id": "c417",
-      "fullname": "vishal",
-      "email": "vishal@example.com",
-      "mobile": "1234567890",
-      "password": "1234567@A",
+      "id": "1",
+      "fullname": "Sashmit Kabi",
+      "email": "sashmit@example.com",
+      "mobile": "9999999999",
+      "password": "Sashmit@123",
       "role": "student"
     },
     {
-      "id": "306b",
-      "fullname": "ADITYA SINGH SISODIYA",
-      "email": "an@example.com",
-      "mobile": "9340921538",
-      "password": "1234567A@",
+      "id": "2",
+      "fullname": "Basant",
+      "email": "basant@example.com",
+      "mobile": "8888888888",
+      "password": "Basant@123",
+      "role": "student"
+    },
+    {
+      "id": "3",
+      "fullname": "Tanmay",
+      "email": "tanmay@example.com",
+      "mobile": "7777777777",
+      "password": "Tanmay@123",
+      "role": "student"
+    },
+    {
+      "id": "1001",
+      "fullname": "Dr. Patel",
+      "email": "patel@uni.edu",
+      "mobile": "6666666666",
+      "password": "Patel@123",
       "role": "instructor"
+    },
+    {
+      "id": "1002",
+      "fullname": "Ms. Rao",
+      "email": "rao@uni.edu",
+      "mobile": "5555555555",
+      "password": "Rao@123",
+      "role": "instructor"
+    },
+    {
+      "id": "b2f3",
+      "fullname": "Rizwan Shaik",
+      "email": "rizwan@example.com",
+      "mobile": "1111111111",
+      "password": "Rizwan@123",
+      "role": "student"
     }
   ]
 }
