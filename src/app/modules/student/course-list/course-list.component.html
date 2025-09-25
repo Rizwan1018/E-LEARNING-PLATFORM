@@ -1,15 +1,8 @@
+<app-student-navbar></app-student-navbar>
 
-
-<div class="container py-4" *ngIf="students?.length">
+<div class="container py-4">
   <div class="mb-3">
     <div class="row g-2 align-items-end">
-      <div class="col-md-3">
-        <label class="form-label small">Student</label>
-        <select class="form-select" [(ngModel)]="selectedStudentId" (change)="load()">
-          <option *ngFor="let s of students" [value]="s.id">{{ s.name }}</option>
-        </select>
-      </div>
-
       <div class="col-md-6">
         <label class="form-label small">Search</label>
         <input class="form-control" [(ngModel)]="search" placeholder="Search by title or tag" />
@@ -50,7 +43,7 @@
               </small>
             </div>
 
-            <button
+            <button 
               class="btn btn-sm btn-success w-100"
               (click)="enroll(c.id)">
               Enroll

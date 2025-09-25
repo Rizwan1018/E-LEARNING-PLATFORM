@@ -14,6 +14,11 @@
       "id": "3",
       "name": "Tanmay",
       "email": "tanmay@example.com"
+    },
+    {
+      "id": "b2f3",
+      "name": "Rizwan Shaik",
+      "email": "rizwan@example.com"
     }
   ],
   "instructors": [
@@ -93,12 +98,39 @@
       "thumbnail": "https://cdn.eduonix.com/assets/images/header_img/2022072907300913947.jpg",
       "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
       "id": "7833"
+    },
+    {
+      "id": "b272",
+      "title": "sssss",
+      "instructorId": 1001,
+      "domain": "ssss",
+      "level": "sssss",
+      "tags": [
+        "ssss"
+      ],
+      "description": "sss",
+      "thumbnail": "sss",
+      "videoUrl": "ssss"
+    },
+    {
+      "id": "c9ae",
+      "title": "Python",
+      "instructorId": 1002,
+      "domain": "Programming",
+      "level": "Beginner",
+      "durationHrs": 16,
+      "tags": [
+        "python"
+      ],
+      "description": "A complete python course for beginners.",
+      "thumbnail": "https://i.ytimg.com/vi/m0LdKZ-prto/maxresdefault.jpg",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4"
     }
   ],
   "enrollments": [
     {
       "id": "10001",
-      "studentId": 1,
+      "studentId": "1",
       "courseId": 101,
       "enrollmentDate": "2025-09-06",
       "progress": 15,
@@ -106,172 +138,109 @@
     },
     {
       "id": "b906",
-      "studentId": 2,
+      "studentId": "2",
       "courseId": "102",
       "enrollmentDate": "2025-09-13",
       "progress": 0,
       "status": "enrolled"
-    }
-  ],
-  "assessments": [
-    {
-      "id": "203e",
-      "title": "C++ Fundamentals",
-      "description": "Important questions on C++.",
-      "questions": [
-        {
-          "text": "What is the correct syntax for a for loop in C++?",
-          "options": [
-            "for (int i = 0; i < 5; i++)",
-            "for (i = 0; i < 5; i++)",
-            "for (int i = 0; i < 5)",
-            "for i = 0 to 5"
-          ],
-          "correctAnswer": 0
-        }
-      ]
     },
     {
-      "id": "ab5a",
-      "title": "Java Basics",
-      "description": "Important Java concepts.",
-      "questions": [
-        {
-          "text": "What is the 'super' keyword used for in Java?",
-          "options": [
-            "To create a new instance of a class",
-            "To access members of the parent class",
-            "To define a static method",
-            "To handle exceptions"
-          ],
-          "correctAnswer": 1
-        }
-      ]
+      "id": "be63",
+      "studentId": "2",
+      "courseId": "7833",
+      "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
     },
     {
-      "id": "4749",
-      "title": "ReactJS",
-      "description": "React concepts.",
-      "questions": [
-        {
-          "text": "Is React a framework or a library?",
-          "options": [
-            "A framework",
-            "A complete language",
-            "A library",
-            "A database"
-          ],
-          "correctAnswer": 2
-        }
-      ]
+      "id": "8886",
+      "studentId": "3",
+      "courseId": "101",
+      "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
     },
     {
-      "id": "11ed",
-      "title": "Web Basics",
-      "description": "General web development questions.",
-      "questions": [
-        {
-          "text": "Which tag is used to create a hyperlink in HTML?",
-          "options": [
-            "<body>",
-            "<a href='...'>",
-            "<img>",
-            "<p>"
-          ],
-          "correctAnswer": 1
-        }
-      ]
+      "id": "6b7d",
+      "studentId": "b2f3",
+      "courseId": "103",
+      "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
     },
     {
-      "id": "bf5c",
-      "title": "Basic Math",
-      "description": "Simple math questions.",
-      "questions": [
-        {
-          "text": "What is the value of pi?",
-          "options": [
-            "3.14",
-            "2.71",
-            "1.618",
-            "4.0"
-          ],
-          "correctAnswer": 0
-        }
-      ]
+      "id": "8d2f",
+      "studentId": "b2f3",
+      "courseId": "102",
+      "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
     },
     {
-      "id": "e342",
-      "title": "Angular Framework",
-      "description": "Introduction to Angular.",
-      "questions": [
-        {
-          "text": "Which command is used to generate a new component?",
-          "options": [
-            "ng generate service",
-            "ng new component",
-            "ng generate component",
-            "npm install component"
-          ],
-          "correctAnswer": 2
-        },
-        {
-          "text": "What is TypeScript?",
-          "options": [
-            "A superset of JavaScript",
-            "A type of CSS",
-            "A backend language",
-            "A database"
-          ],
-          "correctAnswer": 0
-        }
-      ]
+      "id": "651c",
+      "studentId": "3",
+      "courseId": "7833",
+      "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
     },
     {
-      "id": "95a1",
-      "title": "",
-      "description": "",
-      "questions": []
-    },
-    {
-      "id": "fbf2",
-      "title": "Who is sashmit ?",
-      "description": "",
-      "questions": []
-    },
-    {
-      "id": "c9d0",
-      "title": "Project",
-      "description": "dvSDVSV",
-      "questions": [
-        {
-          "text": "Who is sashmit ?",
-          "options": [
-            "Team lead",
-            "e",
-            "ea",
-            "eh"
-          ],
-          "correctAnswer": 1
-        }
-      ]
+      "id": "f409",
+      "studentId": "1",
+      "courseId": "102",
+      "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
     }
   ],
   "users": [
     {
-      "id": "c417",
-      "fullname": "vishal",
-      "email": "vishal@example.com",
-      "mobile": "1234567890",
-      "password": "1234567@A",
+      "id": "1",
+      "fullname": "Sashmit Kabi",
+      "email": "sashmit@example.com",
+      "mobile": "9999999999",
+      "password": "Sashmit@123",
       "role": "student"
     },
     {
-      "id": "306b",
-      "fullname": "ADITYA SINGH SISODIYA",
-      "email": "an@example.com",
-      "mobile": "9340921538",
-      "password": "1234567A@",
+      "id": "2",
+      "fullname": "Basant",
+      "email": "basant@example.com",
+      "mobile": "8888888888",
+      "password": "Basant@123",
+      "role": "student"
+    },
+    {
+      "id": "3",
+      "fullname": "Tanmay",
+      "email": "tanmay@example.com",
+      "mobile": "7777777777",
+      "password": "Tanmay@123",
+      "role": "student"
+    },
+    {
+      "id": "1001",
+      "fullname": "Dr. Patel",
+      "email": "patel@uni.edu",
+      "mobile": "6666666666",
+      "password": "Patel@123",
       "role": "instructor"
+    },
+    {
+      "id": "1002",
+      "fullname": "Ms. Rao",
+      "email": "rao@uni.edu",
+      "mobile": "5555555555",
+      "password": "Rao@123",
+      "role": "instructor"
+    },
+    {
+      "id": "b2f3",
+      "fullname": "Rizwan Shaik",
+      "email": "rizwan@example.com",
+      "mobile": "1111111111",
+      "password": "Rizwan@123",
+      "role": "student"
     }
   ]
 }

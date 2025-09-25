@@ -1,11 +1,8 @@
-
-
+// src/app/modules/student/course-list/course-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CatalogService } from '../../../services/catalog.service';
 import { EnrollmentService } from '../../../services/enrollment.service';
 import { Course } from '../../../models/course';
-import { Student } from '../../../models/student';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course-list',
@@ -15,21 +12,20 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CourseListComponent implements OnInit {
   courses: Course[] = [];
-  students: Student[] = [];
-  selectedStudentId = 1;
+  selectedStudentId = 0;
   search = '';
   message = '';
 
   constructor(
     private catalog: CatalogService,
     private enrollSvc: EnrollmentService,
-    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.catalog.getStudents().subscribe(s => (this.students = s));
-    const sid = this.route.snapshot.queryParamMap.get('studentId');
-    if (sid) this.selectedStudentId = +sid;
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user.role === 'student') {
+      this.selectedStudentId = user.id;
+    }
     this.load();
   }
 
