@@ -47,11 +47,12 @@ export class AssessmentFormComponent implements OnInit {
     if (this.assessment.id) {
       this.service
         .updateAssessment(this.assessment)
-        .subscribe(() => this.router.navigate(['/teacher/assessments']));
+        .subscribe(() => this.router.navigate(['instructor/add-assessment']));
+        
     } else {
       this.service
         .addAssessment(this.assessment)
-        .subscribe(() => this.router.navigate(['/teacher/assessments']));
+        .subscribe(() => this.router.navigate(['instructor/add-assessment']));
     }
   }
 }

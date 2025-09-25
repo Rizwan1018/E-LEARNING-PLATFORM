@@ -242,5 +242,6 @@
       "password": "Rizwan@123",
       "role": "student"
     }
-  ]
+  ],
+  "assessments": []
 }

@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'view-enrollments', component: ViewEnrollmentsComponent },
   // {path: 'add-assessment', component:AssessmentFormComponent},
   {path: 'add-assessment', component:TeacherAssessmentListComponent},
+  {path: 'instructor/add-assessment', component:TeacherAssessmentListComponent},
   {path:'teacher/assessments/new', component:AssessmentFormComponent}
 
 ];
