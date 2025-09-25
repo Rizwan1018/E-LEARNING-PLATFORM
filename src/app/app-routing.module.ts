@@ -12,7 +12,7 @@ const routes: Routes = [
   {path:'', component:LandingComponent},
   { path: 'home', component: HomeComponent },
   { path: 'instructor', loadChildren: () => import('./modules/instructor/instructor.module').then(m => m.InstructorModule), canActivate:[authGuard] },
-  {path:'student', loadChildren: () => import('./modules/student/student.module').then(m => m.StudentModule), canActivate:[studentGuard]},  
+  {path:'student', loadChildren: () => import('./modules/student/student.module').then(m => m.StudentModule), canActivate:[studentGuard]},    
    {path: 'login', component:LoginComponentComponent },
   { path:'signup', component:SignupComponent  },
      { path: '**', redirectTo: '' }
