@@ -1,7 +1,52 @@
-.card{
-    background: hsla(205, 46%, 30%, 1);
-    background: linear-gradient(90deg,hsla(205, 46%, 30%, 1)0%,hsla(260,29%,36%,1)100%);
+.login-body {
+  background: url('https://www.toptal.com/designers/subtlepatterns/patterns/double-bubble-outline.png') repeat;
+  background-size: cover;
 }
-.card h1,h6{
-    color: white;
+
+/* Login Box */
+.login-box {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0px 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #000;
+  font-size: 15px;
+}
+
+.form-control:focus {
+  border-color: #000;
+  outline: none;
+  box-shadow: none;
+}
+
+/* Button */
+.btn-dark {
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-dark:hover {
+  background-color: #333;
+}
+
+/* Signup link */
+.login-link {
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
 }

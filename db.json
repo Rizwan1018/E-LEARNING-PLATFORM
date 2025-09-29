@@ -244,7 +244,12 @@
     }
   ],
   "assessments": [
-    
+    {
+      "id": "00c0",
+      "title": "",
+      "description": "",
+      "questions": []
+    }
   ],
   "announcements": [
     {
@@ -284,5 +289,4 @@
       "read": false
     }
   ]
-
 }

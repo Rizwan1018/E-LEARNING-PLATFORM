@@ -1,70 +1,73 @@
-<div class="container">
-  <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="col-md-6">
-      <div class="card p-4">
-        <div class="text-center mb-4">
-          <h1>Sign Up</h1>
-          <h6>Register Yourself</h6>
+<div class="signup-body d-flex justify-content-center align-items-center min-vh-100">
+  <div class="signup-box text-center">
+
+    <!-- Logo -->
+    <img src="/inco.svg" alt="Logo" width="80" height="80" class="mb-3">
+
+    <!-- Title -->
+    <h3 class="fw-bold mb-1">INCO LEARN</h3>
+    <h6 class="mb-4 text-muted">Create your account</h6>
+
+    <!-- Reactive Form -->
+    <form [formGroup]="signupForm" (ngSubmit)="signUp()">
+      
+      <!-- Full Name -->
+      <div class="mb-3 text-start">
+        <input formControlName="fullname" type="text" class="form-control" placeholder="Full Name">
+        <div *ngIf="f['fullname'].invalid && f['fullname'].touched" class="text-danger small mt-1">
+          <div *ngIf="f['fullname'].errors?.['required']">*Full name is required.</div>
+          <div *ngIf="f['fullname'].errors?.['pattern']">*Only letters and spaces allowed.</div>
         </div>
-
-        <form [formGroup]="signupForm" (ngSubmit)="signUp()">
-          <!-- Full Name -->
-          <div class="mb-3">
-            <label for="Name" class="form-label text-white">Full Name</label>
-            <input formControlName="fullname" type="text" class="form-control" id="Name">
-            <div *ngIf="f['fullname'].invalid && (f['fullname'].touched || f['fullname'].dirty)" class="text-danger mt-1">
-              <small *ngIf="f['fullname'].errors && f['fullname'].errors['required']">*Full name is required.</small>
-               <small *ngIf="f['fullname'].errors && f['fullname'].errors['pattern']">*Only letters and spaces allowed.</small> 
-            </div>
-          </div>
-
-          <!-- Mobile Number -->
-          <div class="mb-3">
-            <label for="Number" class="form-label text-white">Phone Number</label>
-            <input formControlName="mobile" type="text" class="form-control" id="Number">
-            <div *ngIf="f['mobile'].invalid && (f['mobile'].touched || f['mobile'].dirty)" class="text-danger mt-1">
-              <small *ngIf="f['mobile'].errors && f['mobile'].errors['required']">*Phone number is required.</small>
-               <small *ngIf="f['mobile'].errors && f['mobile'].errors['pattern']">*Enter a valid 10-digit number.</small> 
-            </div>
-          </div>
-
-           <!-- Role based Acceas -->
-           <div class="mb-3">
-           <label class="form-label text-white">Register As</label>
-           <select formControlName="role" class="form-control">
-            <option value="student">Student</option>
-            <option value="instructor">Instructor</option>
-           </select>
-           </div>
-
-          <!-- Email -->
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label text-white">Email address</label>
-            <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            <div *ngIf="f['email'].invalid && (f['email'].touched || f['email'].dirty)" class="text-danger mt-1">
-              <small *ngIf="f['email'].errors && f['email'].errors['required']">*Email is required.</small>
-               <small *ngIf="f['email'].errors && f['email'].errors['email']">*Enter a valid email address.</small> 
-            </div>
-          </div>
-
-          <!-- Password -->
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label text-white">Password</label>
-            <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1">
-            <div *ngIf="f['password'].invalid && (f['password'].touched || f['password'].dirty)" class="text-danger mt-1">
-              <small *ngIf="f['password'].errors && f['password'].errors['required']">*Password is required.</small>
-              <small *ngIf="f['password'].errors && f['password'].errors['minlength']">*Minimum 8 characters required.</small><br>
-               <small *ngIf="f['password'].errors && f['password'].errors['pattern']">*Must contain at least one uppercase letter and one special character.</small> 
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Sign Up</button>
-        </form>
-
-        <p class="pt-2 text-white">
-          Already have an account? <a routerLink="/login" class="fw-bolder">Login</a>
-        </p>
       </div>
-    </div>
+
+      <!-- Email -->
+      <div class="mb-3 text-start">
+        <input formControlName="email" type="email" class="form-control" placeholder="Email">
+        <div *ngIf="f['email'].invalid && f['email'].touched" class="text-danger small mt-1">
+          <div *ngIf="f['email'].errors?.['required']">*Email is required.</div>
+          <div *ngIf="f['email'].errors?.['email']">*Enter a valid email.</div>
+        </div>
+      </div>
+
+      <!-- Mobile -->
+      <div class="mb-3 text-start">
+        <input formControlName="mobile" type="text" class="form-control" placeholder="Phone Number">
+        <div *ngIf="f['mobile'].invalid && f['mobile'].touched" class="text-danger small mt-1">
+          <div *ngIf="f['mobile'].errors?.['required']">*Phone number is required.</div>
+          <div *ngIf="f['mobile'].errors?.['pattern']">*Must be a valid 10-digit number.</div>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3 text-start">
+        <input formControlName="password" type="password" class="form-control" placeholder="Password">
+        <div *ngIf="f['password'].invalid && f['password'].touched" class="text-danger small mt-1">
+          <div *ngIf="f['password'].errors?.['required']">*Password is required.</div>
+          <div *ngIf="f['password'].errors?.['minlength']">*Minimum 8 characters required.</div>
+          <div *ngIf="f['password'].errors?.['pattern']">*Must contain 1 uppercase & 1 special character.</div>
+        </div>
+      </div>
+
+      <!-- Role -->
+      <div class="mb-4 text-start">
+        <select formControlName="role" class="form-control">
+          <option value="" disabled selected>Role</option>
+          <option value="student">Student</option>
+          <option value="instructor">Instructor</option>
+        </select>
+        <div *ngIf="f['role'].invalid && f['role'].touched" class="text-danger small mt-1">
+          *Please select a role.
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-dark w-100" [disabled]="signupForm.invalid">Sign Up</button>
+    </form>
+
+    <!-- Login Link -->
+    <p class="mt-3 text-muted">
+      Already a member? 
+      <a routerLink="/login" class="signup-link">Login</a>
+    </p>
   </div>
 </div>
