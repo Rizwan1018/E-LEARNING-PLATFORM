@@ -12,5 +12,10 @@ a{
     font-family: 'Lucida Sans', 'Lucida Sans Regular';
     font-weight: bold;
 }
-
-
+.btn{
+    color: white;
+}
+.btn:hover{
+    background-color: white;
+    color: black;
+}

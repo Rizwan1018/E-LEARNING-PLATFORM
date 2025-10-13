@@ -16,7 +16,7 @@ export class AddCourseComponent implements OnInit {
   message = '';
   courses: Course[] = [];
   editingCourseId: number | null = null;
-  instructorId: number | null = null; // resolved instructor id for logged-in user
+  instructorId: number | null = null; 
 
   constructor(
     private fb: FormBuilder,
@@ -40,24 +40,22 @@ export class AddCourseComponent implements OnInit {
       videoUrl: ['']
     });
 
-    // Resolve instructor id from logged-in user
     const userRaw = localStorage.getItem('user');
     const user = userRaw ? JSON.parse(userRaw) : null;
 
     if (user && user.role === 'instructor') {
-      // if mapping already stored on user, use it
+
       if (user.instructorId) {
         this.instructorId = Number(user.instructorId);
         this.courseForm.patchValue({ instructorId: this.instructorId });
         this.loadCourses(this.instructorId);
       } else {
-        // fetch instructor by email and map
         this.catalog.getInstructors().subscribe(list => {
           const found = list.find(i => (String(i.email) || '').toLowerCase() === (user.email || '').toLowerCase());
           if (found) {
             this.instructorId = Number(found.id);
             this.courseForm.patchValue({ instructorId: this.instructorId });
-            // persist mapping on localStorage user for faster lookup next time
+
             user.instructorId = this.instructorId;
             localStorage.setItem('user', JSON.stringify(user));
             this.loadCourses(this.instructorId);
@@ -147,7 +145,7 @@ export class AddCourseComponent implements OnInit {
     }
   }
 
-  //✅ delete course
+  // delete course
   remove(courseId: number | string) {
     const id = Number(courseId);
     this.courseService.deleteCourse(id).subscribe({

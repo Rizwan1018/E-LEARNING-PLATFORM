@@ -1,4 +1,3 @@
-// src/app/modules/instructor/instructor-dashboard/instructor-dashboard.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../../../services/course.service';
 import { CatalogService } from '../../../services/catalog.service';

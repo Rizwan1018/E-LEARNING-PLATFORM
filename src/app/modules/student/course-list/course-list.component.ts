@@ -37,7 +37,7 @@ export class CourseListComponent implements OnInit {
   enroll(courseId: number) {
     this.message = 'Processing...';
     this.enrollSvc.enroll(this.selectedStudentId, courseId).subscribe((res: any) => {
-      this.message = res.success ? '✅ Enrollment successful' : '⚠️ ' + res.message;
+      this.message = res.success ? 'Enrollment successful' : '!! ' + res.message;
     });
   }
 }

@@ -50,3 +50,43 @@ video{
   padding: 0;
   border-radius: 20px;
 }
+
+body {
+      background: linear-gradient(90deg, #3c0064, #4b0b6e); /* same purple bg */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .btn-custom-primary {
+      background-color: white;
+      color: #5b00cc; /* purple text */
+      font-weight: 500;
+      border-radius: 50px; /* rounded pill */
+      padding: 10px 25px;
+      border: none;
+    }
+
+    .btn-custom-outline {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+      font-weight: 500;
+      border-radius: 50px;
+      padding: 10px 25px;
+    }
+
+    .btn-custom-primary:hover {
+      background-color: #f0f0f0;
+    }
+
+    .btn-custom-outline:hover {
+      background-color: white;
+      color: #5b00cc;
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 20px;
+    }

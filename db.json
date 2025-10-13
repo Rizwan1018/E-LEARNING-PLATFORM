@@ -31,6 +31,11 @@
       "id": "1002",
       "name": "Ms. Rao",
       "email": "rao@uni.edu"
+    },
+    {
+      "id": "dcd1",
+      "name": "Kabi",
+      "email": "kabi@gmail.com"
     }
   ],
   "courses": [
@@ -46,40 +51,6 @@
       "thumbnail": "https://utfs.io/f/mMbSyFqocdYGoyWHUeXA7npSGrhZX9NcIHO3JgUjB16z02ER",
       "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
       "id": "101"
-    },
-    {
-      "id": "102",
-      "title": "Angular Fundamentals",
-      "instructorId": 1002,
-      "domain": "Frontend",
-      "level": "Intermediate",
-      "durationHrs": 24,
-      "tags": [
-        "safsfsa"
-      ],
-      "description": "Components, services, routing, and forms.",
-      "thumbnail": "https://miro.medium.com/v2/resize:fit:1400/1*bMgQ8MhbnQexpqHgIgBJPA.png",
-      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
-      "price": 59.99,
-      "rating": 4.8,
-      "studentsCount": 12780
-    },
-    {
-      "id": "103",
-      "title": "Data Structures With Java",
-      "instructorId": 1002,
-      "domain": "Programming",
-      "level": "Beginner",
-      "durationHrs": 30,
-      "tags": [
-        "dd"
-      ],
-      "description": "Zero to Hero in DSA.",
-      "thumbnail": "https://i.ytimg.com/vi/XyDKchVvlCg/maxresdefault.jpg",
-      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
-      "price": 39.99,
-      "rating": 4.6,
-      "studentsCount": 9800
     },
     {
       "title": "Programming With C++",
@@ -125,6 +96,36 @@
       "description": "A complete python course for beginners.",
       "thumbnail": "https://i.ytimg.com/vi/m0LdKZ-prto/maxresdefault.jpg",
       "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    {
+      "id": "dca1",
+      "title": "Java Programming ",
+      "instructorId": 1001,
+      "domain": "Core java",
+      "level": "Beginner",
+      "description": "Java course",
+      "thumbnail": "",
+      "videoUrl": ""
+    },
+    {
+      "id": "469a",
+      "title": "Java Fundamentals",
+      "instructorId": null,
+      "domain": "JAVA",
+      "level": "Beginner",
+      "description": "uyahsbvuysahvd",
+      "thumbnail": "",
+      "videoUrl": "youtube.com"
+    },
+    {
+      "id": "e650",
+      "title": "UI/UX",
+      "instructorId": 1001,
+      "domain": "Design Essentials",
+      "level": "2",
+      "description": "UIUX Design Essential Course",
+      "thumbnail": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DHHth-nvyPjc&psig=AOvVaw0ZBi4q4KCBou8TvAf0U8Fs&ust=1760459336842000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCOD5hp_MoZADFQAAAAAdAAAAABAK",
+      "videoUrl": "https://www.youtube.com/watch?v=lEP0r0XwN78"
     }
   ],
   "enrollments": [
@@ -139,7 +140,7 @@
     {
       "id": "b906",
       "studentId": "2",
-      "courseId": "102",
+      "courseId": null,
       "enrollmentDate": "2025-09-13",
       "progress": 0,
       "status": "enrolled"
@@ -163,7 +164,7 @@
     {
       "id": "6b7d",
       "studentId": "b2f3",
-      "courseId": "103",
+      "courseId": null,
       "enrollmentDate": "2025-09-24",
       "progress": 0,
       "status": "enrolled"
@@ -171,7 +172,7 @@
     {
       "id": "8d2f",
       "studentId": "b2f3",
-      "courseId": "102",
+      "courseId": null,
       "enrollmentDate": "2025-09-24",
       "progress": 0,
       "status": "enrolled"
@@ -187,8 +188,40 @@
     {
       "id": "f409",
       "studentId": "1",
-      "courseId": "102",
+      "courseId": null,
       "enrollmentDate": "2025-09-24",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "80de",
+      "studentId": "2",
+      "courseId": "c9ae",
+      "enrollmentDate": "2025-09-29",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "b7f2",
+      "studentId": "1",
+      "courseId": "dca1",
+      "enrollmentDate": "2025-09-30",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "f588",
+      "studentId": "2",
+      "courseId": "c9ae",
+      "enrollmentDate": "2025-09-30",
+      "progress": 0,
+      "status": "enrolled"
+    },
+    {
+      "id": "95cd",
+      "studentId": "3",
+      "courseId": "e650",
+      "enrollmentDate": "2025-10-13",
       "progress": 0,
       "status": "enrolled"
     }
@@ -241,6 +274,14 @@
       "mobile": "1111111111",
       "password": "Rizwan@123",
       "role": "student"
+    },
+    {
+      "id": "dcd1",
+      "fullname": "Kabi",
+      "email": "kabi@gmail.com",
+      "mobile": "1234567891",
+      "password": "Qwerty@123",
+      "role": "instructor"
     }
   ],
   "assessments": [
@@ -249,6 +290,23 @@
       "title": "",
       "description": "",
       "questions": []
+    },
+    {
+      "id": "040b",
+      "title": "Java Assessment",
+      "description": "Java",
+      "questions": [
+        {
+          "text": "What is OOPS?",
+          "options": [
+            "Objec",
+            "q",
+            "qq",
+            "qq"
+          ],
+          "correctAnswer": 2
+        }
+      ]
     }
   ],
   "announcements": [
@@ -267,6 +325,14 @@
       "title": "1234567asdfghj",
       "message": "f ghjkl̥",
       "createdAt": "2025-09-24T17:59:26.961Z"
+    },
+    {
+      "id": "9b39",
+      "courseId": "101",
+      "instructorId": 1001,
+      "title": "Assessment for Java",
+      "message": "Take java assessment",
+      "createdAt": "2025-09-30T05:59:19.739Z"
     }
   ],
   "notifications": [
@@ -286,6 +352,60 @@
       "type": "announcement",
       "message": "New announcement: 1234567asdfghj",
       "createdAt": "2025-09-24T17:59:31.967Z",
+      "read": false
+    },
+    {
+      "id": "ab21",
+      "userId": "1",
+      "courseId": "101",
+      "type": "announcement",
+      "message": "New announcement: Assessment for Java",
+      "createdAt": "2025-09-30T05:59:21.059Z",
+      "read": true
+    },
+    {
+      "id": "9e3d",
+      "userId": "3",
+      "courseId": "101",
+      "type": "announcement",
+      "message": "New announcement: Assessment for Java",
+      "createdAt": "2025-09-30T05:59:21.063Z",
+      "read": false
+    },
+    {
+      "id": "3c1f",
+      "userId": "2",
+      "courseId": "101",
+      "type": "announcement",
+      "message": "New announcement: Assessment for Java",
+      "createdAt": "2025-09-30T05:59:21.061Z",
+      "read": false
+    },
+    {
+      "id": "a986",
+      "userId": "b2f3",
+      "courseId": "101",
+      "type": "announcement",
+      "message": "New announcement: Assessment for Java",
+      "createdAt": "2025-09-30T05:59:21.064Z",
+      "read": false
+    },
+    {
+      "id": "02aa",
+      "userId": "b2f3",
+      "courseId": "101",
+      "type": "announcement",
+      "message": "New announcement: Assessment for Java",
+      "createdAt": "2025-09-30T05:59:21.066Z",
+      "read": false
+    },
+    {
+      "id": "f5b5",
+      "userId": "1",
+      "courseId": "101",
+      "type": "announcement",
+      "message": "New announcement: Assessment for Java",
+      "createdAt": "2025-09-30T05:59:21.069Z",
       "read": false
     }
   ]

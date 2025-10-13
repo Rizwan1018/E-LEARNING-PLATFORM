@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import{FormGroup,FormBuilder, Validators, AbstractControl} from '@angular/forms'
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-login-component',
   standalone: false,
@@ -10,6 +9,8 @@ import { Router } from '@angular/router';
   styleUrl: './login-component.component.css'
 })
 export class LoginComponentComponent {
+
+  
   public loginForm!:FormGroup
   constructor(private formbuilder:FormBuilder,private http:HttpClient,private router:Router){}
 
@@ -28,19 +29,17 @@ export class LoginComponentComponent {
       });
 
 
+      var bootstrap : any;
       if (user) {
         alert("Login Success");
 
-
-        // 🔑 store only essential session info
+        
         localStorage.setItem('user', JSON.stringify({
           id: user.id,
           role: user.role,
           email: user.email
         }));
 
-
-        // 🔀 redirect based on role, passing ID in query params
         if (user.role === 'student') {
           this.router.navigate(['student'], { queryParams: { studentId: user.id } });
         } else if (user.role === 'instructor') {
