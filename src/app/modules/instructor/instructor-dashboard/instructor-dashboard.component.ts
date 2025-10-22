@@ -24,7 +24,6 @@ export class InstructorDashboardComponent implements OnInit {
         this.instructorId = Number(user.instructorId);
         this.loadCourses();
       } else {
-        // map user -> instructor record via email
         this.catalog.getInstructors().subscribe(list => {
           const found = list.find(i => (String(i.email) || '').toLowerCase() === (user.email || '').toLowerCase());
           if (found) {
@@ -39,7 +38,6 @@ export class InstructorDashboardComponent implements OnInit {
         });
       }
     } else {
-      // not an instructor (for dev) -> load nothing or all
       this.loadCourses();
     }
   }
@@ -51,7 +49,6 @@ export class InstructorDashboardComponent implements OnInit {
         error: (err) => console.error(err)
       });
     } else {
-      // fallback: load all courses (or none). I keep load-all so dev can still see something.
       this.courseService.getCourses().subscribe({
         next: (data) => (this.courses = data),
         error: (err) => console.error(err)

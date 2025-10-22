@@ -126,6 +126,16 @@
       "description": "UIUX Design Essential Course",
       "thumbnail": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DHHth-nvyPjc&psig=AOvVaw0ZBi4q4KCBou8TvAf0U8Fs&ust=1760459336842000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCOD5hp_MoZADFQAAAAAdAAAAABAK",
       "videoUrl": "https://www.youtube.com/watch?v=lEP0r0XwN78"
+    },
+    {
+      "id": "80c5",
+      "title": "Rest Test",
+      "instructorId": 1001,
+      "domain": "test",
+      "level": "1",
+      "description": "ytscyACYTAC",
+      "thumbnail": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcamendesign.com%2Fcode%2Fvideo_for_everybody%2Ftest.html&psig=AOvVaw2SA17cUcR5RVIQHZ4dFnUv&ust=1760532742782000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCKiK0Nbdo5ADFQAAAAAdAAAAABAJ",
+      "videoUrl": "https://www.w3schools.com/tags/mov_bbb.mp"
     }
   ],
   "enrollments": [
@@ -281,6 +291,14 @@
       "email": "kabi@gmail.com",
       "mobile": "1234567891",
       "password": "Qwerty@123",
+      "role": "instructor"
+    },
+    {
+      "id": "411a",
+      "fullname": "Ravan",
+      "email": "ravan@gmail.com",
+      "mobile": "9999999999",
+      "password": "Ravan@123",
       "role": "instructor"
     }
   ],

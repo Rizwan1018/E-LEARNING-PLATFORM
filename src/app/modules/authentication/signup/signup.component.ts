@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import{FormGroup,FormBuilder, Validators, AbstractControl} from '@angular/forms'
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class SignupComponent {
 
   public signupForm !: FormGroup;
-  constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router){}
+  constructor(private formBuilder:FormBuilder,private http:HttpClient,private router:Router, private authService:AuthService){}
 
   ngOnInit(): void{
     this.signupForm = this.formBuilder.group({
@@ -32,27 +33,16 @@ export class SignupComponent {
  signUp() {
   if (this.signupForm.valid) {
     const newUser = this.signupForm.value;
-
-    this.http.post<any>('http://localhost:3000/users', newUser).subscribe(user => {
-      if (user.role === 'student') {
-        this.http.post('http://localhost:3000/students', {
-          id: user.id,
-          name: user.fullname,
-          email: user.email
-        }).subscribe();
-      } else if (user.role === 'instructor') {
-        this.http.post('http://localhost:3000/instructors', {
-          id: user.id,
-          name: user.fullname,
-          email: user.email
-        }).subscribe();
+    this.authService.signup(this.signupForm.value).subscribe({
+      next: ()=>{
+        alert("Signup Successfull");
+        this.signupForm.reset();
+        this.router.navigate(['/login'])
+      },
+      error:() =>{
+        alert('Sometbhing went wrong')
       }
 
-      alert('Signup successful!');
-      this.signupForm.reset();
-      this.router.navigate(['login']);
-    }, err => {
-      alert('Something went wrong');
     });
   }
 }

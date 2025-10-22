@@ -27,15 +27,12 @@ export class AddCourseComponent implements OnInit {
   ngOnInit(): void {
     this.courseForm = this.fb.group({
       title: ['', Validators.required],
-      instructorId: [null, Validators.required],
       domain: ['', Validators.required],
+      instructorId : [null],
       level: ['', Validators.required],
       durationHrs: [null],
       tags: [''],
       description: [''],
-      price: [null],
-      rating: [null],
-      studentsCount: [null],
       thumbnail: [''],
       videoUrl: ['']
     });
@@ -69,7 +66,6 @@ export class AddCourseComponent implements OnInit {
         });
       }
     } else {
-      // not logged-in as instructor -> just load all (admin dev mode)
       this.loadCourses();
     }
   }
@@ -89,33 +85,48 @@ export class AddCourseComponent implements OnInit {
   }
 
   OnSubmit() {
-    if (!this.courseForm.valid) {
-      this.message = 'Please fill required fields.';
-      return;
-    }
 
+    
+
+    console.log('submit called')
+    console.log('FORM VALID',this.courseForm.valid)
+    console.log('FORM VALUE',this.courseForm.value)
+
+    if(!this.instructorId){
+      const userRaw = localStorage.getItem('user');
+      const user = userRaw?JSON.parse(userRaw) : null;
+      this.instructorId = user?.instructorId || user?.id;
+    }
+    this.courseForm.patchValue({instructorId: this.instructorId})
     const fv = this.courseForm.value;
+    // if (!this.courseForm.valid) {
+    //   this.message = 'Please fill required fields.';
+    //   return;
+    // }
     const tagsArray: string[] = fv.tags
       ? fv.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0)
       : [];
-
-    // ensure we use resolved instructorId if available
     const finalInstructorId = this.instructorId ?? (fv.instructorId ? +fv.instructorId : undefined);
 
-    const courseData: Omit<Course, 'id'> = {
-      title: fv.title,
-      instructorId: Number(finalInstructorId),
-      domain: fv.domain,
-      level: fv.level,
-      // durationHrs: fv.durationHrs ? +fv.durationHrs : undefined,
-      // tags: tagsArray,
-      description: fv.description,
-      price: fv.price ? +fv.price : undefined,
-      rating: fv.rating ? +fv.rating : undefined,
-      studentsCount: fv.studentsCount ? +fv.studentsCount : undefined,
-      thumbnail: fv.thumbnail,
-      videoUrl: fv.videoUrl
-    };
+  
+const courseData: Omit<Course, 'id'> = {
+  title: fv.title,
+  instructorId: this.instructorId!, 
+  domain: fv.domain,
+  level: fv.level,
+  durationHrs: fv.durationHrs ? +fv.durationHrs : undefined,
+  tags: tagsArray.join(','), 
+  description: fv.description,
+  price: fv.price ? +fv.price : undefined,
+  rating: fv.rating ? +fv.rating : undefined,
+  studentsCount: fv.studentsCount ? +fv.studentsCount : undefined,
+  thumbnail: fv.thumbnail,
+  videoUrl: fv.videoUrl
+};
+
+
+
+
 
     if (this.editingCourseId) {
       this.courseService.updateCourse(this.editingCourseId, courseData).subscribe({
@@ -145,7 +156,6 @@ export class AddCourseComponent implements OnInit {
     }
   }
 
-  // delete course
   remove(courseId: number | string) {
     const id = Number(courseId);
     this.courseService.deleteCourse(id).subscribe({
@@ -161,7 +171,6 @@ export class AddCourseComponent implements OnInit {
   }
 
   edit(course: Course) {
-    // make sure we only allow editing instructor's own courses (we're already only loading theirs)
     this.editingCourseId = Number(course.id);
     this.courseForm.patchValue({
       title: course.title,
@@ -169,7 +178,7 @@ export class AddCourseComponent implements OnInit {
       domain: course.domain,
       level: course.level,
       durationHrs: course.durationHrs,
-      tags: course.tags?.join(', '),
+      tags: course.tags,
       description: course.description,
       price: course.price,
       rating: course.rating,

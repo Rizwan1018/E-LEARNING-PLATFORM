@@ -1,6 +1,7 @@
 <app-instructor-navbar></app-instructor-navbar>
 <div class="container">
-  <form [formGroup]="courseForm">
+  <form [formGroup]="courseForm" (ngSubmit)="OnSubmit()">
+    <input type="hidden" formControlName="instructorId"/>
     <div class="card p-3">
       <h5 class="mb-3">{{ editingCourseId ? 'Edit Course' : 'Create Course' }}</h5>
 
@@ -49,7 +50,7 @@
       </div>
 
       <div class="d-flex gap-2 mt-3">
-        <button type="submit" class="btn btn-success" (click)="OnSubmit()">Save Course</button>
+        <button type="submit" class="btn btn-success">Save Course</button>
         <button type="button" class="btn btn-outline-secondary" (click)="courseForm.reset()">Reset</button>
       </div>
 

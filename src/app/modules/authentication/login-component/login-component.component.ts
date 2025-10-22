@@ -1,58 +1,57 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import{FormGroup,FormBuilder, Validators, AbstractControl} from '@angular/forms'
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
+
 @Component({
-  selector: 'app-login-component',
+  selector: 'app-login',
   standalone: false,
   templateUrl: './login-component.component.html',
-  styleUrl: './login-component.component.css'
+  styleUrls: ['./login-component.component.css']
 })
-export class LoginComponentComponent {
+export class LoginComponentComponent implements OnInit {
 
-  
-  public loginForm!:FormGroup
-  constructor(private formbuilder:FormBuilder,private http:HttpClient,private router:Router){}
+  loginForm!: FormGroup;
 
-  ngOnInit():void{
-    this.loginForm=this.formbuilder.group({
-      email:[''],
-      password:['']
-    })
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService, 
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
   }
 
-  login() {
-  this.http.get<any>("http://localhost:3000/users")
-    .subscribe(res => {
-      const user = res.find((a: any) => {
-        return a.email === this.loginForm.value.email && a.password === this.loginForm.value.password;
-      });
+  login(): void {
+    if (this.loginForm.valid) {
+      this.authService.login(this.loginForm.value).subscribe({
+        next: (response) => {
+          alert('Login successful!');
+          console.log('Response:', response);
 
-
-      var bootstrap : any;
-      if (user) {
-        alert("Login Success");
-
-        
-        localStorage.setItem('user', JSON.stringify({
-          id: user.id,
-          role: user.role,
-          email: user.email
-        }));
-
-        if (user.role === 'student') {
-          this.router.navigate(['student'], { queryParams: { studentId: user.id } });
-        } else if (user.role === 'instructor') {
-          this.router.navigate(['instructor'], { queryParams: { instructorId: user.id } });
+          if (response.role === 'STUDENT') {
+            this.router.navigate(['student'], { queryParams: { id: response.id } });
+          } else if (response.role === 'INSTRUCTOR') {
+            this.router.navigate(['instructor'], { queryParams: { id: response.id } });
+          } else {
+            this.router.navigate(['home']);
+          }
+        },
+        error: () => {
+          alert('Invalid credentials');
         }
+      });
+    }
+  }
 
-
-      } else {
-        alert("User not found");
-      }
-    }, err => {
-      alert("Something went wrong");
-    });
+  get f() {
+    return this.loginForm.controls;
+  }
 }
 
-}
+

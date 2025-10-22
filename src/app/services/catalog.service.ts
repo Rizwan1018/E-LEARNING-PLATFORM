@@ -18,7 +18,7 @@ export class CatalogService {
           const term = filter.search.toLowerCase();
           return courses.filter(c =>
             c.title.toLowerCase().includes(term) ||
-            (c.tags && c.tags.some(tag => tag.toLowerCase().includes(term)))
+            (c.tags && c.tags.toLowerCase().includes(term))
           );
         }
         return courses;
