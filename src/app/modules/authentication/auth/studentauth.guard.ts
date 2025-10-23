@@ -7,7 +7,7 @@ export const studentGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   // allow if logged in student
-  if (user && user.role === 'student') {
+  if (user && user.role === 'STUDENT') {
     return true;
   }
 

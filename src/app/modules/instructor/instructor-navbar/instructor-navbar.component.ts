@@ -16,14 +16,16 @@ export class InstructorNavbarComponent implements OnInit {
 
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user && user.role === 'instructor') {
+    if (user && user.role === 'INSTRUCTOR') {
       this.instructorId = user.id;
       this.instructorName = user.fullname || user.email || 'Instructor';
     }
   }
 
   logout() {
-    localStorage.removeItem('user');
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 }

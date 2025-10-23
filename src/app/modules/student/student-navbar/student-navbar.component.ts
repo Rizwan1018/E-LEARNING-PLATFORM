@@ -23,7 +23,9 @@ export class StudentNavbarComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('user');
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 }

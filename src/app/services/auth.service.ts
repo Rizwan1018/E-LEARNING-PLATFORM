@@ -14,6 +14,7 @@ export class AuthService {
   constructor(private http:HttpClient, private router: Router) { }
 
   signup(userData:any) : Observable<any>{
+    console.log("userdata in service "+JSON.stringify(userData))
     return this.http.post(`${this.baseUrl}/signup`, userData)
   }
 
@@ -25,10 +26,12 @@ export class AuthService {
         localStorage.setItem('email',response.email)
       })
     );
+    
   }
 
   logout(): void{
-    localStorage.clear();
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
     this.router.navigate(['/login']);
   }
 

@@ -13,10 +13,10 @@
       
       <!-- Full Name -->
       <div class="mb-3 text-start">
-        <input formControlName="fullname" type="text" class="form-control" placeholder="Full Name">
-        <div *ngIf="f['fullname'].invalid && f['fullname'].touched" class="text-danger small mt-1">
-          <div *ngIf="f['fullname'].errors?.['required']">*Full name is required.</div>
-          <div *ngIf="f['fullname'].errors?.['pattern']">*Only letters and spaces allowed.</div>
+        <input formControlName="fullName" type="text" class="form-control" placeholder="Full Name">
+        <div *ngIf="f['fullName'].invalid && f['fullName'].touched" class="text-danger small mt-1">
+          <div *ngIf="f['fullName'].errors?.['required']">*Full name is required.</div>
+          <div *ngIf="f['fullName'].errors?.['pattern']">*Only letters and spaces allowed.</div>
         </div>
       </div>
 

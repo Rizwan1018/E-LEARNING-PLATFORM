@@ -17,7 +17,7 @@ export class SignupComponent {
 
   ngOnInit(): void{
     this.signupForm = this.formBuilder.group({
-  fullname: ['', [Validators.required,Validators.pattern(/^[A-Za-z\s]+$/)]],
+  fullName: ['', [Validators.required,Validators.pattern(/^[A-Za-z\s]+$/)]],
   email: ['', [Validators.required, Validators.email]],
   mobile: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
   password: ['', [
@@ -31,8 +31,12 @@ export class SignupComponent {
   }
 
  signUp() {
+
+  
   if (this.signupForm.valid) {
     const newUser = this.signupForm.value;
+    console.log(JSON.stringify(newUser)+" signupform")
+    newUser.role = newUser.role.toUpperCase();
     this.authService.signup(this.signupForm.value).subscribe({
       next: ()=>{
         alert("Signup Successfull");

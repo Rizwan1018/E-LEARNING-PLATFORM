@@ -34,6 +34,8 @@ export class LoginComponentComponent implements OnInit {
           alert('Login successful!');
           console.log('Response:', response);
 
+          localStorage.setItem('user', JSON.stringify(response));
+          
           if (response.role === 'STUDENT') {
             this.router.navigate(['student'], { queryParams: { id: response.id } });
           } else if (response.role === 'INSTRUCTOR') {
@@ -42,7 +44,8 @@ export class LoginComponentComponent implements OnInit {
             this.router.navigate(['home']);
           }
         },
-        error: () => {
+        error: (err) => {
+          console.log(err)
           alert('Invalid credentials');
         }
       });

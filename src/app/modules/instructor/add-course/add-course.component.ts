@@ -40,7 +40,7 @@ export class AddCourseComponent implements OnInit {
     const userRaw = localStorage.getItem('user');
     const user = userRaw ? JSON.parse(userRaw) : null;
 
-    if (user && user.role === 'instructor') {
+    if (user && user.role === 'INSTRUCTOR') {
 
       if (user.instructorId) {
         this.instructorId = Number(user.instructorId);
@@ -72,7 +72,7 @@ export class AddCourseComponent implements OnInit {
 
   loadCourses(instructorId?: number) {
     if (instructorId) {
-      this.courseService.getCourses({ instructorId }).subscribe({
+      this.courseService.getCoursesByInstructor(instructorId).subscribe({
         next: (data) => (this.courses = data),
         error: (err) => console.error(err)
       });

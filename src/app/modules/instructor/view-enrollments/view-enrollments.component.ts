@@ -34,7 +34,7 @@ export class ViewEnrollmentsComponent implements OnInit {
     const userRaw = localStorage.getItem('user');
     const user = userRaw ? JSON.parse(userRaw) : null;
 
-    if (user && user.role === 'instructor') {
+    if (user && user.role === 'INSTRUCTOR') {
       if (user.instructorId) {
         this.instructorId = Number(user.instructorId);
         this.loadInstructorCourses();
@@ -63,7 +63,7 @@ export class ViewEnrollmentsComponent implements OnInit {
       this.courses = [];
       return;
     }
-    this.courseService.getCourses({ instructorId: this.instructorId }).subscribe(cs => this.courses = cs);
+    this.courseService.getCoursesByInstructor(this.instructorId).subscribe(cs => this.courses = cs);
   }
 
   load() {

@@ -19,40 +19,19 @@ export class InstructorDashboardComponent implements OnInit {
     const userRaw = localStorage.getItem('user');
     const user = userRaw ? JSON.parse(userRaw) : null;
 
-    if (user && user.role === 'instructor') {
-      if (user.instructorId) {
-        this.instructorId = Number(user.instructorId);
+    if (user && user.role === 'INSTRUCTOR') {
+        this.instructorId = Number(user.id);
         this.loadCourses();
-      } else {
-        this.catalog.getInstructors().subscribe(list => {
-          const found = list.find(i => (String(i.email) || '').toLowerCase() === (user.email || '').toLowerCase());
-          if (found) {
-            this.instructorId = Number(found.id);
-            user.instructorId = this.instructorId;
-            localStorage.setItem('user', JSON.stringify(user));
-          }
-          this.loadCourses();
-        }, err => {
-          console.error('Failed to load instructors', err);
-          this.loadCourses();
-        });
-      }
-    } else {
-      this.loadCourses();
     }
   }
 
   loadCourses() {
     if (this.instructorId) {
-      this.courseService.getCourses({ instructorId: this.instructorId }).subscribe({
-        next: (data) => (this.courses = data),
-        error: (err) => console.error(err)
+      this.courseService.getCoursesByInstructor(this.instructorId).subscribe({
+        next: (data) => {this.courses = data},
+        error: (err) =>{ console.error(err)}
       });
-    } else {
-      this.courseService.getCourses().subscribe({
-        next: (data) => (this.courses = data),
-        error: (err) => console.error(err)
-      });
-    }
+    } 
   }
+
 }
