@@ -19,7 +19,7 @@
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <div class="col" *ngFor="let c of courses">
       <div class="card h-100 shadow-sm">
-        <img *ngIf="c.thumbnail" [src]="c.thumbnail" alt="{{c.title}}" class="card-img-top" />
+          <img *ngIf="c.thumbnail" [src]="'http://localhost:8080/' +c.thumbnail" class="card-img-top" alt="{{c.title}}" />
 
         <div class="card-body d-flex flex-column">
           <div class="mb-2">

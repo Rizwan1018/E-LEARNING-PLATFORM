@@ -34,14 +34,19 @@
         </div>
 
         <div>
-          <label class="form-label">Thumbnail URL</label>
-          <input class="form-control" formControlName="thumbnail" />
+          <label class="form-label">Thumbnail</label>
+          <input type="file" class="form-control" (change)="onThumbnailFileSelect($event, 'thumbnail')" accept="image/*" formControlName="thumbnail" />
         </div>
       </div>
 
       <div class="mt-2">
-        <label class="form-label">Video URL</label>
-        <input class="form-control" formControlName="videoUrl" />
+        <label class="form-label">Video</label>
+        <input class="form-control" type="file" (change)="onVideoFileSelect($event, 'video')" accept="video/*" formControlName="videoUrl" />
+      </div>
+
+      <div class="mt-2">
+        <label class="form-label">Pre-Requisites</label>
+        <input class="form-control" type="file" (change)="onPrerequisiteFileSelect($event, 'prerequisite')" accept=".pdf, .doc, .docx, .ppt, .pptx" formControlName="videoUrl" />
       </div>
 
       <div class="mt-2">

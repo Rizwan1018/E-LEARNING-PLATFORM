@@ -16,7 +16,11 @@ export class AddCourseComponent implements OnInit {
   message = '';
   courses: Course[] = [];
   editingCourseId: number | null = null;
-  instructorId: number | null = null; 
+  instructorId: number | any; 
+  selectedThumbnail: File | null = null;
+  selectedVideo: File | null = null;
+  selectedPrerequisite: File | null = null;
+
 
   constructor(
     private fb: FormBuilder,
@@ -47,27 +51,35 @@ export class AddCourseComponent implements OnInit {
         this.courseForm.patchValue({ instructorId: this.instructorId });
         this.loadCourses(this.instructorId);
       } else {
-        this.catalog.getInstructors().subscribe(list => {
-          const found = list.find(i => (String(i.email) || '').toLowerCase() === (user.email || '').toLowerCase());
-          if (found) {
-            this.instructorId = Number(found.id);
-            this.courseForm.patchValue({ instructorId: this.instructorId });
-
-            user.instructorId = this.instructorId;
-            localStorage.setItem('user', JSON.stringify(user));
-            this.loadCourses(this.instructorId);
-          } else {
-            // fallback: load all courses
-            this.loadCourses();
-          }
-        }, err => {
-          console.error('Failed load instructors', err);
-          this.loadCourses();
-        });
+        this.instructorId = user.id;
+        this.courseForm.patchValue({instructorId: this.instructorId})
+        this.loadCourses(this.instructorId);
       }
     } else {
       this.loadCourses();
     }
+  }
+
+  onThumbnailFileSelect(event:any, type: string){
+      const file = event.target.files[0];
+      if(file){
+        this.selectedThumbnail = file;
+        console.log("Thumbnail Selected", file.name)
+      }
+  }
+  onVideoFileSelect(event:any, type: string){
+      const file = event.target.files[0];
+      if(file){
+        this.selectedVideo = file;
+        console.log("Video Selected", file.name)
+      }
+  }
+  onPrerequisiteFileSelect(event:any, type: string){
+      const file = event.target.files[0];
+      if(file){
+        this.selectedPrerequisite = file;
+        console.log("Prerequisite Selected", file.name)
+      }
   }
 
   loadCourses(instructorId?: number) {
@@ -85,9 +97,6 @@ export class AddCourseComponent implements OnInit {
   }
 
   OnSubmit() {
-
-    
-
     console.log('submit called')
     console.log('FORM VALID',this.courseForm.valid)
     console.log('FORM VALUE',this.courseForm.value)
@@ -98,17 +107,41 @@ export class AddCourseComponent implements OnInit {
       this.instructorId = user?.instructorId || user?.id;
     }
     this.courseForm.patchValue({instructorId: this.instructorId})
+    
     const fv = this.courseForm.value;
-    // if (!this.courseForm.valid) {
-    //   this.message = 'Please fill required fields.';
-    //   return;
-    // }
+    
     const tagsArray: string[] = fv.tags
-      ? fv.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0)
-      : [];
+    ? fv.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0)
+    : [];
     const finalInstructorId = this.instructorId ?? (fv.instructorId ? +fv.instructorId : undefined);
+    
+    const formData = new FormData();
+    formData.append('title', fv.title)
+    formData.append('domain', fv.domain)
+    formData.append('level', fv.level)
+    formData.append('durationHrs', fv.durationHrs)
+    formData.append('tags', tagsArray.join(','));
+    formData.append('description', fv.description)
+    formData.append('instructorId', this.instructorId?.toString() || '')
 
-  
+      if(this.selectedThumbnail) formData.append('thumbnail', this.selectedThumbnail)
+      if(this.selectedVideo) formData.append('video', this.selectedVideo)
+      if(this.selectedPrerequisite) formData.append('prerequisite', this.selectedPrerequisite)
+
+    this.courseService.addCourse(formData).subscribe({
+        next: () => {
+          this.message = ' Course added successfully';
+          this.courseForm.reset();
+          this.loadCourses(this.instructorId ?? undefined);
+        },
+        error: (err) => {
+          console.error(err);
+          this.message = ' Failed to add course';
+        }
+      });
+
+
+
 const courseData: Omit<Course, 'id'> = {
   title: fv.title,
   instructorId: this.instructorId!, 
@@ -141,19 +174,8 @@ const courseData: Omit<Course, 'id'> = {
           this.message = ' Failed to update course';
         }
       });
-    } else {
-      this.courseService.addCourse(courseData as Course).subscribe({
-        next: () => {
-          this.message = ' Course added successfully';
-          this.courseForm.reset();
-          this.loadCourses(this.instructorId ?? undefined);
-        },
-        error: (err) => {
-          console.error(err);
-          this.message = ' Failed to add course';
-        }
-      });
-    }
+    } 
+
   }
 
   remove(courseId: number | string) {
