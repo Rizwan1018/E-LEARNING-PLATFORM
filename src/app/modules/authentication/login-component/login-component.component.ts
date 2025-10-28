@@ -34,7 +34,7 @@ export class LoginComponentComponent implements OnInit {
           alert('Login successful!');
           console.log('Response:', response);
 
-          localStorage.setItem('user', JSON.stringify(response));
+       //   localStorage.setItem('user', JSON.stringify(response));
           
           if (response.role === 'STUDENT') {
             this.router.navigate(['student'], { queryParams: { id: response.id } });

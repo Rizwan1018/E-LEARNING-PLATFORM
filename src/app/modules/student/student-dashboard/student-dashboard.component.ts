@@ -17,6 +17,7 @@ import { forkJoin } from 'rxjs';
 export class StudentDashboardComponent implements OnInit {
   students: Student[] = [];
   selectedStudentId: number = 0;
+   selectedStudentName!:string;
 
   coursesById = new Map<number, Course>();
   enrollments: (Enrollment & { course?: Course })[] = [];
@@ -35,8 +36,9 @@ export class StudentDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user && user.role === 'student') {
+    if (user && String(user.role).toUpperCase() === 'STUDENT') {
       this.selectedStudentId = user.id;
+      this.selectedStudentName = user.fullName;
     }
     this.loadDashboard();
   }

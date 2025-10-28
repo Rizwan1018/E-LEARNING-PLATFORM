@@ -26,7 +26,7 @@ export class MyEnrollmentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user && user.role === 'student') {
+    if (user && String(user.role).toUpperCase() === 'STUDENT') {
       this.studentId = user.id;
     }
 

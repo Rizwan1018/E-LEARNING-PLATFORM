@@ -14,18 +14,20 @@ export class AuthService {
   constructor(private http:HttpClient, private router: Router) { }
 
   signup(userData:any) : Observable<any>{
-    console.log("userdata in service "+JSON.stringify(userData))
+//    console.log("userdata in service "+JSON.stringify(userData))
     return this.http.post(`${this.baseUrl}/signup`, userData)
   }
 
   login(credentials:any): Observable<any>{
-    return this.http.post(`${this.baseUrl}/login`, credentials).pipe(
-      tap((response:any) =>{
-        localStorage.setItem('token',response.token)
-        localStorage.setItem('role',response.role)
-        localStorage.setItem('email',response.email)
-      })
-    );
+  return this.http.post(`${this.baseUrl}/login`, credentials).pipe(
+    tap((response:any) => {
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('role', response.role);
+      localStorage.setItem('email', response.email);
+      localStorage.setItem('user', JSON.stringify(response));
+    })
+  );
+
     
   }
 
@@ -44,6 +46,6 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean{
-    return !localStorage.getItem('token');
-  }
+  return !!localStorage.getItem('token');
+}
 }

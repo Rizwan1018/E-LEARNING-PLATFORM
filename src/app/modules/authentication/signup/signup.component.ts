@@ -44,7 +44,7 @@ export class SignupComponent {
         this.router.navigate(['/login'])
       },
       error:() =>{
-        alert('Sometbhing went wrong')
+        alert('Something went wrong')
       }
 
     });

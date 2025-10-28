@@ -21,8 +21,7 @@
     <div class="row g-3">
       <div class="col-md-4" *ngFor="let course of courses">
         <div class="card shadow-sm border-0 h-100">
-          <img *ngIf="course.thumbnail" [src]="course.thumbnail" class="card-img-top" alt="thumbnail" />
-          <div class="card-body">
+           <img *ngIf="course.thumbnail" [src]="'http://localhost:8080/' +course.thumbnail" class="card-img-top" alt="thumbnail" />          <div class="card-body">
             <span class="badge bg-success mb-2" *ngIf="course.level === 'Beginner'">{{ course.level }}</span>
             <span class="badge bg-danger mb-2" *ngIf="course.level === 'Advanced'">{{ course.level }}</span>
             <span class="badge bg-warning text-dark mb-2" *ngIf="course.level === 'Intermediate'">{{ course.level }}</span>

@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Assessment } from '../models/assessment';
-
+import { environment } from '../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class AssessmentService {
-  private baseUrl = 'http://localhost:3000/assessments';
+private baseUrl = `${environment.apiBase}/assessments`;
 
   constructor(private http: HttpClient) {}
 
