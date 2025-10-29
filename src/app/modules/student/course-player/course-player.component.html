@@ -4,7 +4,7 @@
   <p class="text-muted">{{ course.domain }} • {{ course.level }} • {{ course.durationHrs }}h</p>
 
   <div class="mb-3">
-    <video width="100%" controls [poster]="course.videoUrl">
+    <video width="100%" controls [poster]="'http://localhost:8080/' +course.thumbnail">
       <source [src]="'http://localhost:8080/' +course.videoUrl" class="card-img-top" alt="thumbnail" />        
   
       Your browser does not support the video tag.

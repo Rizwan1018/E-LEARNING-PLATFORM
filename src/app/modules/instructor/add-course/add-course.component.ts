@@ -140,35 +140,8 @@ export class AddCourseComponent implements OnInit {
       if(this.selectedPrerequisite) formData.append('prerequisite', this.selectedPrerequisite)
 
 
-    this.courseService.addCourse(formData).subscribe({
-        next: () => {
-          this.message = ' Course added successfully';
-          this.courseForm.reset();
-          this.loadCourses(this.instructorId ?? undefined);
-        },
-        error: (err) => {
-          console.error(err);
-          this.message = ' Failed to add course';
-        }
-      });
-
-const courseData: Omit<Course, 'id'> = {
-  title: fv.title,
-  instructorId: this.instructorId!,
-  domain: fv.domain,
-  level: fv.level,
-  durationHrs: fv.durationHrs ? +fv.durationHrs : undefined,
-  tags: tagsArray.join(','),
-  description: fv.description,
-  price: fv.price ? +fv.price : undefined,
-  rating: fv.rating ? +fv.rating : undefined,
-  studentsCount: fv.studentsCount ? +fv.studentsCount : undefined,
-  thumbnail: fv.thumbnail,
-  videoUrl: fv.videoUrl
-};
-
     if (this.editingCourseId) {
-      this.courseService.updateCourse(this.editingCourseId, courseData).subscribe({
+      this.courseService.updateCourse(this.editingCourseId, formData).subscribe({
         next: () => {
           this.message = ' Course updated successfully';
           this.courseForm.reset();
@@ -180,10 +153,20 @@ const courseData: Omit<Course, 'id'> = {
           this.message = ' Failed to update course';
         }
       });
+      return;
+    } 
+      this.courseService.addCourse(formData).subscribe({
+        next: () => {
+          this.message = ' Course added successfully';
+          this.courseForm.reset();
+          this.loadCourses(this.instructorId ?? undefined);
+        },
+        error: (err) => {
+          console.error(err);
+          this.message = ' Failed to add course';
+        }
+      });
     }
-
-
-  }
 
   remove(courseId: number | string) {
     const id = Number(courseId);
@@ -212,8 +195,8 @@ const courseData: Omit<Course, 'id'> = {
       price: course.price,
       rating: course.rating,
       studentsCount: course.studentsCount,
-      thumbnail: course.thumbnail,
-      videoUrl: course.videoUrl
+      // thumbnail: course.thumbnail,
+      // videoUrl: course.videoUrl
     });
   }
 }
