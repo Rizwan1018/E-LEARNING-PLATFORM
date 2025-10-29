@@ -5,6 +5,7 @@ import { CourseService } from '../../../services/course.service';
 import { CatalogService } from '../../../services/catalog.service';
 import { Course } from '../../../models/course';
 
+
 @Component({
   selector: 'app-add-course',
   standalone:false,
@@ -16,10 +17,12 @@ export class AddCourseComponent implements OnInit {
   message = '';
   courses: Course[] = [];
   editingCourseId: number | null = null;
-  instructorId: number | any; 
+  instructorId: number | any;
   selectedThumbnail: File | null = null;
   selectedVideo: File | null = null;
   selectedPrerequisite: File | null = null;
+
+
 
 
   constructor(
@@ -27,6 +30,7 @@ export class AddCourseComponent implements OnInit {
     private courseService: CourseService,
     private catalog: CatalogService
   ) {}
+
 
   ngOnInit(): void {
     this.courseForm = this.fb.group({
@@ -41,10 +45,13 @@ export class AddCourseComponent implements OnInit {
       videoUrl: ['']
     });
 
+
     const userRaw = localStorage.getItem('user');
     const user = userRaw ? JSON.parse(userRaw) : null;
 
+
     if (user && user.role === 'INSTRUCTOR') {
+
 
       if (user.instructorId) {
         this.instructorId = Number(user.instructorId);
@@ -59,6 +66,7 @@ export class AddCourseComponent implements OnInit {
       this.loadCourses();
     }
   }
+
 
   onThumbnailFileSelect(event:any, type: string){
       const file = event.target.files[0];
@@ -82,6 +90,7 @@ export class AddCourseComponent implements OnInit {
       }
   }
 
+
   loadCourses(instructorId?: number) {
     if (instructorId) {
       this.courseService.getCoursesByInstructor(instructorId).subscribe({
@@ -101,20 +110,21 @@ export class AddCourseComponent implements OnInit {
     console.log('FORM VALID',this.courseForm.valid)
     console.log('FORM VALUE',this.courseForm.value)
 
+
     if(!this.instructorId){
       const userRaw = localStorage.getItem('user');
       const user = userRaw?JSON.parse(userRaw) : null;
       this.instructorId = user?.instructorId || user?.id;
     }
     this.courseForm.patchValue({instructorId: this.instructorId})
-    
+   
     const fv = this.courseForm.value;
-    
+   
     const tagsArray: string[] = fv.tags
     ? fv.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0)
     : [];
     const finalInstructorId = this.instructorId ?? (fv.instructorId ? +fv.instructorId : undefined);
-    
+   
     const formData = new FormData();
     formData.append('title', fv.title)
     formData.append('domain', fv.domain)
@@ -124,9 +134,11 @@ export class AddCourseComponent implements OnInit {
     formData.append('description', fv.description)
     formData.append('instructorId', this.instructorId?.toString() || '')
 
+
       if(this.selectedThumbnail) formData.append('thumbnail', this.selectedThumbnail)
       if(this.selectedVideo) formData.append('video', this.selectedVideo)
       if(this.selectedPrerequisite) formData.append('prerequisite', this.selectedPrerequisite)
+
 
     this.courseService.addCourse(formData).subscribe({
         next: () => {
@@ -140,15 +152,13 @@ export class AddCourseComponent implements OnInit {
         }
       });
 
-
-
 const courseData: Omit<Course, 'id'> = {
   title: fv.title,
-  instructorId: this.instructorId!, 
+  instructorId: this.instructorId!,
   domain: fv.domain,
   level: fv.level,
   durationHrs: fv.durationHrs ? +fv.durationHrs : undefined,
-  tags: tagsArray.join(','), 
+  tags: tagsArray.join(','),
   description: fv.description,
   price: fv.price ? +fv.price : undefined,
   rating: fv.rating ? +fv.rating : undefined,
@@ -156,10 +166,6 @@ const courseData: Omit<Course, 'id'> = {
   thumbnail: fv.thumbnail,
   videoUrl: fv.videoUrl
 };
-
-
-
-
 
     if (this.editingCourseId) {
       this.courseService.updateCourse(this.editingCourseId, courseData).subscribe({
@@ -174,7 +180,8 @@ const courseData: Omit<Course, 'id'> = {
           this.message = ' Failed to update course';
         }
       });
-    } 
+    }
+
 
   }
 

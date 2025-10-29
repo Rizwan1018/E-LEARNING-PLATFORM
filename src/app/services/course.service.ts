@@ -21,6 +21,14 @@ export class CourseService {
       'Authorization': `Bearer ${token}`
     });
   }
+//   private getAuthHeaders(): HttpHeaders {
+    
+//   const token = localStorage.getItem('token');
+//   return new HttpHeaders({
+//     'Authorization': `Bearer ${token}`
+//   });
+// }
+
   getCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(this.baseUrl);
   }

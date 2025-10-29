@@ -13,27 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class TakeAssessmentComponent implements OnInit {
 
-  // assessmentId: string | null = null;
-  // assessment: any; // Or a more specific type for your assessment data
-
-  // constructor(
-  //   private route: ActivatedRoute,
-  //   private assessmentService: AssessmentService
-  // ) {}
-
-  // ngOnInit(): void {
-  //   this.route.paramMap
-  //     .pipe(
-  //       switchMap((params) => {
-  //         this.assessmentId = params.get('id');
-  //         // Call your service to get the specific assessment
-  //         return this.assessmentService.getAssessment(this.assessmentId as string); 
-  //       })
-  //     )
-  //     .subscribe((data) => {
-  //       this.assessment = data;
-  //     });
-  // }
+  
 
   assessmentId: string | null = null;
   assessment: Assessment | null = null; // Use the Assessment type

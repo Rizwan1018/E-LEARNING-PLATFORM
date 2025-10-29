@@ -14,13 +14,25 @@
     </div>
   </div>
 
-  <p class="text-success small mb-2" *ngIf="message">{{ message }}</p>
+  <!-- ✅ Enrollment Success Popup -->
+<div class="modal fade show" tabindex="-1" 
+     role="dialog" 
+     *ngIf="showPopup" 
+     style="display: block; background-color: rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content p-3 text-center">
+      <h5 class="text-success fw-bold mb-2">Enrollment Successful 🎉</h5>
+      <p>You’ve successfully enrolled in this course!</p>
+      <button class="btn btn-primary mt-2" (click)="closePopup()">OK</button>
+    </div>
+  </div>
+</div>
+
 
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <div class="col" *ngFor="let c of courses">
       <div class="card h-100 shadow-sm">
-          <img *ngIf="c.thumbnail" [src]="'http://localhost:8080/' +c.thumbnail" class="card-img-top" alt="{{c.title}}" />
-
+        <img *ngIf="c.thumbnail" [src]="'http://localhost:8080/' +c.thumbnail" class="card-img-top" alt="thumbnail" />
         <div class="card-body d-flex flex-column">
           <div class="mb-2">
             <div class="fw-semibold">{{ c.title }}</div>
@@ -43,11 +55,16 @@
               </small>
             </div>
 
-            <button 
-              class="btn btn-sm btn-success w-100"
+            <button *ngIf="!c.enrolled" class="btn btn-sm btn-success w-100"
               (click)="enroll(c.id)">
               Enroll
             </button>
+
+            <button *ngIf="c.enrolled" class="btn btn-sm btn-outline-secondary w-100"
+              disabled>
+               Enrolled
+            </button>
+
           </div>
         </div>
       </div>

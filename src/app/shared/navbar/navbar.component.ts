@@ -18,8 +18,6 @@ export class NavbarComponent {
   }
   login():void{
     this.router.navigate(['login']);
-
-    
   }
   signup(){
         this.router.navigate(['signup']);

@@ -10,7 +10,6 @@ export class JwtInterceptor implements HttpInterceptor{
 
         if(token && !req.url.includes('/api/auth')){
             const isFormData = req.body instanceof FormData;
-
             req = req.clone({
                 setHeaders:{
                     Authorization: `Bearer ${token}`

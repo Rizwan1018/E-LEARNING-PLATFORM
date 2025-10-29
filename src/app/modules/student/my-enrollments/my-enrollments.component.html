@@ -1,16 +1,18 @@
 <app-student-navbar></app-student-navbar>
-
+<br>
 <div *ngIf="!studentId" class="alert alert-info">
   Please log in as a student to view enrollments.
 </div>
-
-<div class="container py-4 mt-3" *ngIf="enrollments?.length">
+<br>
+<div class="container py-4 mt-3 cont" *ngIf="enrollments?.length">
   <h4>My Enrollments</h4>
+  <br>
   <div class="row g-4">
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let e of enrollments">
       <div class="card h-100">
-        <img [src]="e.course?.thumbnail || ('https://picsum.photos/seed/' + e.courseId + '/800/450')"
-              class="card-img-top" alt="thumb">
+        <!-- <img [src]="e.course?.thumbnail || ('https://picsum.photos/seed/' + e.courseId + '/800/450')"
+              class="card-img-top" alt="thumb"> -->
+           <img *ngIf="e.course?.thumbnail" [src]="'http://localhost:8080/' +e.course?.thumbnail" class="card-img-top" alt="thumbnail" />          <div class="card-body">
 
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ e.course?.title }}</h5>

@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './modules/home/home.component';
 import { LandingComponent } from './modules/landing/landing.component';
 import { SharedModule } from './shared/shared.module';
 import { LoginComponentComponent } from './modules/authentication/login-component/login-component.component';
@@ -14,7 +13,6 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     LandingComponent,
     LoginComponentComponent,
     SignupComponent,

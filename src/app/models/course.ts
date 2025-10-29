@@ -12,6 +12,6 @@ export interface Course {
   studentsCount?: number;
   thumbnail?: string;
   videoUrl?: string;
-
   displayTags?: string[];
+  enrolled?: boolean;   
 }

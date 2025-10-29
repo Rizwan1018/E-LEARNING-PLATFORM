@@ -18,7 +18,7 @@ export class InstructorNavbarComponent implements OnInit {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user && user.role === 'INSTRUCTOR') {
       this.instructorId = user.id;
-      this.instructorName = user.fullname || user.email || 'Instructor';
+      this.instructorName = user.fullName || 'Instructor';
     }
   }
 
