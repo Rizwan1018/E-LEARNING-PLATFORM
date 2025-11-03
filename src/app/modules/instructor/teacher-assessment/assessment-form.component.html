@@ -1,45 +1,61 @@
+
 <div class="container my-5">
   <div class="row justify-content-center">
     <div class="col-lg-8">
       <div class="card shadow-sm border-0 rounded-4">
         <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
           <h2 class="h4 text-center fw-bold text-dark-emphasis mb-0">
-            {{ assessment.id ? 'Edit Assessment' : 'Create New Assessment' }}
+            {{ editing ? 'Edit Assessment' : 'Create New Assessment' }}
           </h2>
           <p class="text-center text-muted mt-2">
             Fill out the details to create or update your assessment.
           </p>
         </div>
+
         <div class="card-body p-4">
-          <form>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+            <!-- Title -->
             <div class="mb-4">
               <label for="assessmentTitle" class="form-label text-muted fw-bold">Title</label>
               <input
                 id="assessmentTitle"
-                [(ngModel)]="assessment.title"
-                name="title"
+                formControlName="title"
                 class="form-control form-control-lg bg-light border-0"
-                required
+                [class.is-invalid]="showInvalid(ctrl('title'))"
                 placeholder="e.g., Chapter 1 Quiz"
               />
+              <div class="invalid-feedback d-block" *ngIf="showInvalid(ctrl('title'))">
+                <span *ngIf="ctrl('title')?.errors?.['required']">Title is required.</span>
+                <span *ngIf="ctrl('title')?.errors?.['minlength']">Title must be at least 3 characters.</span>
+              </div>
             </div>
+
+            <!-- Description -->
             <div class="mb-4">
               <label for="assessmentDescription" class="form-label text-muted fw-bold">Description</label>
               <textarea
                 id="assessmentDescription"
-                [(ngModel)]="assessment.description"
-                name="description"
+                formControlName="description"
                 class="form-control bg-light border-0"
                 rows="3"
+                [class.is-invalid]="showInvalid(ctrl('description'))"
                 placeholder="Provide a brief overview of the assessment's content and purpose."
               ></textarea>
+              <div class="invalid-feedback d-block" *ngIf="showInvalid(ctrl('description'))">
+                <span *ngIf="ctrl('description')?.errors?.['required']">Description is required.</span>
+                <span *ngIf="ctrl('description')?.errors?.['minlength']">Description must be at least 10 characters.</span>
+              </div>
             </div>
 
             <h4 class="mt-5 mb-4 text-muted border-bottom pb-2">Questions</h4>
-            <div class="accordion" id="questionsAccordion">
+
+            <!-- ✅ Correct binding wrapper -->
+            <div class="accordion" id="questionsAccordion" formArrayName="questions">
+              <!-- Iterate questions -->
               <div
-                *ngFor="let q of assessment.questions; let i = index"
                 class="accordion-item mb-3 rounded-3 shadow-sm border"
+                *ngFor="let qg of questions.controls; let i = index"
+                [formGroupName]="i"
               >
                 <h2 class="accordion-header" [id]="'heading' + i">
                   <button
@@ -53,6 +69,7 @@
                     Question {{ i + 1 }}
                   </button>
                 </h2>
+
                 <div
                   [id]="'collapse' + i"
                   class="accordion-collapse collapse"
@@ -60,45 +77,63 @@
                   data-bs-parent="#questionsAccordion"
                 >
                   <div class="accordion-body bg-light">
+                    <!-- Question Text -->
                     <div class="mb-3">
                       <label class="form-label text-muted">Question Text</label>
                       <input
-                        [(ngModel)]="q.text"
-                        name="q{{ i }}"
+                        formControlName="text"
                         class="form-control mb-2"
                         placeholder="Type your question here"
+                        [class.is-invalid]="showInvalid(questions.at(i).get('text'))"
                       />
-                    </div>
-                    <div class="row gx-2">
-                      <div
-                        *ngFor="let opt of q.options; let j = index"
-                        class="col-md-6 mb-3"
-                      >
-                        <input
-                          [(ngModel)]="q.options[j]"
-                          name="o{{ i }}{{ j }}"
-                          class="form-control"
-                          placeholder="Option {{ j + 1 }}"
-                        />
+                      <div class="invalid-feedback d-block" *ngIf="showInvalid(questions.at(i).get('text'))">
+                        <span *ngIf="questions.at(i).get('text')?.errors?.['required']">Question text is required.</span>
+                        <span *ngIf="questions.at(i).get('text')?.errors?.['minlength']">Minimum 3 characters.</span>
                       </div>
                     </div>
+
+                    <!-- Options -->
+                    <div class="row gx-2" formArrayName="options">
+                      <div class="col-md-6 mb-3" *ngFor="let optCtrl of getOptions(i).controls; let j = index">
+                        <input
+                          class="form-control"
+                          [formControlName]="j"
+                          [placeholder]="'Option ' + (j + 1)"
+                          [class.is-invalid]="showInvalid(getOptions(i).at(j))"
+                        />
+                        <div class="invalid-feedback d-block" *ngIf="showInvalid(getOptions(i).at(j))">
+                          Option {{ j + 1 }} is required.
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Correct Answer -->
                     <div class="mt-3">
                       <label class="form-label text-muted">Correct Answer (Index)</label>
                       <input
                         type="number"
-                        [(ngModel)]="q.correctAnswer"
-                        name="c{{ i }}"
+                        formControlName="correctAnswer"
                         class="form-control w-50"
                         min="0"
-                        [max]="q.options.length - 1"
+                        [attr.max]="getOptions(i).length - 1"
+                        [class.is-invalid]="showInvalid(questions.at(i)) || showInvalid(questions.at(i).get('correctAnswer'))"
                       />
+                      <div class="invalid-feedback d-block"
+                        *ngIf="showInvalid(questions.at(i)) || showInvalid(questions.at(i).get('correctAnswer'))">
+                        <span *ngIf="questions.at(i).get('correctAnswer')?.errors?.['required']">
+                          Correct answer index is required.
+                        </span>
+                        <span *ngIf="questions.at(i)?.errors?.['answerNotNumber']">
+                          Correct answer must be a number.
+                        </span>
+                        <span *ngIf="questions.at(i)?.errors?.['answerOutOfRange']">
+                          Must be between 0 and {{ getOptions(i).length - 1 }}.
+                        </span>
+                      </div>
                     </div>
+
                     <div class="mt-4 text-end">
-                      <button
-                        type="button"
-                        class="btn btn-sm btn-outline-danger"
-                        (click)="removeQuestion(i)"
-                      >
+                      <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeQuestion(i)">
                         <i class="bi bi-trash"></i> Remove Question
                       </button>
                     </div>
@@ -107,15 +142,14 @@
               </div>
             </div>
 
+            <!-- Footer Actions -->
             <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                (click)="addQuestion()"
-              >
+              <button type="button" class="btn btn-outline-secondary" (click)="addQuestion()">
                 <i class="bi bi-plus-circle"></i> Add Question
               </button>
-              <button (click)="save()" type="submit" class="btn btn-success btn-lg px-5">
+
+              <!-- IMPORTANT: rely on (ngSubmit) -->
+              <button type="submit" class="btn btn-success btn-lg px-5">
                 <i class="bi bi-save"></i> Save Assessment
               </button>
             </div>

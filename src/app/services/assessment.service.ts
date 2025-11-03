@@ -5,7 +5,9 @@ import { Assessment } from '../models/assessment';
 
 @Injectable({ providedIn: 'root' })
 export class AssessmentService {
-  private baseUrl = 'http://localhost:3000/assessments';
+  //private baseUrl = 'http://localhost:3000/assessments';
+
+  private baseUrl='http://localhost:8080/api/assessments';
 
   constructor(private http: HttpClient) {}
 
