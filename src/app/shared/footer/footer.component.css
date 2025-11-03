@@ -1,0 +1,62 @@
+/* Import Google Fonts for specific styling */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Great+Vibes&display=swap'); /* Montserrat for brand, Great Vibes for script */
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css'); /* For social icons */
+
+
+:host {
+  display: block;
+}
+
+.custom-footer {
+  background-color: #1a1a1a !important; /* Slightly lighter black than pure #000 for depth */
+  color: #f0f0f0; /* Off-white for text */
+}
+
+/* Brand Font (like ARC & ATLAS in the image) */
+.custom-brand-font {
+  font-family: 'Montserrat', sans-serif; /* Strong, bold sans-serif */
+  letter-spacing: 2px; /* Slight spacing */
+  color: #E6E6E6 !important; /* Lighter white for the brand name */
+}
+
+/* Link Styling */
+.custom-link-hover {
+  font-size: 1.1em; /* Slightly larger links */
+  color: #f0f0f0 !important; /* Ensure initial color */
+  transition: color 0.2s ease-in-out;
+  margin-bottom: 8px; /* Spacing between links */
+  display: inline-block; /* Allows margin */
+}
+
+.custom-link-hover:hover {
+  color: #88cc88 !important; /* Subtle green on hover, similar to the "&" in the image */
+}
+
+/* "Proudly Made" script font */
+.custom-font-script {
+  font-family: 'Great Vibes', cursive; /* Elegant script font */
+  font-size: 1.5em;
+  color: #bbb !important;
+}
+
+/* Social Icon Styling */
+.custom-social-icon {
+  color: #f0f0f0 !important;
+  transition: color 0.2s ease-in-out;
+}
+
+.custom-social-icon:hover {
+  color: #88cc88 !important; /* Green hover for social icons */
+}
+
+/* Light border for the bottom section */
+.custom-border-light {
+    border-color: #333 !important; /* A light grey for the top border of the bottom section */
+}
+
+/* Responsive adjustments for columns */
+@media (max-width: 767.98px) {
+  .text-md-start {
+    text-align: center !important; /* Center align columns on small screens */
+  }
+}

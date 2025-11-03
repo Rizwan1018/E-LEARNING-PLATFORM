@@ -5,6 +5,8 @@ import { LoginComponentComponent } from './modules/authentication/login-componen
 import { SignupComponent } from './modules/authentication/signup/signup.component';
 import { instructorGuard } from './modules/authentication/auth/instructorauth.guard';
 import { studentGuard } from './modules/authentication/auth/studentauth.guard';
+import { AboutUsComponent } from './modules/about-us/about-us.component';
+import { SupportComponent } from './modules/support/support.component';
 // If you plan to add a dedicated HomeComponent, import from ./modules/home/home.component
 // For now we just redirect '' to student-dashboard
 const routes: Routes = [
@@ -13,6 +15,8 @@ const routes: Routes = [
   {path:'student', loadChildren: () => import('./modules/student/student.module').then(m => m.StudentModule), canActivate:[studentGuard]},    
    {path: 'login', component:LoginComponentComponent },
   { path:'signup', component:SignupComponent  },
+  { path:'aboutus', component:AboutUsComponent  },
+  { path:'support', component:SupportComponent  },
      { path: '**', redirectTo: '' }
 ];
 

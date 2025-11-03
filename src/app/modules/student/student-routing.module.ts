@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'player/:courseId', component: CoursePlayerComponent },
   {path: 'student/assessments', component:StudentAssessmentComponent},
   {path: 'take-assessment/:id', component:TakeAssessmentComponent},
+  {path: 'take-assessment', component:TakeAssessmentComponent},
   { path: 'notifications', component: StudentNotificationsComponent }
 
 ];
