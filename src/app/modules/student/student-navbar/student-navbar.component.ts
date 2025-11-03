@@ -18,7 +18,7 @@ export class StudentNavbarComponent implements OnInit {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user && String(user.role).toUpperCase() === 'STUDENT') {
       this.selectedStudentId = user.id;
-      this.studentName = user.fullname || user.email || 'Student';
+      this.studentName = user.fullName || 'Student';
     }
   }
 
