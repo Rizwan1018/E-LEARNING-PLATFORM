@@ -1,44 +1,26 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentService } from '../../../../services/assessment.service';
 import { switchMap } from 'rxjs/operators';
-import { Assessment, Question } from '../../../../models/assessment';
+import { Assessment } from '../../../../models/assessment';
 import { CommonModule } from '@angular/common';
+
+declare var bootstrap: any; // ✅ Needed for Bootstrap Modal JS API
 
 @Component({
   selector: 'app-take-assessment',
+  standalone: true, // ✅ Important for standalone component
   imports: [CommonModule],
   templateUrl: './take-assessment.component.html',
-  styleUrl: './take-assessment.component.css'
+  styleUrls: ['./take-assessment.component.css'] // ✅ Correct spelling
 })
 export class TakeAssessmentComponent implements OnInit {
 
-  // assessmentId: string | null = null;
-  // assessment: any; // Or a more specific type for your assessment data
-
-  // constructor(
-  //   private route: ActivatedRoute,
-  //   private assessmentService: AssessmentService
-  // ) {}
-
-  // ngOnInit(): void {
-  //   this.route.paramMap
-  //     .pipe(
-  //       switchMap((params) => {
-  //         this.assessmentId = params.get('id');
-  //         // Call your service to get the specific assessment
-  //         return this.assessmentService.getAssessment(this.assessmentId as string); 
-  //       })
-  //     )
-  //     .subscribe((data) => {
-  //       this.assessment = data;
-  //     });
-  // }
-
   assessmentId: string | null = null;
-  assessment: Assessment | null = null; // Use the Assessment type
+  assessment: Assessment | null = null;
+  studentAnswers: { [key: number]: number } = {};
 
-  studentAnswers:{[key:number]:number}={};
   constructor(
     private route: ActivatedRoute,
     private assessmentService: AssessmentService,
@@ -50,10 +32,8 @@ export class TakeAssessmentComponent implements OnInit {
       switchMap(params => {
         this.assessmentId = params.get('id');
         if (this.assessmentId) {
-          // 👈 Call the correct method name: getAssessment()
           return this.assessmentService.getAssessment(this.assessmentId);
         } else {
-          // Handle the case where no ID is found (e.g., redirect)
           return [];
         }
       })
@@ -63,39 +43,46 @@ export class TakeAssessmentComponent implements OnInit {
   }
 
   onAnswerSelected(questionIndex: number, optionIndex: number): void {
-    // Store the selected option's index for the given question
     this.studentAnswers[questionIndex] = optionIndex;
-    console.log('Student Answers:', this.studentAnswers);
   }
-  //  submitAssessment(): void {
-  //   // Implement your assessment submission logic here.
-  //   // This could involve:
-  //   // 1. Collecting the student's answers.
-  //   // 2. Sending the answers to a backend API for grading.
-  //   // 3. Navigating the student to a results page.
-  //   console.log('Assessment submitted!');
-  //   alert('Assessment submitted!'); // For demonstration
-  //  }
 
-      submitAssessment(): void {
-      let score = 0;
-      const totalQuestions = this.assessment?.questions.length || 0;
+  submitAssessment(): void {
+    let score = 0;
+    const totalQuestions = this.assessment?.questions.length || 0;
 
-      if (this.assessment && totalQuestions > 0) {
-        this.assessment.questions.forEach((question, index) => {
-          // Check if the student's answer for this question matches the correct answer
-          if (this.studentAnswers[index] === question.correctAnswer) {
-            score++;
-          }
-        });
-      }
-
-      // Display the final score
-      // alert(`Assessment submitted! Your score is: ${score} out of ${totalQuestions}`);
-
-       alert(`Assessment submitted! Your score is: ${score} out of ${totalQuestions}`);
-       this.router.navigate(['student/student/assessments']);
-      // TODO: In a more advanced version, you would navigate to a results page
-      // this.router.navigate(['/results', this.assessmentId]); 
+    if (this.assessment && totalQuestions > 0) {
+      this.assessment.questions.forEach((question, index) => {
+        if (this.studentAnswers[index] === question.correctAnswer) {
+          score++;
+        }
+      });
     }
+
+    // ✅ Update modal content dynamically
+    const modalElement = document.getElementById('scoreModal');
+    const modalBody = modalElement?.querySelector('.modal-body');
+    if (modalBody) {
+      modalBody.textContent = `Your score is: ${score} out of ${totalQuestions}`;
+    }
+
+    // ✅ Show Bootstrap modal
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
+ 
+
+  
+navigateToAssessments(): void {
+  const modalElement = document.getElementById('scoreModal');
+  if (modalElement) {
+    const modal = bootstrap.Modal.getInstance(modalElement); // ✅ Get current modal instance
+    modal?.hide(); // ✅ Close modal properly
+  }
+
+  this.router.navigate(['student/student/assessments']);
+}
+
 }
