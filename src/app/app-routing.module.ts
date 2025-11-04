@@ -7,6 +7,8 @@ import { instructorGuard } from './modules/authentication/auth/instructorauth.gu
 import { studentGuard } from './modules/authentication/auth/studentauth.guard';
 import { AboutUsComponent } from './modules/about-us/about-us.component';
 import { SupportComponent } from './modules/support/support.component';
+import { ForgotPasswordComponent } from './modules/authentication/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './modules/authentication/reset-password/reset-password.component';
 // If you plan to add a dedicated HomeComponent, import from ./modules/home/home.component
 // For now we just redirect '' to student-dashboard
 const routes: Routes = [
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path:'signup', component:SignupComponent  },
   { path:'aboutus', component:AboutUsComponent  },
   { path:'support', component:SupportComponent  },
+  {path:'forgot-password',component:ForgotPasswordComponent},
+  {path:'reset-password',component:ResetPasswordComponent},
      { path: '**', redirectTo: '' }
 ];
 

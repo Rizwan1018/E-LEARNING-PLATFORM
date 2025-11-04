@@ -9,7 +9,7 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 })
 export class AuthService {
 
-  private baseUrl = "http://localhost:8090/api/auth";
+  private baseUrl = "http://localhost:8080/api/auth";
 
   constructor(private http:HttpClient, private router: Router) { }
 

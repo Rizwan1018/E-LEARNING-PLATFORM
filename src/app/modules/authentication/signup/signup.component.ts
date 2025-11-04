@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import{FormGroup,FormBuilder, Validators, AbstractControl} from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-signup',
   standalone: false,
@@ -39,12 +39,14 @@ export class SignupComponent {
     newUser.role = newUser.role.toUpperCase();
     this.authService.signup(this.signupForm.value).subscribe({
       next: ()=>{
-        alert("Signup Successfull");
+        // alert("Signup Successfull");
+         new bootstrap.Modal(document.getElementById('statusSuccessModal')).show();
         this.signupForm.reset();
         this.router.navigate(['/login'])
       },
       error:() =>{
-        alert('Something went wrong')
+        // alert('Something went wrong')
+        new bootstrap.Modal(document.getElementById('statusErrorsModal')).show()
       }
 
     });
