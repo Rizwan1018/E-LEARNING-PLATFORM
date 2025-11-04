@@ -3,14 +3,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-login',
   standalone: false,
   templateUrl: './login-component.component.html',
   styleUrls: ['./login-component.component.css']
 })
+
 export class LoginComponentComponent implements OnInit {
+
+  
 
   loginForm!: FormGroup;
 
@@ -31,7 +34,8 @@ export class LoginComponentComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          alert('Login successful!');
+          // alert('Login successful!');
+          new bootstrap.Modal(document.getElementById('statusSuccessModal')).show();
           console.log('Response:', response);
 
        //   localStorage.setItem('user', JSON.stringify(response));
@@ -46,7 +50,8 @@ export class LoginComponentComponent implements OnInit {
         },
         error: (err) => {
           console.log(err)
-          alert('Invalid credentials');
+          // alert('Invalid credentials');
+          new bootstrap.Modal(document.getElementById('statusErrorsModal')).show()
         }
       });
     }
