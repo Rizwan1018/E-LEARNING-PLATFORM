@@ -57,9 +57,22 @@ export class TeacherAssessmentListComponent implements OnInit {
   add() {
     this.router.navigate(['instructor/teacher/assessments/new']);
   }
-  edit(a: Assessment) {
-    this.router.navigate(['/teacher/assessments', a.id, 'edit']);
-  }
+
+  
+edit(a: Assessment) {
+  if (!a.id) { alert('Missing assessment id'); return; }
+  this.router.navigate(['instructor', 'teacher', 'assessments', a.id]);
+}
+
+
+  
+// edit(a: Assessment) {
+//   this.router.navigate(['/teacher/assessments', a.id]);
+// }
+
+  // edit(a: Assessment) {
+  //   this.router.navigate(['/teacher/assessments', a.id, 'edit']);
+  // }
   // delete(a: Assessment) {
   //   if (confirm('Delete this assessment?'))
   //     this.service.deleteAssessment(a.id!).subscribe(() => this.load());

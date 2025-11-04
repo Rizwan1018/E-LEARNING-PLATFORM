@@ -1,22 +1,23 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn,CanActivate, Router } from '@angular/router';
 
 export const instructorGuard: CanActivateFn = () => {
   const router = inject(Router);
   const storedUser = localStorage.getItem('user');
+  const token = localStorage.getItem('token');
   const user = storedUser ? JSON.parse(storedUser) : null;
 
-  if (user && user.role === 'INSTRUCTOR') {
-    return true;
+  if(!token || !user ){
+    router.navigate(['/login']);
+    return false;
   }
-
-  if (!user) {
-    // console.warn(' No user in localStorage. Allowing access for development (instructorGuard).');
-    // return true;
-    return true;
-  }
-
-  alert('Access denied. Only instructors can view this page.');
+  
+  if (user.role !== 'INSTRUCTOR') {
+    alert('Access denied. Only instructors can view this page.');
   router.navigateByUrl('/login');
   return false;
+
+  }
+  return true;
+  
 };

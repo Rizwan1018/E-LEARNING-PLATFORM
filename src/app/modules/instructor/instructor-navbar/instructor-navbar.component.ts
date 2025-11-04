@@ -27,5 +27,6 @@ export class InstructorNavbarComponent implements OnInit {
     localStorage.removeItem('token')
     localStorage.clear();
     this.router.navigate(['/login']);
+    window.location.reload();
   }
 }

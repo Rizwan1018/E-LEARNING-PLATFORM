@@ -11,6 +11,7 @@ import { StudentNotificationsComponent } from './student-notifications/student-n
 
 const routes: Routes = [
   { path: '', component: StudentDashboardComponent },
+  { path: 'dash', component: StudentDashboardComponent },
   { path: 'courses', component: CourseListComponent },
   { path: 'enrollments', component: MyEnrollmentsComponent },
   { path: 'player/:courseId', component: CoursePlayerComponent },

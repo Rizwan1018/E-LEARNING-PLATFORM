@@ -13,6 +13,17 @@
         My Enrollments
       </button>
 
+<!-- student/assessments -->
+
+      <button class="btn btn-primary"
+              [routerLink]="['/student/student/assessments']"
+              [queryParams]="{ studentId: selectedStudentId }"
+              >
+        Give Assessments
+      </button>
+
+
+
       <button class="btn btn-outline-secondary"
               [routerLink]="['/student/courses']"
               [queryParams]="{ studentId: selectedStudentId }">

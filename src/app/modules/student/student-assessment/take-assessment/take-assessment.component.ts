@@ -71,8 +71,10 @@ export class TakeAssessmentComponent implements OnInit {
       }
 
       // Display the final score
-      alert(`Assessment submitted! Your score is: ${score} out of ${totalQuestions}`);
+      // alert(`Assessment submitted! Your score is: ${score} out of ${totalQuestions}`);
 
+       alert(`Assessment submitted! Your score is: ${score} out of ${totalQuestions}`);
+       this.router.navigate(['student/student/assessments']);
       // TODO: In a more advanced version, you would navigate to a results page
       // this.router.navigate(['/results', this.assessmentId]); 
     }
