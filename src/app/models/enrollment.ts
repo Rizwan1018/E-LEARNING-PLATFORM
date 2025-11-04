@@ -3,6 +3,12 @@ export interface Enrollment {
   studentId: number;
   courseId: number;
   enrollmentDate: string;
-  progress: number;
-  status: string;
+  progress?: number;
+  status?: string;
+
+  //NEW
+  watched?:boolean;
+  done?:boolean;
+  rating?:number|null;
+  lastWatchedPosition?:number|null;
 }

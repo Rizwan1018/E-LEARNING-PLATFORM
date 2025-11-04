@@ -67,19 +67,25 @@ export class StudentDashboardComponent implements OnInit {
     });
   }
 
-  computeStats() {
-    this.enrolledCount = this.enrollments.length;
-    this.learningHours = this.enrollments.reduce((sum, e) => {
-      const dur = this.coursesById.get(Number(e.courseId))?.durationHrs ?? 0;
-      return sum + dur;
-    }, 0);
+computeStats() {
+  this.enrolledCount = this.enrollments.length;
 
-    this.certificates = 0; // no certificates in db.json
+  // sum of progress (ensure numeric)
+  const totalProgress = this.enrollments.reduce((sum, e) => {
+    const p = Number((e as any).progress); // defensive cast in case progress is string
+    return sum + (isNaN(p) ? 0 : p);
+  }, 0);
 
-    this.averageProgress = this.enrollments.length
-      ? Math.round(this.enrollments.reduce((s, e) => s + (e.progress ?? 0), 0) / this.enrollments.length)
-      : 0;
-  }
+  this.learningHours = this.enrollments.reduce((sum, e) => {
+    const dur = this.coursesById.get(Number(e.courseId))?.durationHrs ?? 0;
+    return sum + dur;
+  }, 0);
+
+  this.certificates = 0; // same as before
+
+  this.averageProgress = this.enrollments.length ? Math.round(totalProgress / this.enrollments.length) : 0;
+}
+
 
   // helper for template
   courseFor(e: Enrollment): Course | undefined {

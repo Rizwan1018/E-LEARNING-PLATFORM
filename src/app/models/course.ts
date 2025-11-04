@@ -13,5 +13,9 @@ export interface Course {
   thumbnail?: string;
   videoUrl?: string;
   displayTags?: string[];
-  enrolled?: boolean;   
+  enrolled?: boolean; 
+  
+  //New
+  avgRating?: number|null;
+  preRequisite?: string;
 }
