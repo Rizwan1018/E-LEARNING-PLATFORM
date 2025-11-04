@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { Course } from '../models/course';
 
 @Injectable({
@@ -21,28 +21,36 @@ export class CourseService {
       'Authorization': `Bearer ${token}`
     });
   }
+//   private getAuthHeaders(): HttpHeaders {
+    
+//   const token = localStorage.getItem('token');
+//   return new HttpHeaders({
+//     'Authorization': `Bearer ${token}`
+//   });
+// }
+
   getCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(this.baseUrl, { headers: this.getAuthHeaders() });
+    return this.http.get<Course[]>(this.baseUrl);
   }
 
   getCoursesByInstructor(instructorId: number): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.baseUrl}/instructor/${instructorId}`, { headers: this.getAuthHeaders() });
+    return this.http.get<Course[]>(`${this.baseUrl}/instructor/${instructorId}`);
   }
   
 
-  addCourse(course: Course): Observable<Course> {
-    return this.http.post<Course>(this.baseUrl, course, { headers: this.getAuthHeaders() });
+  addCourse(formData: FormData): Observable<Course> {
+    return this.http.post<Course>(this.baseUrl, formData);
   }
 
   getCourseById(id: number): Observable<Course> {
-    return this.http.get<Course>(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders() });
+    return this.http.get<Course>(`${this.baseUrl}/${id}`);
   }
 
-  updateCourse(id: number, course: Partial<Course>): Observable<Course> {
-    return this.http.put<Course>(`${this.baseUrl}/${id}`, course, { headers: this.getAuthHeaders() });
+  updateCourse(id: number, formData: Partial<FormData>): Observable<Course> {
+    return this.http.put<Course>(`${this.baseUrl}/${id}`, formData);
   }
 
   deleteCourse(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders() });
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

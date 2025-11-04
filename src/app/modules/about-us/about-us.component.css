@@ -1,0 +1,67 @@
+/* Import Google Fonts for classic typography */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400&display=swap');
+
+/* GLOBAL THEME OVERRIDES */
+.body{
+   background: url("/EL-bg.webp");
+}
+
+
+.bg{
+    
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Custom Text and Font Styling */
+.custom-font-serif {
+    font-family: 'Playfair Display', serif !important;
+}
+.custom-font-sans {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.custom-text-dark {
+    color: #d6d6d6 !important; /* Near-black for headings */
+}
+.custom-text-secondary {
+    color: #b5b5b5 !important; /* Medium gray for subtitle */
+}
+.custom-text-muted {
+    color: #ffffff !important; /* Dark gray for body content */
+}
+
+/* Custom Borders (to replace Bootstrap's default light gray) */
+.custom-border {
+    border-color: #ccc !important;
+}
+.custom-border-dashed {
+    border-bottom: 1px dashed #eee !important;
+}
+
+/* Card Styling for Core Values */
+.custom-card-border {
+    border-color: #ddd !important;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.custom-card-hover:hover {
+    transform: translateY(-5px); /* Lift on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Call to Action Button Custom Hover */
+.custom-btn-hover {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-btn-hover:hover {
+    background-color: #fff !important;
+    color: #333 !important;
+    border-color: #333 !important;
+}
+
+/* Text Justify (since Bootstrap doesn't have a specific utility for this) */
+.text-justify {
+    text-align: justify;
+}

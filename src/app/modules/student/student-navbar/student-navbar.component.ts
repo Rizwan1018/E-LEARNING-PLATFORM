@@ -16,9 +16,9 @@ export class StudentNavbarComponent implements OnInit {
 
   ngOnInit() {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user && user.role === 'student') {
+    if (user && String(user.role).toUpperCase() === 'STUDENT') {
       this.selectedStudentId = user.id;
-      this.studentName = user.fullname || user.email || 'Student';
+      this.studentName = user.fullName || 'Student';
     }
   }
 
@@ -27,5 +27,6 @@ export class StudentNavbarComponent implements OnInit {
     localStorage.removeItem('token')
     localStorage.clear();
     this.router.navigate(['/login']);
+    window.location.reload();
   }
 }

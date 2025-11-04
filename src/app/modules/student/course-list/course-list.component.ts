@@ -1,12 +1,11 @@
-// src/app/modules/student/course-list/course-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { EnrollmentService } from '../../../services/enrollment.service';
 import { Course } from '../../../models/course';
-import { CourseService } from '../../../services/course.service';
+import { CatalogService } from '../../../services/catalog.service';
 
 @Component({
   selector: 'app-course-list',
-  standalone: false,
+  standalone:false,
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.css']
 })
@@ -15,63 +14,68 @@ export class CourseListComponent implements OnInit {
   selectedStudentId = 0;
   search = '';
   message = '';
+  showPopup = false; // ✅ new variable
 
   constructor(
-    private courseService: CourseService,
+    private courseService: CatalogService,
     private enrollSvc: EnrollmentService,
   ) {}
 
   ngOnInit() {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user && user.role === 'STUDENT') {
-      this.selectedStudentId = user.id;
+    if (user && String(user.role).toUpperCase() === 'STUDENT') {
+      this.selectedStudentId = Number(user.id);
     }
     this.load();
   }
 
   load(): void {
-    this.courseService.getCourses()
+    // pass studentId so backend returns enrolled flag
+    const studentId = this.selectedStudentId ? this.selectedStudentId : undefined;
+    this.courseService.getCourses({ search: this.search }, studentId)
       .subscribe({
-        next: (data) =>{
-          console.log('Raw backend response', data);
-
-          if (typeof data ==='string'){
-            try{
-              data = JSON.parse(data);
-            } catch(e){
-              console.error('Invalid JSON format',e)
-              data =[];
-            }
-          }
-          if(Array.isArray(data)){
-            this.courses = data;
-          } else if (data && typeof data === 'object'){
-            this.courses = [data];
-          } else {
-            this.courses = [];
-          }
-
-            this.courses = this.courses.map(c => ({
-              ...c,
-              displayTags:typeof c.tags === 'string'
-              ? c.tags.split(',').map(tag => tag.trim()).filter(t=>t)
-              : Array.isArray(c.tags) ? c.tags : []
-            })) ;
-            
-
-          console.log('Final courses array', this.courses);
-       //   this.courses = Array.isArray(data) ? data : [data];
+        next: (data) => {
+          // normalize and add displayTags
+          this.courses = (Array.isArray(data) ? data : []).map((c: any) => ({
+            ...c,
+            displayTags: typeof c.tags === 'string'
+              ? c.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t)
+              : Array.isArray(c.tags) ? c.tags : [],
+            enrolled: !!c.enrolled
+          }));
         },
-        error: (err) => {console.log('Error loading the courses', err)
+        error: (err) => {
+          console.log('Error loading the courses', err);
           this.courses = [];
         }
       });
   }
 
-  enroll(courseId: number) {
-    this.message = 'Processing...';
-    this.enrollSvc.enroll(this.selectedStudentId, courseId).subscribe((res: any) => {
-      this.message = res.success ? 'Enrollment successful' : '!! ' + res.message;
+   enroll(courseId: number) {
+    if (!this.selectedStudentId) {
+      alert('Please login as a student');
+      return;
+    }
+    this.enrollSvc.enroll(this.selectedStudentId, courseId).subscribe({
+      next: (res: any) => {
+        if (res.success) {
+          
+          this.showPopup = true;
+          // Refresh course list after short delay
+          setTimeout(() => this.load(), 1000);
+        } else {
+          alert(res.message || 'Enrollment failed');
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Enrollment failed. Please try again.');
+      }
     });
+  }
+
+  // ✅ New method to close popup
+  closePopup() {
+    this.showPopup = false;
   }
 }

@@ -36,6 +36,11 @@
       "id": "dcd1",
       "name": "Kabi",
       "email": "kabi@gmail.com"
+    },
+    {
+      "id": "a3be",
+      "name": "Lulu Chulu",
+      "email": "lulu@uni.edu"
     }
   ],
   "courses": [
@@ -300,6 +305,30 @@
       "mobile": "9999999999",
       "password": "Ravan@123",
       "role": "instructor"
+    },
+    {
+      "id": "f2ee",
+      "fullname": "Rudam Raj",
+      "email": "rudam@uni.edu",
+      "mobile": "1234567890",
+      "password": "Rudam@123",
+      "role": "instructor"
+    },
+    {
+      "id": "dbca",
+      "fullname": "Akash Jha",
+      "email": "akash@uni.edu",
+      "mobile": "1234567890",
+      "password": "Akash@123",
+      "role": "instructor"
+    },
+    {
+      "id": "a3be",
+      "fullname": "Lulu Chulu",
+      "email": "lulu@uni.edu",
+      "mobile": "1111111111",
+      "password": "Lulu@123",
+      "role": "instructor"
     }
   ],
   "assessments": [
@@ -321,6 +350,19 @@
       ]
     },
     {
+<<<<<<< HEAD
+      "id": "0f01",
+      "title": "gsdgsagasg",
+      "description": "afgagagasdgs",
+      "questions": [
+        {
+          "text": "aewfasf",
+          "options": [
+            "f",
+            "sa",
+            "sad",
+            "sadf"
+=======
       "id": "203e",
       "title": "C++ Fundamentals",
       "description": "Important questions on C++.",
@@ -461,10 +503,13 @@
             "5",
             "5+\"\"+5",
             "55"
+>>>>>>> 58ed783509379610ff925dd46f741057e281d37b
           ],
           "correctAnswer": 3
         }
       ]
+<<<<<<< HEAD
+=======
     },
     {
       "id": "0d7e",
@@ -499,6 +544,7 @@
           "correctAnswer": 1
         }
       ]
+>>>>>>> 58ed783509379610ff925dd46f741057e281d37b
     }
   ],
   "announcements": [

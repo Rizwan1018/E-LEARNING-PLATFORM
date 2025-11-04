@@ -4,20 +4,30 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './modules/home/home.component';
 import { LandingComponent } from './modules/landing/landing.component';
 import { SharedModule } from './shared/shared.module';
 import { LoginComponentComponent } from './modules/authentication/login-component/login-component.component';
 import { SignupComponent } from './modules/authentication/signup/signup.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { AboutUsComponent } from './modules/about-us/about-us.component';
+import { SupportComponent } from './modules/support/support.component';
+import { FooterComponent } from './shared/footer/footer.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { ForgotPasswordComponent } from './modules/authentication/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './modules/authentication/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     LandingComponent,
     LoginComponentComponent,
     SignupComponent,
+    AboutUsComponent,
+    SupportComponent,
+    NavbarComponent,
+    FooterComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +35,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    SharedModule
+   // SharedModule
   ],
   providers: [
     {
