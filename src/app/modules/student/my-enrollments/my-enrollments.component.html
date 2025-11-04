@@ -18,11 +18,11 @@
           <h5 class="card-title">{{ e.course?.title }}</h5>
           <p class="small text-muted mb-2">Enrolled: {{ e.enrollmentDate }}</p>
 
-          <div class="mb-2">
+          <!-- <div class="mb-2">
             <div class="progress">
               <div class="progress-bar" role="progressbar" [style.width.%]="e.progress">{{ e.progress }}%</div>
             </div>
-          </div>
+          </div> -->
 
           <div class="mt-auto d-flex justify-content-between align-items-center">
             <span class="badge" [ngClass]="{
@@ -30,7 +30,7 @@
               'bg-warning text-dark': e.status==='enrolled',
               'bg-secondary': e.status==='paused'
             }">{{ e.status }}</span>
-            <button class="btn btn-primary btn-sm" (click)="continueLearning(e.courseId)">
+            <button class="btn btn-primary btn-sm" (click)="continueLearning(e.courseId, e.id)">
               Continue Learning
             </button>
           </div>

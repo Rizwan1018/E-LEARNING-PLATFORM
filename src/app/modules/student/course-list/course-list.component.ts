@@ -51,28 +51,46 @@ export class CourseListComponent implements OnInit {
       });
   }
 
-   enroll(courseId: number) {
-    if (!this.selectedStudentId) {
-      alert('Please login as a student');
-      return;
-    }
-    this.enrollSvc.enroll(this.selectedStudentId, courseId).subscribe({
-      next: (res: any) => {
-        if (res.success) {
+  //  enroll(courseId: number) {
+  //   if (!this.selectedStudentId) {
+  //     alert('Please login as a student');
+  //     return;
+  //   }
+  //   this.enrollSvc.enroll(this.selectedStudentId, courseId).subscribe({
+  //     next: (res: any) => {
+  //       if (res.success) {
           
-          this.showPopup = true;
-          // Refresh course list after short delay
-          setTimeout(() => this.load(), 1000);
-        } else {
-          alert(res.message || 'Enrollment failed');
-        }
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Enrollment failed. Please try again.');
-      }
-    });
+  //         this.showPopup = true;
+  //         // Refresh course list after short delay
+  //         setTimeout(() => this.load(), 1000);
+  //       } else {
+  //         alert(res.message || 'Enrollment failed');
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.error(err);
+  //       alert('Enrollment failed. Please try again.');
+  //     }
+  //   });
+  // }
+ enroll(courseId: number) {
+  if (!this.selectedStudentId) {
+    alert('Please login as a student');
+    return;
   }
+  this.enrollSvc.enroll(this.selectedStudentId, courseId).subscribe({
+    next: (res: any) => {
+      const created = res && res.data ? res.data : res;
+      this.showPopup = true;
+      // Refresh course list after success
+      this.load();
+    },
+    error: (err) => {
+      console.error(err);
+      alert('Enrollment failed. Please try again.');
+    }
+  });
+}
 
   // ✅ New method to close popup
   closePopup() {
