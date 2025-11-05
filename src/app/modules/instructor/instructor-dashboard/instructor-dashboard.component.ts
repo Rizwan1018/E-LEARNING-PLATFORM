@@ -12,7 +12,7 @@ import { Course } from '../../../models/course';
 export class InstructorDashboardComponent implements OnInit {
   courses: Course[] = [];
   instructorId: number | null = null;
-  InstructorName! : string;
+  selectedInstructorName!:string;
 
   constructor(private courseService: CourseService, private catalog: CatalogService) { }
 
@@ -22,7 +22,7 @@ export class InstructorDashboardComponent implements OnInit {
 
     if (user && user.role === 'INSTRUCTOR') {
         this.instructorId = Number(user.id);
-        this.InstructorName = user.fullName;
+        this.selectedInstructorName=user.fullName;
         this.loadCourses();
     }
   }

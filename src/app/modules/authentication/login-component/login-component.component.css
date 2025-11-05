@@ -46,6 +46,16 @@
 .login-link:hover {
   text-decoration: underline;
 } */
+
+.login-link {
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
 .modal-content {
   border-radius: 20px;
   padding: 20px;

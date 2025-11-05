@@ -1,5 +1,8 @@
 <app-instructor-navbar></app-instructor-navbar>
-<div class="container">
+<div class="container" >
+
+  <div class="row">
+    <div class="col-md-9">
   <form [formGroup]="courseForm" (ngSubmit)="OnSubmit()">
     <input type="hidden" formControlName="instructorId"/>
     <div class="card p-3">
@@ -70,8 +73,9 @@
       </div>
     </div>
   </form>
+  </div>
 
-  <div class="col-md-4 mt-3">
+  <div class="col-md-3">
     <!-- Quick list of existing courses -->
     <div class="card p-3">
       <h6 class="mb-2">Existing Courses</h6>
@@ -89,5 +93,6 @@
         <div class="text-muted small">No courses yet</div>
       </ng-template>
     </div>
+  </div>
   </div>
 </div>

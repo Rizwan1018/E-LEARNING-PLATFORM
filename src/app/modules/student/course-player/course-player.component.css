@@ -1,0 +1,56 @@
+/* Video area */
+.player-wrap video {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  max-height: 560px;
+  object-fit: cover;
+  background: black;
+}
+
+/* Overlay meta */
+.video-meta .badge {
+  font-size: 0.85rem;
+}
+
+/* Sticky sidebar */
+.sticky-card {
+  position: sticky;
+  top: 90px;
+}
+
+/* course thumbnail */
+.thumb {
+  width: 78px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* rating stars */
+.bi {
+  font-size: 1.05rem;
+  margin-right: 2px;
+}
+
+/* make nav pills look slightly larger */
+.nav-pills .nav-link {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+}
+
+/* compact progress bar */
+.progress {
+  height: 10px;
+  border-radius: 6px;
+}
+
+/* small card body spacing */
+.card .card-body {
+  padding: 1rem;
+}
+
+/* responsiveness */
+@media (max-width: 991px) {
+  .player-wrap video { max-height: 420px; }
+  .sticky-card { position: static; margin-top: 1rem; }
+}

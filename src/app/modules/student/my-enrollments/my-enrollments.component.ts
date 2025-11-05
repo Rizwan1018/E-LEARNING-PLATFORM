@@ -58,7 +58,10 @@ export class MyEnrollmentsComponent implements OnInit, OnDestroy {
     );
   }
 
-  continueLearning(courseId: number) {
-    this.router.navigate(['student', 'player', Number(courseId)]);
-  }
+  continueLearning(courseId: number, enrollmentId: number | undefined) {
+  // navigate and pass enrollmentId so CoursePlayer can skip lookup
+  this.router.navigate(['student', 'player', Number(courseId)], {
+    queryParams: { enrollmentId: enrollmentId }
+  });
+}
 }

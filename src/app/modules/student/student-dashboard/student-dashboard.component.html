@@ -39,31 +39,25 @@
   </div>
 
   <div class="row mb-4">
-    <div class="col-md-3">
-      <div class="card p-3 text-center">
-        <div class="h3 mb-0">{{ enrolledCount }}</div>
-        <div class="small text-muted">Enrolled Courses</div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card p-3 text-center">
-        <div class="h3 mb-0">{{ learningHours }}</div>
-        <div class="small text-muted">Learning Hours</div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card p-3 text-center">
-        <div class="h3 mb-0">{{ certificates }}</div>
-        <div class="small text-muted">Certificates</div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card p-3 text-center">
-        <div class="h3 mb-0">{{ averageProgress }}%</div>
-        <div class="small text-muted">Average Progress</div>
-      </div>
+  <div class="col-md-4">
+    <div class="card p-3 text-center">
+      <div class="h3 mb-0">{{ enrolledCount }}</div>
+      <div class="small text-muted">Enrolled Courses</div>
     </div>
   </div>
+  <div class="col-md-4">
+    <div class="card p-3 text-center">
+      <div class="h3 mb-0">{{ learningHours }}</div>
+      <div class="small text-muted">Learning Hours</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3 text-center">
+      <div class="h3 mb-0">{{ averageProgress }}%</div>
+      <div class="small text-muted">Average Progress</div>
+    </div>
+  </div>
+</div>
   <br>
   <br>
 
@@ -82,19 +76,23 @@
             <span *ngIf="courseFor(e)?.durationHrs"> • {{ courseFor(e)?.durationHrs }}h</span>
           </p>
 
-          <p class="small text-truncate mb-2">{{ courseFor(e)?.description }}</p>
+          <!-- <p class="small text-truncate mb-2">{{ courseFor(e)?.description }}</p> -->
 
           <div class="mt-auto">
             <div class="mb-2 small text-muted">Enrolled: {{ e.enrollmentDate }}</div>
-            <div class="progress mb-2">
+            <!-- <div class="progress mb-2">
               <div class="progress-bar" role="progressbar" [style.width.%]="e.progress">
                 {{ e.progress }}%
               </div>
-            </div>
+            </div> -->
 
             <div class="d-flex justify-content-between align-items-center">
-              <span class="badge bg-warning text-dark">{{ e.status }}</span>
-              <button class="btn btn-sm btn-primary"
+                <span class="badge" [ngClass]="{
+                  'bg-success': e.status==='completed',
+                  'bg-warning text-dark': e.status==='enrolled',
+                  'bg-secondary': e.status==='paused'
+                  }">{{ e.status }}</span> 
+                 <button class="btn btn-sm btn-primary"
                       [routerLink]="['/student/player', courseFor(e)?.id]"
                       [queryParams]="{ enrollmentId: e.id }">
                 Continue Learning
