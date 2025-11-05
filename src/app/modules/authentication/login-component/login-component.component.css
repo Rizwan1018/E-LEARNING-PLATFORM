@@ -11,41 +11,6 @@
   width: 100%;
   box-shadow: 0px 8px 25px rgba(0,0,0,0.1);
 }
-/*
-.form-control {
-  border-radius: 8px;
-  padding: 12px;
-  border: 1px solid #000;
-  font-size: 15px;
-}
-
-.form-control:focus {
-  border-color: #000;
-  outline: none;
-  box-shadow: none;
-}
-
-.btn-dark {
-  border-radius: 8px;
-  padding: 12px;
-  font-weight: bold;
-  font-size: 15px;
-  transition: all 0.3s ease-in-out;
-}
-
-.btn-dark:hover {
-  background-color: #333;
-}
-
-.login-link {
-  font-weight: 600;
-  color: #000;
-  text-decoration: none;
-}
-
-.login-link:hover {
-  text-decoration: underline;
-} */
 
 .login-link {
   font-weight: 600;
