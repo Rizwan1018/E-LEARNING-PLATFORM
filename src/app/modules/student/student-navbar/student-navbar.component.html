@@ -14,30 +14,61 @@
       <li class="nav-item mx-2">
         <a class="nav-link active d-flex align-items-center" [routerLink]="['/student']"
            [queryParams]="{ studentId: selectedStudentId }">
-          <i class="bi bi-bar-chart me-1"></i> Dashboard
+          <i class="bi bi-bar-chart-fill me-1"></i> Dashboard
         </a>
       </li>
       <li class="nav-item mx-2">
         <a class="nav-link d-flex align-items-center" [routerLink]="['/student/courses']"
            [queryParams]="{ studentId: selectedStudentId }">
-          <i class="bi bi-collection me-1"></i> Browse Courses
+          <i class="bi bi-collection-fill me-1"></i> Browse Courses
         </a>
       </li>
       <li class="nav-item mx-2">
         <a class="nav-link d-flex align-items-center" [routerLink]="['/student/enrollments']"
            [queryParams]="{ studentId: selectedStudentId }">
-          <i class="bi bi-bookmark-check me-1"></i> My Enrollments
+          <i class="bi bi-bookmark-check-fill me-1"></i> My Enrollments
         </a>
+      </li>
+      <li class="nav-item mx-2">
+        <a class="nav-link d-flex align-items-center"  [routerLink]="['notifications']"
+                [queryParams]="{ studentId: selectedStudentId }">
+          <i class="bi bi-bell-fill me-1"></i>Notifications
+      </a>
       </li>
     </ul>
 
     <ul class="navbar-nav ms-auto">
-      <li class="nav-item">
-        <span class="fw-bold nav-link">{{ studentName }}</span>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="logout()"><i class="bi bi-box-arrow-right"></i></a>
-      </li>
+
+      <div class="nav-profile"
+     (mouseenter)="openDropdown()"
+     (mouseleave)="closeDropdown()">
+
+  <div class="avatar">{{ initials }}</div>
+
+  <div class="profile-dropdown" 
+       *ngIf="dropdownVisible"
+       (mouseenter)="keepOpen()"
+       (mouseleave)="closeDropdown()">
+
+    <div class="pd-header">
+      <div class="avatar large">{{ initials }}</div>
+      <div class="text-info" >
+        <strong style="color:#000;" >{{ user.fullName }}</strong> <br>
+        <small style="color:#000;" >{{ user.email }}</small>
+      </div>
+    </div>
+
+    <hr>
+
+    <button class="pd-btn" (click)="goToProfile()">Profile</button>
+    <button class="pd-btn" (click)="logout()">Logout</button>
+
+  </div>
+
+</div>
+
+
+      
     </ul>
   </div>
 </nav>

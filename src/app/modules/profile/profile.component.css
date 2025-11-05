@@ -1,0 +1,155 @@
+:root {
+  --primary-color: #1c1d1f;
+  --secondary-color: #5624d0;
+  --bg-light: #f7f9fa;
+  --border-strong: #000; /* Black border */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--primary-color);
+  margin: 0;
+}
+
+/* == MAIN LAYOUT == */
+.profile-container {
+  display: flex;
+  max-width: 1150px;
+  margin: 40px auto;
+  gap: 25px;
+  padding: 0 20px;
+}
+
+/* == SIDEBAR == */
+.profile-sidebar {
+  width: 260px;
+  background: #fff;
+  border: 1px solid var(--border-strong);
+  padding-bottom: 20px;
+}
+
+.profile-header {
+  padding: 22px;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.profile-header h4 {
+  margin: 0 0 5px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.view-profile-link {
+  font-size: 14px;
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.profile-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-menu li {
+  padding: 14px 22px;
+  font-size: 15px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-strong);
+  color: #4e4e4e;
+}
+
+.profile-menu li.active {
+  background: #eee;
+  font-weight: bold;
+}
+
+/* == MAIN CONTENT == */
+.profile-content {
+  flex: 1;
+  background: #fff;
+  padding: 30px;
+  border: 1px solid var(--border-strong);
+}
+
+.content-heading {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.heading-subtext {
+  font-size: 14px;
+  margin-bottom: 25px;
+  color: #555;
+}
+.bordered-input{
+    border-radius: 4px;
+    border: 1px solid black;
+}
+
+/* == FORMS == */
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+.form-group input{
+     border-radius: 4px;
+    border: 1px solid black;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-strong); /* Always black border ✅ */
+  font-size: 15px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* Character limit box */
+.input-with-limit {
+  display: flex;
+  align-items: center;
+}
+
+.input-with-limit .limit {
+  padding: 12px;
+  border: 1px solid var(--border-strong);
+  background: #eee;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* Hint */
+.hint-text {
+  font-size: 12px;
+  color: #6a6f73;
+}
+
+/* Save button */
+.save-btn {
+  margin-top: 20px;
+  background: black;
+  border: none;
+  padding: 12px 20px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #4218a8;
+}

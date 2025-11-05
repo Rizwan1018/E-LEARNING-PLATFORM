@@ -29,7 +29,15 @@ export class AuthService {
     })
   );
 
+
     
+  }
+  getUserProfile(id :number){
+    return this.http.get(`http://localhost:8080/api/profile/${id}`);
+  }
+
+  updateUserProfile(id :number, data:any){
+    return this.http.put(`${this.baseUrl}/profile/${id}`, data)
   }
 
   logout(): void{
