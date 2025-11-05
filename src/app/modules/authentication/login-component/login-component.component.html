@@ -1,6 +1,6 @@
 <div class="login-body d-flex justify-content-center align-items-center min-vh-100">
   <div class="login-box text-center">
-    
+
     <!-- Logo -->
     <img src="/inco.svg" alt="Logo" width="80" height="80" class="mb-3">
 
@@ -12,22 +12,12 @@
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <!-- Email -->
       <div class="mb-3 text-start">
-        <input 
-          formControlName="email" 
-          type="email" 
-          class="form-control" 
-          placeholder="Email"
-          required>
+        <input formControlName="email" type="email" class="form-control" placeholder="Email" required>
       </div>
 
       <!-- Password -->
       <div class="mb-4 text-start">
-        <input 
-          formControlName="password" 
-          type="password" 
-          class="form-control" 
-          placeholder="Password"
-          required>
+        <input formControlName="password" type="password" class="form-control" placeholder="Password" required>
       </div>
 
       <!-- Button -->
@@ -42,37 +32,40 @@
       <a routerLink="/signup"  class="login-link">Sign Up</a>
     </p>
 
-       <a routerLink="/forgot-password" class="login-link">
-            Forgotten password?
-               </a>    
+    <a routerLink="/forgot-password"  class="login-link"> 
+      Forgotten password?
+    </a>
   </div>
 
-  
 <!-- Success Modal -->
-<div class="modal fade" id="statusSuccessModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade" id="statusSuccessModal" tabindex="-1" role="dialog" data-bs-backdrop="static"
+  data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
     <div class="modal-content rounded-4 p-3">
       <div class="modal-body text-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2" style="width: 60px;">
           <circle class="path circle" fill="none" stroke="#198754" stroke-width="6" cx="65.1" cy="65.1" r="62.1" />
-          <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" points="100.2,40.2 51.5,88.8 29.8,67.5" />
+          <polyline class="path check" fill="none" stroke="#198754" stroke-width="6"
+            points="100.2,40.2 51.5,88.8 29.8,67.5" />
         </svg>
         <h5 class="text-success mt-3 mb-1">Valid Credentials!</h5>
         <p class="mb-2">You have successfully logged in.</p>
-        <button type="button" class="btn btn-sm btn-success" data-bs-dismiss="modal">Ok</button>
+        <button type="button" class="btn btn-sm btn-success" id="successModalOkBtn" data-bs-dismiss="modal">Ok</button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Error Modal -->
-<div class="modal fade" id="statusErrorsModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade" id="statusErrorsModal" tabindex="-1" role="dialog" data-bs-backdrop="static"
+  data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
     <div class="modal-content rounded-4 p-3">
       <div class="modal-body text-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2" style="width: 60px;">
           <circle class="path circle" fill="none" stroke="#db3646" stroke-width="6" cx="65.1" cy="65.1" r="62.1" />
-          <line class="path line" fill="none" stroke="#db3646" stroke-width="6" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+          <line class="path line" fill="none" stroke="#db3646" stroke-width="6" x1="34.4" y1="37.9" x2="95.8"
+            y2="92.3" />
           <line class="path line" fill="none" stroke="#db3646" stroke-width="6" x1="95.8" y1="38" x2="34.4" y2="92.2" />
         </svg>
         <h5 class="text-danger mt-3 mb-1">Invalid Credentials!</h5>
@@ -82,4 +75,3 @@
     </div>
   </div>
 </div>
-
