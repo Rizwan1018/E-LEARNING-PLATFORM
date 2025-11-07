@@ -123,10 +123,10 @@
                         <span *ngIf="questions.at(i).get('correctAnswer')?.errors?.['required']">
                           Correct answer index is required.
                         </span>
-                        <span *ngIf="questions.at(i)?.errors?.['answerNotNumber']">
+                        <span *ngIf="questions.at(i).errors?.['answerNotNumber']">
                           Correct answer must be a number.
                         </span>
-                        <span *ngIf="questions.at(i)?.errors?.['answerOutOfRange']">
+                        <span *ngIf="questions.at(i).errors?.['answerOutOfRange']">
                           Must be between 0 and {{ getOptions(i).length - 1 }}.
                         </span>
                       </div>
