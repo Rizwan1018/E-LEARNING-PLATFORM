@@ -16,8 +16,7 @@ import { Assessment } from '../../../models/assessment';
 
 @Component({
   selector: 'app-assessment-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  standalone: false,
   templateUrl: './assessment-form.component.html',
 })
 export class AssessmentFormComponent implements OnInit {
@@ -74,7 +73,6 @@ export class AssessmentFormComponent implements OnInit {
     });
   }
 
-  /** Build question group (STRICT: all options required; correctAnswer must be within range) */
   private createQuestionGroup(q?: { text: string; options: string[]; correctAnswer: number }): FormGroup {
     const optionsValues = q?.options?.length ? q.options : ['', '', '', ''];
 
@@ -98,7 +96,6 @@ export class AssessmentFormComponent implements OnInit {
     return group;
   }
 
-  /** Add/remove question */
   addQuestion() {
     this.questions.push(this.createQuestionGroup());
     this.form.updateValueAndValidity();
@@ -115,9 +112,7 @@ export class AssessmentFormComponent implements OnInit {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      // Log which controls are invalid for quick debugging
       console.warn('Form invalid. Reasons:', this.collectErrors(this.form));
-      // Optional UX: scroll to first error
       setTimeout(() => {
         const firstInvalid = document.querySelector('.is-invalid, .invalid-feedback.d-block');
         firstInvalid?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -142,7 +137,6 @@ export class AssessmentFormComponent implements OnInit {
     });
   }
 
-  /** Normalize payload */
   private toAssessmentPayload(): Assessment {
     const raw = this.form.getRawValue();
 
@@ -160,7 +154,6 @@ export class AssessmentFormComponent implements OnInit {
     } as Assessment;
   }
 
-  /** Template helpers */
   ctrl(path: string | (string | number)[]): AbstractControl | null {
     return Array.isArray(path) ? this.form.get(path as any) : this.form.get(path);
   }
@@ -168,7 +161,6 @@ export class AssessmentFormComponent implements OnInit {
     return !!c && c.invalid && (c.touched || c.dirty || this.submitted);
   }
 
-  /** Debug: collect all errors */
   private collectErrors(control: AbstractControl, path: string[] = []): any[] {
     const out: any[] = [];
     if (control instanceof FormGroup) {
@@ -186,7 +178,6 @@ export class AssessmentFormComponent implements OnInit {
   }
 }
 
-/** -------- Validator: correctAnswer must be 0..options.length-1 -------- */
 function correctAnswerInRangeValidator(group: AbstractControl): ValidationErrors | null {
   const g = group as FormGroup;
   const optionsFA = g.get('options') as FormArray | null;
