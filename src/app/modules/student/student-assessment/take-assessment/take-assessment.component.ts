@@ -1,88 +1,89 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssessmentService } from '../../../../services/assessment.service';
 import { switchMap } from 'rxjs/operators';
-import { Assessment } from '../../../../models/assessment';
 import { CommonModule } from '@angular/common';
 
-declare var bootstrap: any; // ✅ Needed for Bootstrap Modal JS API
+import { HttpErrorResponse } from '@angular/common/http';
+
+import { AssessmentService } from '../../../../services/assessment.service';
+import { Assessment, Question } from '../../../../models/assessment';
+import { AssessmentAttemptService } from '../../../../services/assessment-attempt.service';
 
 @Component({
   selector: 'app-take-assessment',
-  standalone: true, // ✅ Important for standalone component
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './take-assessment.component.html',
-  styleUrls: ['./take-assessment.component.css'] // ✅ Correct spelling
+  styleUrls: ['./take-assessment.component.css']
 })
 export class TakeAssessmentComponent implements OnInit {
-
-  assessmentId: string | null = null;
+  assessmentId!: number;
   assessment: Assessment | null = null;
-  studentAnswers: { [key: number]: number } = {};
+
+  // answers keyed by questionId
+  studentAnswers: { [questionId: number]: number } = {};
+
+  submitInFlight = false;
 
   constructor(
     private route: ActivatedRoute,
     private assessmentService: AssessmentService,
+    private attemptService: AssessmentAttemptService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
       switchMap(params => {
-        this.assessmentId = params.get('id');
-        if (this.assessmentId) {
-          return this.assessmentService.getAssessment(this.assessmentId);
-        } else {
-          return [];
-        }
+        const idStr = params.get('id');
+        if (!idStr) return [];
+        const id = Number(idStr);
+        this.assessmentId = id;
+        return this.assessmentService.getAssessment(id.toString());
       })
-    ).subscribe(data => {
-      this.assessment = data;
-    });
+    ).subscribe({
+      next: (data: any) => {
+        this.assessment = data;
+        if (!Array.isArray(this.assessment?.questions)) {
+          this.assessment!.questions = [];
+        }
+      },
+      error: (err: HttpErrorResponse)=> {
+        console.error('Failed to load assessment', err);
+        alert('Failed to load assessment.');
+      }
+    } as any);
   }
 
-  onAnswerSelected(questionIndex: number, optionIndex: number): void {
-    this.studentAnswers[questionIndex] = optionIndex;
+  onAnswerSelected(question: Question, optionIndex: number): void {
+    if (!question.id && question.id !== 0) {
+      console.warn('Question ID is missing; ensure backend returns question.id');
+      return;
+    }
+    this.studentAnswers[question.id!] = optionIndex;
   }
 
   submitAssessment(): void {
-    let score = 0;
-    const totalQuestions = this.assessment?.questions.length || 0;
+    if (!this.assessment?.id) return;
 
-    if (this.assessment && totalQuestions > 0) {
-      this.assessment.questions.forEach((question, index) => {
-        if (this.studentAnswers[index] === question.correctAnswer) {
-          score++;
-        }
-      });
-    }
-
-    // ✅ Update modal content dynamically
-    const modalElement = document.getElementById('scoreModal');
-    const modalBody = modalElement?.querySelector('.modal-body');
-    if (modalBody) {
-      modalBody.textContent = `Your score is: ${score} out of ${totalQuestions}`;
-    }
-
-    // ✅ Show Bootstrap modal
-    if (modalElement) {
-      const modal = new bootstrap.Modal(modalElement);
-      modal.show();
-    }
+    this.submitInFlight = true;
+    this.attemptService.postAttempt({
+      assessmentId: this.assessment.id!,
+      answers: this.studentAnswers
+    }).subscribe({
+      next: res => {
+        this.submitInFlight = false;
+        alert(`Submitted! Score: ${res.score}/${res.totalQuestions}`);
+        this.router.navigate(['student/assessment-marks']); 
+      },
+      error: err => {
+        this.submitInFlight = false;
+        console.error('Submit failed', err);
+        alert(err?.error?.message || 'Submit failed');
+      }
+    });
   }
 
- 
-
-  
-navigateToAssessments(): void {
-  const modalElement = document.getElementById('scoreModal');
-  if (modalElement) {
-    const modal = bootstrap.Modal.getInstance(modalElement); // ✅ Get current modal instance
-    modal?.hide(); // ✅ Close modal properly
-  }
-
-  this.router.navigate(['student/student/assessments']);
-}
-
+  trackByQ = (_: number, q: Question) => q.id ?? _;
 }

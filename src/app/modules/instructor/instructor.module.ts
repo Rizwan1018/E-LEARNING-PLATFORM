@@ -1,6 +1,3 @@
-
-
-// src/app/modules/instructor/instructor.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,13 +8,15 @@ import { AddCourseComponent } from './add-course/add-course.component';
 import { InstructorAnnouncementsCreateComponent } from './instructor-announcements-create/instructor-announcements-create.component';
 import { InstructorNavbarComponent } from './instructor-navbar/instructor-navbar.component';
 
-
+import { AssessmentFormComponent } from './teacher-assessment/assessment-form.component';
 @NgModule({
   declarations: [
+    AssessmentFormComponent,
     InstructorDashboardComponent,
     AddCourseComponent,
     InstructorAnnouncementsCreateComponent,
-    InstructorNavbarComponent
+    InstructorNavbarComponent,
+    
     ],
   imports: [
     CommonModule,
