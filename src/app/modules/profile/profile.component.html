@@ -22,6 +22,14 @@
           <label for="firstName">Full Name :</label>
                 <input type="text" [value]="user.fullName" name="firstName" required class="bordered-input" readonly>
         </div>
+        <div class="form-group">
+          <label for="firstName">Email Address :</label>
+                <input type="text" [value]="user.email" name="emailId" required class="bordered-input" readonly>
+        </div>
+        <div class="form-group">
+          <label for="firstName">Contact details:</label>
+                <input type="text" [value]="user.contact" name="contactInfo" required class="bordered-input" readonly>
+        </div>
 
         <div class="form-group">
           <label for="headline">Headline</label>
@@ -31,7 +39,7 @@
         </div>
 
         <div class="form-group">
-          <label>Biography</label>
+          <label>Bio</label>
           <textarea [(ngModel)]="user.bio" name="bio" rows="4" class="bordered-input"></textarea>
         </div>
     </fieldset>
