@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { EnrollmentService } from '../../../services/enrollment.service';
 import { Course } from '../../../models/course';
 import { CatalogService } from '../../../services/catalog.service';
+import { PaymentService } from '../../../services/payment.service';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-course-list',
@@ -16,9 +20,23 @@ export class CourseListComponent implements OnInit {
   message = '';
   showPopup = false; // ✅ new variable
 
+  //payment related
+   course: any;
+  showModal = false;
+  selectedCourse: any;
+  isProcessing = false;
+  paymentSuccess = false;
+  transactionId = '';
+
+
   constructor(
     private courseService: CatalogService,
     private enrollSvc: EnrollmentService,
+    //payment related
+    private paymentService : PaymentService,
+    private route: ActivatedRoute,
+    private http: HttpClient
+    
   ) {}
 
   ngOnInit() {
@@ -27,6 +45,14 @@ export class CourseListComponent implements OnInit {
       this.selectedStudentId = Number(user.id);
     }
     this.load();
+
+    //payment related
+    const id = this.route.snapshot.paramMap.get('id');
+    this.http.get(`http://localhost:8080/api/courses/${id}`).subscribe({
+      next: (res) => (this.course = res),
+      error: (err) => console.error(err)
+    });
+
   }
 
   load(): void {
@@ -51,28 +77,6 @@ export class CourseListComponent implements OnInit {
       });
   }
 
-  //  enroll(courseId: number) {
-  //   if (!this.selectedStudentId) {
-  //     alert('Please login as a student');
-  //     return;
-  //   }
-  //   this.enrollSvc.enroll(this.selectedStudentId, courseId).subscribe({
-  //     next: (res: any) => {
-  //       if (res.success) {
-          
-  //         this.showPopup = true;
-  //         // Refresh course list after short delay
-  //         setTimeout(() => this.load(), 1000);
-  //       } else {
-  //         alert(res.message || 'Enrollment failed');
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.error(err);
-  //       alert('Enrollment failed. Please try again.');
-  //     }
-  //   });
-  // }
  enroll(courseId: number) {
   if (!this.selectedStudentId) {
     alert('Please login as a student');
@@ -96,4 +100,65 @@ export class CourseListComponent implements OnInit {
   closePopup() {
     this.showPopup = false;
   }
+
+
+  // Just Testing the payment module
+ confirmPurchase(course: any) {
+  if (!course || !course.id) {
+    console.error('Invalid course object:', course);
+    alert('Error: Invalid course data');
+    return;
+  }
+
+  console.log('Course selected:', course); // ✅ Check in console
+  this.selectedCourse = { ...course }; // clone the object
+  this.showModal = true;
+  document.body.style.overflow = 'hidden'; // lock scroll
+}
+
+
+closeModal() {
+  this.showModal = false;
+  document.body.classList.remove('modal-open');
+}
+
+
+
+  cancelPayment() {
+    this.showModal = false;
+  }
+
+ makePayment() {
+  if (!this.selectedCourse || !this.selectedCourse.id) {
+    alert('Course not selected properly.');
+    return;
+  }
+
+  const userRaw = localStorage.getItem('user');
+  if (!userRaw) {
+    alert('Please login first!');
+    return;
+  }
+
+  const user = JSON.parse(userRaw);
+  const studentId = user.id;
+  const courseId = this.selectedCourse.id;
+
+  this.isProcessing = true;
+
+  setTimeout(() => {
+    this.paymentService.processPayment(studentId, courseId).subscribe({
+      next: (res) => {
+        this.isProcessing = false;
+        this.paymentSuccess = true;
+        this.transactionId = res.transactionId;
+      },
+      error: (err) => {
+        this.isProcessing = false;
+        alert('❌ Payment Failed!');
+        console.error(err);
+      }
+    });
+  }, 2000);
+}
 }

@@ -16,6 +16,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ForgotPasswordComponent } from './modules/authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './modules/authentication/reset-password/reset-password.component';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { PaymentHistoryComponent } from './modules/payment-history/payment-history.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { ProfileComponent } from './modules/profile/profile.component';
     FooterComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    PaymentHistoryComponent,
+    
   ],
   imports: [
     BrowserModule,

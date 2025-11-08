@@ -10,6 +10,7 @@ import { SupportComponent } from './modules/support/support.component';
 import { ForgotPasswordComponent } from './modules/authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './modules/authentication/reset-password/reset-password.component';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { PaymentHistoryComponent } from './modules/payment-history/payment-history.component';
 // If you plan to add a dedicated HomeComponent, import from ./modules/home/home.component
 // For now we just redirect '' to student-dashboard
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path:'profile', component:ProfileComponent  },
   {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'reset-password',component:ResetPasswordComponent},
+  {path:'payments',component:PaymentHistoryComponent},
      { path: '**', redirectTo: '' }
 ];
 
