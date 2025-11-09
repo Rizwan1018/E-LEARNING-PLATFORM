@@ -11,12 +11,26 @@ export class PaymentService {
 
   constructor(private http: HttpClient) {}
 
-  // 🧾 Process payment for a course
-  processPayment(studentId: number, courseId: number): Observable<any> {
+  // 💳 1️⃣ Create Razorpay Order (Used by Razorpay popup flow)
+  processPayment(amount: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/create-order`, null, {
+      params: { amount },
+    });
+  }
+
+  // 📚 2️⃣ Enroll the student after payment success
+  processEnrollment(studentId: number, courseId: number): Observable<any> {
+    const body = { studentId, courseId };
+    return this.http.post(`http://localhost:8080/api/enrollments`, body);
+  }
+
+  // 🧾 3️⃣ Old dummy payment (optional fallback)
+  // 🔸 Use this only if you want to test without Razorpay
+  mockPayment(studentId: number, courseId: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/process?studentId=${studentId}&courseId=${courseId}`, {});
   }
 
-  // 📜 Get all payments by student
+  // 📜 4️⃣ Fetch payment history by student
   getPaymentsByStudent(studentId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/student/${studentId}`);
   }
