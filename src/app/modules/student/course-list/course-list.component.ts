@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { EnrollmentService } from '../../../services/enrollment.service';
 import { Course } from '../../../models/course';
 import { CatalogService } from '../../../services/catalog.service';
@@ -6,37 +6,37 @@ import { PaymentService } from '../../../services/payment.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
+declare var Razorpay: any; // ✅ Razorpay global declaration
 
 @Component({
   selector: 'app-course-list',
-  standalone:false,
+  standalone: false,
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.css']
 })
 export class CourseListComponent implements OnInit {
+
   courses: Course[] = [];
   selectedStudentId = 0;
   search = '';
   message = '';
-  showPopup = false; // ✅ new variable
+  showPopup = false;
 
-  //payment related
-   course: any;
+  // payment related
+  course: any;
   showModal = false;
   selectedCourse: any;
   isProcessing = false;
   paymentSuccess = false;
   transactionId = '';
 
-
   constructor(
     private courseService: CatalogService,
     private enrollSvc: EnrollmentService,
-    //payment related
-    private paymentService : PaymentService,
+    private paymentService: PaymentService,
     private route: ActivatedRoute,
-    private http: HttpClient
-    
+    private http: HttpClient,
+    private ngZone : NgZone
   ) {}
 
   ngOnInit() {
@@ -46,22 +46,21 @@ export class CourseListComponent implements OnInit {
     }
     this.load();
 
-    //payment related
+    // optional: load course by id (if route param exists)
     const id = this.route.snapshot.paramMap.get('id');
-    this.http.get(`http://localhost:8080/api/courses/${id}`).subscribe({
-      next: (res) => (this.course = res),
-      error: (err) => console.error(err)
-    });
-
+    if (id) {
+      this.http.get(`http://localhost:8080/api/courses/${id}`).subscribe({
+        next: (res) => (this.course = res),
+        error: (err) => console.error(err)
+      });
+    }
   }
 
   load(): void {
-    // pass studentId so backend returns enrolled flag
     const studentId = this.selectedStudentId ? this.selectedStudentId : undefined;
     this.courseService.getCourses({ search: this.search }, studentId)
       .subscribe({
         next: (data) => {
-          // normalize and add displayTags
           this.courses = (Array.isArray(data) ? data : []).map((c: any) => ({
             ...c,
             displayTags: typeof c.tags === 'string'
@@ -77,66 +76,53 @@ export class CourseListComponent implements OnInit {
       });
   }
 
- enroll(courseId: number) {
-  if (!this.selectedStudentId) {
-    alert('Please login as a student');
-    return;
-  }
-  this.enrollSvc.enroll(this.selectedStudentId, courseId).subscribe({
-    next: (res: any) => {
-      const created = res && res.data ? res.data : res;
-      this.showPopup = true;
-      // Refresh course list after success
-      this.load();
-    },
-    error: (err) => {
-      console.error(err);
-      alert('Enrollment failed. Please try again.');
+  enroll(courseId: number) {
+    if (!this.selectedStudentId) {
+      alert('Please login as a student');
+      return;
     }
-  });
-}
+    this.enrollSvc.enroll(this.selectedStudentId, courseId).subscribe({
+      next: (res: any) => {
+        this.showPopup = true;
+        this.load();
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Enrollment failed. Please try again.');
+      }
+    });
+  }
 
-  // ✅ New method to close popup
   closePopup() {
     this.showPopup = false;
   }
 
-
-  // Just Testing the payment module
- confirmPurchase(course: any) {
-  if (!course || !course.id) {
-    console.error('Invalid course object:', course);
-    alert('Error: Invalid course data');
-    return;
+  // ✅ open modal before confirming payment
+  confirmPurchase(course: any) {
+    if (!course || !course.id) {
+      console.error('Invalid course object:', course);
+      alert('Error: Invalid course data');
+      return;
+    }
+    this.selectedCourse = { ...course };
+    this.showModal = true;
+    document.body.style.overflow = 'hidden';
   }
 
-  console.log('Course selected:', course); // ✅ Check in console
-  this.selectedCourse = { ...course }; // clone the object
-  this.showModal = true;
-  document.body.style.overflow = 'hidden'; // lock scroll
-}
-
-
-closeModal() {
-  this.showModal = false;
-  document.body.classList.remove('modal-open');
-}
-
-
+  closeModal() {
+    this.showModal = false;
+    document.body.style.overflow = 'auto';
+  }
 
   cancelPayment() {
     this.showModal = false;
   }
 
- makePayment() {
-  if (!this.selectedCourse || !this.selectedCourse.id) {
-    alert('Course not selected properly.');
-    return;
-  }
-
+  // ✅ Payment Logic (Razorpay + Backend)
+  async makePayment() {
   const userRaw = localStorage.getItem('user');
-  if (!userRaw) {
-    alert('Please login first!');
+  if (!userRaw || !this.selectedCourse) {
+    alert('Please select a course and login!');
     return;
   }
 
@@ -146,19 +132,82 @@ closeModal() {
 
   this.isProcessing = true;
 
-  setTimeout(() => {
-    this.paymentService.processPayment(studentId, courseId).subscribe({
-      next: (res) => {
+  this.paymentService.processPayment(499).subscribe({
+    next: (order: any) => {
+      const options = {
+        key: 'rzp_test_RdGkzD23qpCkc7', // Test key
+        amount: order.amount,
+        currency: 'INR',
+        name: 'INCO Learn',
+        description: this.selectedCourse.title,
+        order_id: order.orderId,
+
+        handler: (response: any) => {
+            this.ngZone.run(() => {
+          console.log('✅ Razorpay success:', response);
+
+          // Stop loader immediately
+          this.isProcessing = false;
+
+          // Enroll the student after successful payment
+          this.enroll(courseId);
+
+          // Update UI
+          this.paymentSuccess = true;
+          this.transactionId = response.razorpay_payment_id;
+
+          // Hide modal after short delay
+          setTimeout(() => {
+            this.showModal = false;
+            document.body.style.overflow = 'auto';
+          }, 800);
+
+          this.load();
+         }); // refresh courses
+        },
+
+        prefill: {
+          name: user.name,
+          email: user.email,
+        },
+        theme: { color: '#5624d0' },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
+
+      rzp.on('payment.failed', (response: any) => {
+        console.error('❌ Payment failed:', response.error);
         this.isProcessing = false;
-        this.paymentSuccess = true;
-        this.transactionId = res.transactionId;
-      },
-      error: (err) => {
-        this.isProcessing = false;
-        alert('❌ Payment Failed!');
-        console.error(err);
-      }
-    });
-  }, 2000);
+        alert('Payment failed. Please try again.');
+        this.showModal = false;
+      });
+    },
+    error: (err) => {
+      console.error('Error creating Razorpay order:', err);
+      this.isProcessing = false;
+      this.showModal = false;
+      alert('Failed to initialize payment.');
+    },
+  });
 }
+
+
+
+  // ✅ Load Razorpay script dynamically
+  loadRazorpayScript() {
+    return new Promise((resolve) => {
+      if (document.getElementById('razorpay-script')) {
+        resolve(true);
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.id = 'razorpay-script';
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  }
 }

@@ -11,8 +11,7 @@ export class AssessmentService {
 
   constructor(private http: HttpClient) {}
 
-  // getAssessments(): Observable<Assessment[]> {
-  getAssessments(): Observable<any[]> {
+   getAssessments(): Observable<any[]> {
     return this.http.get<Assessment[]>(this.baseUrl);
   }
 

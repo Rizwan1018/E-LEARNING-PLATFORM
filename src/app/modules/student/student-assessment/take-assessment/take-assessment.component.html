@@ -1,74 +1,31 @@
-<!-- <p>take-assessment works!</p>
 
-<div class="container mt-5">
-  <div *ngIf="assessment" class="row justify-content-center">
-    <div class="col-lg-10">
-      <div class="card shadow-sm border-0 rounded-3">
-        <div class="card-body p-4">
-          <h2 class="card-title text-center mb-4 text-primary">{{ assessment?.title }}</h2>
-          <p class="card-text text-muted text-center mb-4">{{ assessment?.description }}</p>
-          
-          <div *ngFor="let q of assessment.questions; let i = index" class="mb-4">
-            <h5 class="fw-bold mb-3">Question {{ i + 1 }}: {{ q.text }}</h5>
-            <div class="form-check" *ngFor="let o of q.options; let j = index">
-              <input class="form-check-input" type="radio" [name]="'question-' + i" [id]="'option-' + i + '-' + j">
-              <label class="form-check-label" [for]="'option-' + i + '-' + j">
-                {{ o }}
-              </label>
-            </div>
-          </div>
+<div class="container mt-4" *ngIf="assessment">
+  <h3>{{ assessment.title }}</h3>
+  <p class="text-muted">{{ assessment.description }}</p>
 
-          <div class="d-grid gap-2 mt-4">
-            <button class="btn btn-success" (click)="submitAssessment()">
-              Submit Assessment ✅
-            </button>
-          </div>
-        </div>
-      </div>
+  <div *ngFor="let q of assessment.questions; let i = index; trackBy: trackByQ" class="mb-4">
+    <h6>Q{{ i + 1 }}. {{ q.text }}</h6>
+    <div class="form-check" *ngFor="let opt of q.options; let oi = index">
+      <input
+        class="form-check-input"
+        type="radio"
+        [name]="'q' + (q.id ?? i)"
+        [id]="'q' + (q.id ?? i) + '_opt' + oi"
+        [value]="oi"
+        (change)="onAnswerSelected(q, oi)"
+        [checked]="studentAnswers[q.id!] === oi"
+      />
+      <label class="form-check-label" [for]="'q' + (q.id ?? i) + '_opt' + oi">
+        {{ opt }}
+      </label>
     </div>
   </div>
 
-  <div *ngIf="!assessment" class="text-center text-muted mt-5">
-    <p>Loading assessment details...</p>
-  </div>
-</div> -->
+  <button class="btn btn-primary" [disabled]="submitInFlight" (click)="submitAssessment()">
+    {{ submitInFlight ? 'Submitting...' : 'Submit Assessment' }}
+  </button>
+</div>
 
-<div class="container mt-5">
-  <div *ngIf="assessment" class="row justify-content-center">
-    <div class="col-lg-10">
-      <div class="card shadow-sm border-0 rounded-3">
-        <div class="card-body p-4">
-          <h2 class="card-title text-center mb-4 text-primary">{{ assessment.title }}</h2>
-          <p class="card-text text-muted text-center mb-4">{{ assessment.description }}</p>
-          
-          <div *ngFor="let q of assessment.questions; let i = index" class="mb-4">
-            <h5 class="fw-bold mb-3">Question {{ i + 1 }}: {{ q.text }}</h5>
-            
-            <div class="form-check" *ngFor="let o of q.options; let j = index">
-              <input 
-                class="form-check-input" 
-                type="radio" 
-                [name]="'question-' + i" 
-                [id]="'option-' + i + '-' + j"
-                (change)="onAnswerSelected(i, j)"
-              >
-              <label class="form-check-label" [for]="'option-' + i + '-' + j">
-                {{ o }}
-              </label>
-            </div>
-          </div>
-
-          <div class="d-grid gap-2 mt-4">
-            <button class="btn btn-success"  (click)="submitAssessment()">
-              Submit Assessment ✅
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="!assessment" class="text-center text-muted mt-5">
-    <p>Loading assessment details...</p>
-  </div>
+<div class="container mt-4" *ngIf="!assessment">
+  Loading...
 </div>

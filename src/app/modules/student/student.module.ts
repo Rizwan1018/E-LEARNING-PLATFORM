@@ -9,6 +9,7 @@ import { MyEnrollmentsComponent } from './my-enrollments/my-enrollments.componen
 import { CoursePlayerComponent } from './course-player/course-player.component';
 import { StudentNavbarComponent } from './student-navbar/student-navbar.component';
 import { StudentNotificationsComponent } from './student-notifications/student-notifications.component';
+import { StudentAssessmentMarksComponent } from './student-assessment-marks/student-assessment-marks.component';
 
 
 @NgModule({
@@ -18,9 +19,10 @@ import { StudentNotificationsComponent } from './student-notifications/student-n
     CoursePlayerComponent,
     MyEnrollmentsComponent,
     StudentNavbarComponent,
-    StudentNotificationsComponent
+    StudentNotificationsComponent,
   ],
   imports: [
+    StudentAssessmentMarksComponent,
     CommonModule,
     FormsModule,
     StudentRoutingModule]
