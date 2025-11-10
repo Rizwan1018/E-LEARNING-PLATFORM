@@ -1,81 +1,89 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssessmentService } from '../../../../services/assessment.service';
 import { switchMap } from 'rxjs/operators';
-import { Assessment, Question } from '../../../../models/assessment';
 import { CommonModule } from '@angular/common';
+
+import { HttpErrorResponse } from '@angular/common/http';
+
+import { AssessmentService } from '../../../../services/assessment.service';
+import { Assessment, Question } from '../../../../models/assessment';
+import { AssessmentAttemptService } from '../../../../services/assessment-attempt.service';
 
 @Component({
   selector: 'app-take-assessment',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './take-assessment.component.html',
-  styleUrl: './take-assessment.component.css'
+  styleUrls: ['./take-assessment.component.css']
 })
 export class TakeAssessmentComponent implements OnInit {
+  assessmentId!: number;
+  assessment: Assessment | null = null;
 
-  
+  // answers keyed by questionId
+  studentAnswers: { [questionId: number]: number } = {};
 
-  assessmentId: string | null = null;
-  assessment: Assessment | null = null; // Use the Assessment type
+  submitInFlight = false;
 
-  studentAnswers:{[key:number]:number}={};
   constructor(
     private route: ActivatedRoute,
     private assessmentService: AssessmentService,
+    private attemptService: AssessmentAttemptService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
       switchMap(params => {
-        this.assessmentId = params.get('id');
-        if (this.assessmentId) {
-          // 👈 Call the correct method name: getAssessment()
-          return this.assessmentService.getAssessment(this.assessmentId);
-        } else {
-          // Handle the case where no ID is found (e.g., redirect)
-          return [];
-        }
+        const idStr = params.get('id');
+        if (!idStr) return [];
+        const id = Number(idStr);
+        this.assessmentId = id;
+        return this.assessmentService.getAssessment(id.toString());
       })
-    ).subscribe(data => {
-      this.assessment = data;
+    ).subscribe({
+      next: (data: any) => {
+        this.assessment = data;
+        if (!Array.isArray(this.assessment?.questions)) {
+          this.assessment!.questions = [];
+        }
+      },
+      error: (err: HttpErrorResponse)=> {
+        console.error('Failed to load assessment', err);
+        alert('Failed to load assessment.');
+      }
+    } as any);
+  }
+
+  onAnswerSelected(question: Question, optionIndex: number): void {
+    if (!question.id && question.id !== 0) {
+      console.warn('Question ID is missing; ensure backend returns question.id');
+      return;
+    }
+    this.studentAnswers[question.id!] = optionIndex;
+  }
+
+  submitAssessment(): void {
+    if (!this.assessment?.id) return;
+
+    this.submitInFlight = true;
+    this.attemptService.postAttempt({
+      assessmentId: this.assessment.id!,
+      answers: this.studentAnswers
+    }).subscribe({
+      next: res => {
+        this.submitInFlight = false;
+        alert(`Submitted! Score: ${res.score}/${res.totalQuestions}`);
+        this.router.navigate(['student/assessment-marks']); 
+      },
+      error: err => {
+        this.submitInFlight = false;
+        console.error('Submit failed', err);
+        alert(err?.error?.message || 'Submit failed');
+      }
     });
   }
 
-  onAnswerSelected(questionIndex: number, optionIndex: number): void {
-    // Store the selected option's index for the given question
-    this.studentAnswers[questionIndex] = optionIndex;
-    console.log('Student Answers:', this.studentAnswers);
-  }
-  //  submitAssessment(): void {
-  //   // Implement your assessment submission logic here.
-  //   // This could involve:
-  //   // 1. Collecting the student's answers.
-  //   // 2. Sending the answers to a backend API for grading.
-  //   // 3. Navigating the student to a results page.
-  //   console.log('Assessment submitted!');
-  //   alert('Assessment submitted!'); // For demonstration
-  //  }
-
-      submitAssessment(): void {
-      let score = 0;
-      const totalQuestions = this.assessment?.questions.length || 0;
-
-      if (this.assessment && totalQuestions > 0) {
-        this.assessment.questions.forEach((question, index) => {
-          // Check if the student's answer for this question matches the correct answer
-          if (this.studentAnswers[index] === question.correctAnswer) {
-            score++;
-          }
-        });
-      }
-
-      // Display the final score
-      // alert(`Assessment submitted! Your score is: ${score} out of ${totalQuestions}`);
-
-       alert(`Assessment submitted! Your score is: ${score} out of ${totalQuestions}`);
-       this.router.navigate(['student/student/assessments']);
-      // TODO: In a more advanced version, you would navigate to a results page
-      // this.router.navigate(['/results', this.assessmentId]); 
-    }
+  trackByQ = (_: number, q: Question) => q.id ?? _;
 }

@@ -1,0 +1,31 @@
+
+<div class="container mt-4">
+  <h3>Assessment Marks</h3>
+  <p class="text-muted">Assessment ID: {{ assessmentId }}</p>
+
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="!loading && errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+
+  <table class="table table-bordered mt-3" *ngIf="!loading && attempts.length > 0">
+    <thead>
+      <tr>
+        <th>Student Id</th>
+        <th>Student Name</th>
+        <th>Score</th>
+        <th>Attempted On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of attempts; trackBy: trackByS">
+        <td>{{ a.studentId }}</td>
+        <td>{{ a.studentName || '-' }}</td>
+        <td>{{ a.score }} / {{ a.totalQuestions }}</td>
+        <td>{{ a.attemptedAt | date:'medium' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && attempts.length === 0" class="text-muted">
+    No student attempts yet.
+  </div>
+</div>

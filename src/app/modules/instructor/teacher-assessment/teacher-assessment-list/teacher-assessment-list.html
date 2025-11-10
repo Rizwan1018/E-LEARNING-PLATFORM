@@ -1,1 +1,27 @@
-<p>teacher-assessment-list works!</p>
+<div class="container mt-4">
+      <h2>Teacher - Assessments</h2>
+      <button class="btn btn-primary mb-3" (click)="add()">
+        Add Assessment for Student
+      </button>
+      
+
+      <table class="table table-bordered" *ngIf="assessments.length > 0">
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+        <tr *ngFor="let a of assessments">
+          <td>{{ a.title }}</td>
+          <td>{{ a.description }}</td>
+          <td>
+            <button class="btn btn-sm btn-info" (click)="edit(a)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteAssessment(a)">
+              Delete
+            </button>
+
+            <button class="btn btn-sm btn-secondary" (click)="viewMarks(a)">Marks</button>
+          </td>
+        </tr>
+      </table>
+    </div>

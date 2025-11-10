@@ -17,6 +17,7 @@ import { ForgotPasswordComponent } from './modules/authentication/forgot-passwor
 import { ResetPasswordComponent } from './modules/authentication/reset-password/reset-password.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { PaymentHistoryComponent } from './modules/payment-history/payment-history.component';
+import { TeacherAssessmentMarksComponent } from './modules/instructor/teacher-assessment/teacher-assessment-marks/teacher-assessment-marks.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PaymentHistoryComponent } from './modules/payment-history/payment-histo
     ResetPasswordComponent,
     ProfileComponent,
     PaymentHistoryComponent,
-    
+    TeacherAssessmentMarksComponent,
+    TeacherAssessmentMarksComponent
   ],
   imports: [
     BrowserModule,

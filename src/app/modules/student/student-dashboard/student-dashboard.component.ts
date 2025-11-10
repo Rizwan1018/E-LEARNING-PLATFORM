@@ -1,4 +1,3 @@
-// src/app/modules/student/student-dashboard/student-dashboard.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CatalogService } from '../../../services/catalog.service';
 import { EnrollmentService } from '../../../services/enrollment.service';
