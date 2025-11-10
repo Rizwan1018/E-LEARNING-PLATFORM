@@ -8,6 +8,7 @@ import { CoursePlayerComponent } from './course-player/course-player.component';
 import { StudentAssessmentComponent } from './student-assessment/student-assessment.component';
 import { TakeAssessmentComponent } from './student-assessment/take-assessment/take-assessment.component';
 import { StudentNotificationsComponent } from './student-notifications/student-notifications.component';
+import { PaymentHistoryComponent } from '../payment-history/payment-history.component';
 
 const routes: Routes = [
   { path: '', component: StudentDashboardComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'student/assessments', component:StudentAssessmentComponent},
   {path: 'take-assessment/:id', component:TakeAssessmentComponent},
   {path: 'take-assessment', component:TakeAssessmentComponent},
+  {path: 'payments', component:PaymentHistoryComponent},
   { path: 'notifications', component: StudentNotificationsComponent }
 
 ];
