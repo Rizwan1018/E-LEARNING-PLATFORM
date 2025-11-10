@@ -26,6 +26,7 @@
             <a class="nav-link" [ngClass]="{ active: currentTab === 'notes' }" (click)="setTab('notes')">Notes</a>
             <a class="nav-link" [ngClass]="{ active: currentTab === 'reviews' }" (click)="setTab('reviews')">Reviews</a>
             <a class="nav-link" [ngClass]="{ active: currentTab === 'assessments' }" (click)="setTab('assessments')">Assessments</a>
+            <a class="nav-link" [ngClass]="{ active: currentTab === 'announcements' }" (click)="setTab('announcements')">Announcements</a>
             <div class="ms-auto small text-muted align-self-center">
               <span *ngIf="enrollment">Progress: {{ enrollment.progress || 0 }}%</span>
             </div>
@@ -137,6 +138,25 @@
                 <div class="text-muted">No assessments for this course.</div>
               </ng-template>
             </div>
+
+            <!-- announcements content -->
+            <div *ngIf="currentTab==='announcements'">
+              <div *ngIf="announcements?.length; else noAnn">
+                <div class="list-group">
+                  <div class="list-group-item" *ngFor="let a of announcements">
+                    <div class="d-flex justify-content-between">
+                      <h6 class="mb-1">{{ a.title }}</h6>
+                      <small class="text-muted">{{ a.createdAt | date:'medium' }}</small>
+                    </div>
+                    <p class="mb-1">{{ a.message }}</p>
+                  </div>
+                </div>
+              </div>
+              <ng-template #noAnn>
+                <div class="alert alert-info">No announcements yet for this course.</div>
+              </ng-template>
+            </div>
+
           </div>
         </div>
       </div>
