@@ -1,14 +1,16 @@
 <div class="container py-3">
   <h4>Create Announcement</h4>
+
   <form (ngSubmit)="create()">
     <div class="mb-2">
       <label class="form-label">Course</label>
       <select class="form-select" [(ngModel)]="model.courseId" name="courseId" required>
-        <option value="">-- Select course --</option>
-        <option *ngFor="let c of courses" [value]="c.id">
+        <option [ngValue]="undefined">-- Select course --</option>
+        <option *ngFor="let c of courses" [ngValue]="c.id">
           {{ c.title }} - {{ c.domain }}
         </option>
       </select>
+      <div class="form-text" *ngIf="!courses?.length">No courses found for your account.</div>
     </div>
 
     <div class="mb-2">

@@ -1,6 +1,7 @@
 // src/app/modules/student/student-navbar/student-navbar.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-student-navbar',
@@ -11,16 +12,31 @@ import { Router } from '@angular/router';
 export class StudentNavbarComponent implements OnInit {
   selectedStudentId: number | null = null;
   studentName: string = '';
+   unreadCount = 0;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private ns: NotificationService) {}
 
   ngOnInit() {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user && String(user.role).toUpperCase() === 'STUDENT') {
       this.selectedStudentId = user.id;
       this.studentName = user.fullName || 'Student';
+      this.refreshUnread();
+
     }
   }
+
+   refreshUnread() {
+    if (!this.selectedStudentId) return;
+    this.ns.getUnreadCount(this.selectedStudentId).subscribe({
+      next: (listOrCount: any) => {
+        // your NotificationService.getUnreadCount currently returns Notification[]; adjust service to return number
+        // After we change service, this will be a number:
+        this.unreadCount = Number(listOrCount) || 0;
+      }
+    });
+  }
+
 
   logout() {
     localStorage.removeItem('user')

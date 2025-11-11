@@ -13,8 +13,12 @@ import { Announcement } from '../../../models/announcement';
 })
 export class InstructorAnnouncementsCreateComponent implements OnInit {
   courses: any[] = [];
-  model: Partial<Announcement> = { courseId: '', title: '', message: '' };
-  instructorId = 1001; // TODO: replace with logged-in instructor id
+
+  // keep courseId typed as number; start as undefined
+  model: Partial<Announcement> = { courseId: undefined, title: '', message: '' };
+
+  // will be set from logged-in user
+  instructorId!: number;
 
   constructor(
     private courseService: CourseService,
@@ -24,8 +28,18 @@ export class InstructorAnnouncementsCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.courseService.getCourses().subscribe(courses => {
-      this.courses = (courses || []).filter(c => Number(c.instructorId) === this.instructorId);
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    this.instructorId = user?.id;
+
+    if (!this.instructorId) {
+      console.error('No instructor id found in localStorage user');
+      return;
+    }
+
+    // call the backend route dedicated to instructor courses
+    this.courseService.getCoursesByInstructor(this.instructorId).subscribe({
+      next: (courses) => this.courses = courses || [],
+      error: (err) => { console.error('load courses failed', err); this.courses = []; }
     });
   }
 
@@ -36,31 +50,35 @@ export class InstructorAnnouncementsCreateComponent implements OnInit {
     }
 
     const payload: Announcement = {
-      courseId: this.model.courseId!,
+      courseId: Number(this.model.courseId),
       instructorId: this.instructorId,
-      title: this.model.title!,
-      message: this.model.message!,
+      title: this.model.title!.trim(),
+      message: this.model.message!.trim(),
       createdAt: new Date().toISOString()
     };
 
-    this.annService.createAnnouncement(payload).subscribe(() => {
-      // Notify enrolled students
-      this.enrollService.getEnrollmentsByCourse(Number(payload.courseId)).subscribe(enrolls => {
-        (enrolls || []).forEach(e => {
-          this.notifService.createNotification({
-            userId: e.studentId,
-            courseId: payload.courseId,
-            type: 'announcement',
-            message: `New announcement: ${payload.title}`,
-            createdAt: new Date().toISOString(),
-            read: false
-          }).subscribe();
+    this.annService.createAnnouncement(payload).subscribe({
+      next: () => {
+        // Notify enrolled students of this course
+        this.enrollService.getEnrollmentsByCourse(payload.courseId as number).subscribe(enrolls => {
+          (enrolls || []).forEach(e => {
+            this.notifService.createNotification({
+              userId: e.studentId,
+              courseId: payload.courseId,
+              type: 'announcement',
+              message: `New announcement: ${payload.title}`,
+              createdAt: new Date().toISOString(),
+              read: false
+            }).subscribe();
+          });
         });
-      });
-
-      alert('Announcement published.');
-      this.model = { courseId: '', title: '', message: '' };
+        alert('Announcement published.');
+        this.model = { courseId: undefined, title: '', message: '' };
+      },
+      error: (err) => {
+        console.error('create announcement failed', err);
+        alert('Failed to publish announcement.');
+      }
     });
   }
 }
-

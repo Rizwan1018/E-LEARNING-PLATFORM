@@ -9,6 +9,9 @@ import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AssessmentService } from '../../../services/assessment.service';
 
+import { AnnouncementService } from '../../../services/announcement.service';
+import { Announcement } from '../../../models/announcement'; 
+
 @Component({
   selector: 'app-course-player',
   standalone:false,
@@ -24,9 +27,10 @@ export class CoursePlayerComponent implements OnInit {
   isWatched = false;
   isDone = false;
   currentRating: number | null = null;
+  announcements: Announcement[] = [];
 
   // UI state
-  currentTab: 'overview'|'notes'|'reviews'|'assessments' = 'overview';
+  currentTab: 'overview'|'notes'|'reviews'|'assessments'|'announcements' = 'overview';
   notesText = '';
   assessments: any[] = [];
   reviews: any[] = []; // simple local shape { user, rating, comment, date }
@@ -38,7 +42,8 @@ export class CoursePlayerComponent implements OnInit {
     private router: Router,
     private catalog: CatalogService,
     private enrollSvc: EnrollmentService,
-    private assessmentSvc: AssessmentService
+    private assessmentSvc: AssessmentService,
+     private announcementSvc: AnnouncementService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +57,9 @@ export class CoursePlayerComponent implements OnInit {
 
     if (this.courseId) {
       this.catalog.getCourse(this.courseId).subscribe(c => this.course = c);
+       this.announcementSvc.getAnnouncementsForCourse(this.courseId)
+    .subscribe(list => this.announcements = list || []);
+
     }
 
     this.loadNotes();
@@ -69,7 +77,7 @@ export class CoursePlayerComponent implements OnInit {
     this.reviews = []; // can be loaded from NotificationService or a new ReviewService
   }
 
-  setTab(t: 'overview'|'notes'|'reviews'|'assessments') {
+  setTab(t: 'overview'|'notes'|'reviews'|'assessments'|'announcements') {
     this.currentTab = t;
   }
 
