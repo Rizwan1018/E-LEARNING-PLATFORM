@@ -14,20 +14,6 @@
     </div>
   </div>
 
-  <!-- ✅ Enrollment Success Popup -->
-<div class="modal fade show" tabindex="-1" 
-     role="dialog" 
-     *ngIf="showPopup" 
-     style="display: block; background-color: rgba(0,0,0,0.5);">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content p-3 text-center">
-      <h5 class="text-success fw-bold mb-2">Enrollment Successful 🎉</h5>
-      <p>You’ve successfully enrolled in this course!</p>
-      <button class="btn btn-primary mt-2" (click)="closePopup()">OK</button>
-    </div>
-  </div>
-</div>
-
 
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <div class="col" *ngFor="let c of courses">
@@ -56,10 +42,9 @@
             </div>
 
             <button *ngIf="!c.enrolled" class="btn btn-sm btn-success w-100"
-              (click)="enroll(c.id)">
-              Enroll
+              (click)="confirmPurchase(c)">
+              Enroll for ₹499
             </button>
-
             <button *ngIf="c.enrolled" class="btn btn-sm btn-outline-secondary w-100"
               disabled>
                Enrolled
@@ -69,6 +54,30 @@
         </div>
       </div>
     </div>
+     <!-- Payment Modal -->
+            <div class="payment-modal" [hidden]="!showModal">
+              <div class="modal-content">
+                <h3>Confirm Your Purchase</h3>
+                <p><strong>Course:</strong> {{ selectedCourse?.title }}</p>
+                <p><strong>Price:</strong> ₹499</p>
+            
+                <div *ngIf="!isProcessing && !paymentSuccess">
+                  <button class="confirm-btn" (click)="makePayment()">Confirm & Pay</button>
+                  <button class="cancel-btn" (click)="cancelPayment()">Cancel</button>
+                </div>
+            
+                <div *ngIf="isProcessing" class="loading">
+                  <p>Processing Payment...</p>
+                  <div class="spinner"></div>
+                </div>
+            
+                <div *ngIf="paymentSuccess" class="success">
+                  <p>✅ Payment Successful!</p>
+                  <p>Transaction ID: {{ transactionId }}</p>
+                  <button (click)="closeModal()">Close</button>
+                </div>
+              </div>
+            </div>
   </div>
 
   <div *ngIf="courses.length === 0" class="text-center text-muted my-5">

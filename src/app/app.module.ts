@@ -15,6 +15,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ForgotPasswordComponent } from './modules/authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './modules/authentication/reset-password/reset-password.component';
+import { ProfileComponent } from './modules/profile/profile.component';
+import { PaymentHistoryComponent } from './modules/payment-history/payment-history.component';
 import { TeacherAssessmentMarksComponent } from './modules/instructor/teacher-assessment/teacher-assessment-marks/teacher-assessment-marks.component';
 import { InstructorNavbarComponent } from './modules/instructor/instructor-navbar/instructor-navbar.component';
 import { CommonModule } from '@angular/common';
@@ -31,7 +33,10 @@ import { CommonModule } from '@angular/common';
     FooterComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    ProfileComponent,
+    PaymentHistoryComponent,
     TeacherAssessmentMarksComponent,
+    TeacherAssessmentMarksComponent
   ],
   imports: [
     BrowserModule,

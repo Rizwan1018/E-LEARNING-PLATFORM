@@ -29,4 +29,30 @@ export class StudentNavbarComponent implements OnInit {
     this.router.navigate(['/login']);
     window.location.reload();
   }
+
+  dropdownVisible = false;
+hideTimeout: any;
+
+user: any = JSON.parse(localStorage.getItem('user') || '{}');
+initials = this.user.fullName?.split(" ").map((x:string)=>x[0]).join("") || 'U';
+
+openDropdown() {
+  clearTimeout(this.hideTimeout);
+  this.dropdownVisible = true;
+}
+
+keepOpen() {
+  clearTimeout(this.hideTimeout);
+}
+
+closeDropdown() {
+  this.hideTimeout = setTimeout(() => {
+    this.dropdownVisible = false;
+  }, 200);
+}
+
+goToProfile(){
+  this.router.navigate(['/profile']);
+}
+
 }

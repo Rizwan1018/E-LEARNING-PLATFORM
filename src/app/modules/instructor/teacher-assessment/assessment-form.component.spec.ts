@@ -1,83 +1,97 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { AssessmentFormComponent } from './assessment-form.component';
 import { AssessmentService } from '../../../services/assessment.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { of } from 'rxjs';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { of, throwError } from 'rxjs';
 
-// --- MOCK DATA ---
-// NOTE: We assume the Assessment type is available for the compiler
-const MOCK_ASSESSMENT: any = { id: '1', title: 'Mock Assessment', description: 'Mock', questions: [] }; 
-
-// --- MOCK SERVICE SETUP (Jasmine style) ---
-// We create empty objects to represent the services and will spy on their methods later.
-const mockAssessmentService = {
-  getAssessment: () => of(MOCK_ASSESSMENT), // Added mock data here
-  addAssessment: () => of(MOCK_ASSESSMENT), 
-  updateAssessment: () => of(MOCK_ASSESSMENT),
-};
-
-const mockRouter = {
-  navigate: () => null,
-};
-
-// ActivatedRoute mock (Set to return null ID for Creation Mode)
-const mockActivatedRoute = {
-  snapshot: {
-    paramMap: {
-      get: (key: string) => null, 
-    },
-  },
-};
-
-
-describe('AssessmentFormComponent (Jasmine Save Test)', () => {
+describe('AssessmentFormComponent', () => {
   let component: AssessmentFormComponent;
-  let service: AssessmentService;
-  let router: Router;
+  let fixture: ComponentFixture<AssessmentFormComponent>;
+  let serviceMock: any;
+  let routerMock: any;
+  let routeMock: any;
 
   beforeEach(async () => {
+    serviceMock = {
+      getAssessment: jasmine.createSpy('getAssessment').and.returnValue(of({
+        id: 5,
+        title: "SampleQ",
+        description: "Description of q",
+        questions: [
+          {
+            text: "Test?",
+            options: ["A", "B", "C", "D"],
+            correctAnswer: 2
+          }
+        ]
+      })),
+      addAssessment: jasmine.createSpy('addAssessment').and.returnValue(of({})),
+      updateAssessment: jasmine.createSpy('updateAssessment').and.returnValue(of({}))
+    };
+    routerMock = { navigate: jasmine.createSpy('navigate') };
+    routeMock = {
+      snapshot: {
+        paramMap: {
+          get: jasmine.createSpy('get').and.returnValue(null)
+        }
+      }
+    };
     await TestBed.configureTestingModule({
-      imports: [AssessmentFormComponent],
+      declarations: [AssessmentFormComponent],
+      imports: [ReactiveFormsModule],
       providers: [
-        // Provide the mock objects
-        { provide: AssessmentService, useValue: mockAssessmentService },
-        { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: mockActivatedRoute },
-      ],
+        FormBuilder,
+        { provide: AssessmentService, useValue: serviceMock },
+        { provide: Router, useValue: routerMock },
+        { provide: ActivatedRoute, useValue: routeMock }
+      ]
     }).compileComponents();
 
-    component = TestBed.createComponent(AssessmentFormComponent).componentInstance;
-    
-    // Inject the services provided in the testing module setup
-    service = TestBed.inject(AssessmentService);
-    router = TestBed.inject(Router);
-
-    // --- Jasmine Spies (FIXED) ---
-    // Create spies on the service methods we intend to test/track.
-    // The spy must return an Observable of a type compatible with Assessment.
-    spyOn(service, 'addAssessment').and.returnValue(of(MOCK_ASSESSMENT));
-    spyOn(service, 'updateAssessment').and.returnValue(of(MOCK_ASSESSMENT));
-    spyOn(router, 'navigate');
-
+    fixture = TestBed.createComponent(AssessmentFormComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
+  it('should call service.updateAssessment for edit (id present)', fakeAsync(() => {
+    component.form.patchValue({
+      id: 55,
+      title: 'EditTitle',
+      description: 'This is a long enough valid description'
+    });
+    component.questions.at(0).patchValue({
+      text: "Q?",
+      options: ["one", "two", "three", "four"],
+      correctAnswer: 1
+    });
+    // Mark all as touched/dirty to ensure validation fires
+    component.questions.at(0).markAllAsTouched();
+    fixture.detectChanges();
+    component.onSubmit();
+    tick();
+    expect(serviceMock.updateAssessment).toHaveBeenCalled();
+    expect(routerMock.navigate).toHaveBeenCalled();
+  }));
 
-  // --- FOCUSED TEST: CREATING A NEW ASSESSMENT ---
-  it('should call addAssessment and navigate when saving a new record (no existing ID)', () => {
-    // Arrange: Ensure the assessment object does NOT have an ID
-    // We intentionally create a new object instance here for testing
-    component.assessment = { title: 'New Quiz', description: 'desc', questions: [] };
+  it('should handle service error on submit', fakeAsync(() => {
+    component.form.get('id')?.setValue(null);
+    serviceMock.addAssessment.and.returnValue(throwError(() => new Error("Failed!")));
+    spyOn(console, 'error');
+    component.form.patchValue({
+      title: 'QuizX',
+      description: 'Valid description here'
+    });
+    component.questions.at(0).patchValue({
+      text: "Q?",
+      options: ["option1", "option2", "option3", "option4"],
+      correctAnswer: 0
+    });
+    // Mark all as touched to sanitize triggers
+    component.questions.at(0).markAllAsTouched();
+    fixture.detectChanges();
+    component.onSubmit();
+    tick();
+    expect(console.error).toHaveBeenCalled();
+  }));
 
-    // Act: Execute the save function
-    component.save();
-
-    // Assert 1: Verify the correct service method was called with the component data
-    expect(service.addAssessment).toHaveBeenCalledWith(component.assessment);
-    
-    // Assert 2: Verify the update method was NOT called
-    expect(service.updateAssessment).not.toHaveBeenCalled();
-    
-    // Assert 3: Verify navigation occurred after save
-    expect(router.navigate).toHaveBeenCalledWith(['instructor/add-assessment']);
-  });
 });

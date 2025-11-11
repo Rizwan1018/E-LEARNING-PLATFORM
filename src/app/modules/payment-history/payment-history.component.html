@@ -1,0 +1,27 @@
+<div class="payment-container">
+  <h2>Payment History</h2>
+  <table class="payment-table" *ngIf="payments.length > 0; else noPayments">
+    <thead>
+      <tr>
+        <th>Transaction ID</th>
+        <th>Course ID</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pay of payments">
+        <td>{{ pay.transactionId }}</td>
+        <td>{{ pay.courseId }}</td>
+        <td>₹{{ pay.amount }}</td>
+        <td>{{ pay.status }}</td>
+        <td>{{ pay.paymentDate | date:'medium' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noPayments>
+    <p class="no-data">No payments made yet.</p>
+  </ng-template>
+</div>

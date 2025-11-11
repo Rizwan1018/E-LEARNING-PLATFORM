@@ -10,6 +10,7 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 export class AuthService {
 
   private baseUrl = "http://localhost:8080/api/auth";
+  //private baseUrl = "http://localhost:8090/api/auth";
 
   constructor(private http:HttpClient, private router: Router) { }
 
@@ -28,7 +29,15 @@ export class AuthService {
     })
   );
 
+
     
+  }
+  getUserProfile(id :number){
+    return this.http.get(`http://localhost:8080/api/profile/${id}`);
+  }
+
+  updateUserProfile(id :number, data:any){
+    return this.http.put(`${this.baseUrl}/profile/${id}`, data)
   }
 
   logout(): void{

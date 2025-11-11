@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 mb-4">
-  <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="#">
+  <a class="navbar-brand fw-bold text-primary d-flex align-items-center" [routerLink]="['/instructor']" [queryParams]="{ instructorId: instructorId }">
     <i class="bi bi-incognito me-2"></i> INCO LEARN
   </a>
 
@@ -15,20 +15,41 @@
           <i class="bi bi-bar-chart me-1"></i> Dashboard
         </a>
       </li>
-      <li class="nav-item mx-2">
+      <!-- <li class="nav-item mx-2">
         <a class="nav-link d-flex align-items-center" [routerLink]="['/instructor/add-course']" [queryParams]="{ instructorId: instructorId }">
           <i class="bi bi-plus-circle me-1"></i> Add Course
         </a>
-      </li>
+      </li> -->
     </ul>
 
     <ul class="navbar-nav ms-auto">
-      <li class="nav-item">
-        <span class="fw-bold nav-link">{{ instructorName }}</span>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="logout()"><i class="bi bi-box-arrow-right"></i></a>
-      </li>
+      <div class="nav-profile"
+     (mouseenter)="openDropdown()"
+     (mouseleave)="closeDropdown()">
+
+  <div class="avatar">{{ initials }}</div>
+
+  <div class="profile-dropdown" 
+       *ngIf="dropdownVisible"
+       (mouseenter)="keepOpen()"
+       (mouseleave)="closeDropdown()">
+
+    <div class="pd-header">
+      <div class="avatar large">{{ initials }}</div>
+      <div class="text-info" >
+        <strong style="color:#000;" >{{ user.fullName }}</strong> <br>
+        <small style="color:#000;" >{{ user.email }}</small>
+      </div>
+    </div>
+
+    <hr>
+
+    <button class="pd-btn" (click)="goToProfile()">Profile</button>
+    <button class="pd-btn" (click)="logout()">Logout</button>
+
+  </div>
+
+</div>
     </ul>
   </div>
 </nav>

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UsersService {
   private baseUrl = 'http://localhost:8080/api/auth'; // 🔄 Updated from /users to /auth
+  //private baseUrl = 'http://localhost:8090/api/auth'; // 🔄 Updated from /users to /auth
 
   constructor(private http: HttpClient) {}
 
