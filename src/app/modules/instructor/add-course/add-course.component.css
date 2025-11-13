@@ -1,0 +1,140 @@
+/* 🌿 Main Page Container */
+.container {
+  padding: 30px 40px;
+  background: #f8fafc;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 🏷️ Card Styles */
+.card {
+  border: none;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* 🧾 Section Titles */
+.card h5, .card h6 {
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+/* ✍️ Form Labels & Inputs */
+label.form-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  box-shadow: none;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  padding: 8px 10px;
+}
+
+.form-control:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* 🧠 Textarea */
+textarea.form-control {
+  resize: none;
+}
+
+/* ✅ Buttons */
+.btn-success {
+  background: #16a34a;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  background: #15803d;
+  transform: scale(1.02);
+}
+
+.btn-outline-secondary {
+  border-radius: 6px;
+}
+
+.btn-link {
+  font-weight: 500;
+  padding: 2px 5px;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+/* 📦 Existing Courses Section */
+.col-md-3 .card {
+  background: #f9fafb;
+  border: 1px solid #e2e8f0;
+}
+
+.col-md-3 h6 {
+  font-size: 15px;
+  color: #1e3a8a;
+  border-bottom: 2px solid #3b82f6;
+  padding-bottom: 6px;
+  margin-bottom: 15px;
+}
+
+/* 🧱 Existing Course Items */
+.col-md-3 .fw-semibold {
+  color: #0f172a;
+}
+
+.col-md-3 .text-muted {
+  color: #64748b;
+}
+
+.col-md-3 button.btn-link {
+  font-size: 13px;
+}
+
+/* 🎨 File Inputs */
+input[type="file"] {
+  background: #f8fafc;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+/* 💬 Message Alert */
+.alert-info {
+  background-color: #eff6ff;
+  color: #1e3a8a;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* 🧩 Responsive Design */
+@media (max-width: 992px) {
+  .container {
+    padding: 20px;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .col-md-9, .col-md-3 {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}

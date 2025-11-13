@@ -1,5 +1,5 @@
 <app-student-navbar></app-student-navbar>
-
+ 
 <div class="container py-4" *ngIf="course">
   <div class="row g-4">
     <!-- LEFT: Video + Tabs -->
@@ -9,29 +9,27 @@
           <!-- Video -->
           <div class="player-wrap bg-dark position-relative">
             <video #videoRef class="w-100" controls [poster]="'http://localhost:8080/' + course.thumbnail"
-                   (ended)="onVideoEnded()" (timeupdate)="onTimeUpdate()">
+                   (ended)="onVideoEnded()">
               <source [src]="'http://localhost:8080/' + course.videoUrl" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-
+ 
             <!-- small overlay: duration / quality / mini-info -->
             <div class="video-meta position-absolute top-0 end-0 m-3 text-white small">
               <span class="badge bg-dark bg-opacity-50"> {{ course.durationHrs }} hrs</span>
             </div>
           </div>
-
+ 
           <!-- Tab nav below video -->
           <nav class="nav nav-pills gap-2 p-3 border-top">
-            <a class="nav-link" [ngClass]="{ active: currentTab === 'overview' }" (click)="setTab('overview')">Overview</a>
-            <a class="nav-link" [ngClass]="{ active: currentTab === 'notes' }" (click)="setTab('notes')">Notes</a>
-            <a class="nav-link" [ngClass]="{ active: currentTab === 'reviews' }" (click)="setTab('reviews')">Reviews</a>
-            <a class="nav-link" [ngClass]="{ active: currentTab === 'assessments' }" (click)="setTab('assessments')">Assessments</a>
-            <a class="nav-link" [ngClass]="{ active: currentTab === 'announcements' }" (click)="setTab('announcements')">Announcements</a>
-            <div class="ms-auto small text-muted align-self-center">
-              <span *ngIf="enrollment">Progress: {{ enrollment.progress || 0 }}%</span>
-            </div>
+            <button class="nav-link" [ngClass]="{ active: currentTab === 'overview' }" (click)="setTab('overview')">Overview</button>
+            <button class="nav-link" [ngClass]="{ active: currentTab === 'notes' }" (click)="setTab('notes')">Notes</button>
+            <button class="nav-link" [ngClass]="{ active: currentTab === 'reviews' }" (click)="setTab('reviews')">Reviews</button>
+            <button class="nav-link" [ngClass]="{ active: currentTab === 'assessments' }" (click)="setTab('assessments')">Assessments</button>
+            <button class="nav-link" [ngClass]="{ active: currentTab === 'announcements' }" (click)="setTab('announcements')">Announcements</button>
+           
           </nav>
-
+ 
           <!-- Tab content -->
           <div class="p-3">
             <!-- OVERVIEW -->
@@ -39,7 +37,7 @@
               <h4 class="mb-1">{{ course.title }}</h4>
               <div class="small text-muted mb-2">{{ course.domain }} • {{ course.level }}</div>
               <p class="mb-3">{{ course.description }}</p>
-
+ 
               <!-- Compact progress -->
               <div class="mb-3">
                 <div class="d-flex align-items-center gap-3">
@@ -52,18 +50,18 @@
                   <div class="small text-muted">{{ enrollment?.progress || 0 }}%</div>
                 </div>
               </div>
-
+ 
               <!-- Quick actions -->
               <div class="d-flex gap-2">
                 <button class="btn btn-primary" (click)="togglePlay()" title="Play/Pause video">
                   <i class="bi bi-play-fill"></i> Play
                 </button>
-
+ 
                 <button class="btn btn-outline-primary" (click)="markDoneClicked()" [disabled]="!isWatched || isDone">
                   <i class="bi bi-check2-circle"></i>
                   {{ isDone ? 'Completed' : 'Mark as done' }}
                 </button>
-
+ 
                 <div class="ms-auto d-flex align-items-center gap-2">
                   <div class="small text-muted me-2">Your rating:</div>
                   <div>
@@ -78,7 +76,7 @@
                 </div>
               </div>
             </div>
-
+ 
             <!-- NOTES -->
             <div *ngIf="currentTab === 'notes'">
               <h5>My Notes</h5>
@@ -89,7 +87,7 @@
                 <small class="text-muted ms-auto align-self-center">Notes auto-saved locally</small>
               </div>
             </div>
-
+ 
             <!-- REVIEWS -->
             <div *ngIf="currentTab === 'reviews'">
               <h5>Reviews & Ratings</h5>
@@ -100,8 +98,8 @@
                   <div class="small text-muted">{{ course.studentsCount || 0 }} students</div>
                 </div>
               </div>
-
-              <div *ngIf="reviews?.length; else noReviews">
+ 
+              <div *ngIf="reviews.length; else noReviews">
                 <div *ngFor="let r of reviews" class="border rounded p-3 mb-2">
                   <div class="d-flex justify-content-between">
                     <div><strong>{{ r.user || 'Student' }}</strong></div>
@@ -119,11 +117,11 @@
                 <div class="text-muted">No reviews yet. Be the first to rate after completing the course.</div>
               </ng-template>
             </div>
-
+ 
             <!-- ASSESSMENTS -->
             <div *ngIf="currentTab === 'assessments'">
               <h5>Assessments</h5>
-              <div *ngIf="assessments?.length; else noAssess">
+              <div *ngIf="assessments.length; else noAssess">
                 <div *ngFor="let a of assessments" class="d-flex align-items-center justify-content-between border rounded p-3 mb-2">
                   <div>
                     <div class="fw-semibold">{{ a.title }}</div>
@@ -138,10 +136,10 @@
                 <div class="text-muted">No assessments for this course.</div>
               </ng-template>
             </div>
-
+ 
             <!-- announcements content -->
             <div *ngIf="currentTab==='announcements'">
-              <div *ngIf="announcements?.length; else noAnn">
+              <div *ngIf="announcements.length; else noAnn">
                 <div class="list-group">
                   <div class="list-group-item" *ngFor="let a of announcements">
                     <div class="d-flex justify-content-between">
@@ -156,12 +154,12 @@
                 <div class="alert alert-info">No announcements yet for this course.</div>
               </ng-template>
             </div>
-
+ 
           </div>
         </div>
       </div>
     </div>
-
+ 
     <!-- RIGHT: Sticky Sidebar -->
     <div class="col-lg-4">
       <div class="card shadow-sm sticky-card">
@@ -173,37 +171,36 @@
               <div class="small text-muted">{{ course.domain }} • {{ course.level }}</div>
             </div>
           </div>
-
+ 
           <hr />
-
+ 
           <div class="mb-2">
             <div class="small text-muted">Your progress</div>
             <div class="d-flex align-items-center gap-2">
-              <div class="flex-grow-1">
-                <div class="progress" style="height: 10px;">
-                  <div class="progress-bar" role="progressbar" [style.width.%]="enrollment?.progress || 0"></div>
-                </div>
-              </div>
               <div class="small text-muted">{{ enrollment?.progress || 0 }}%</div>
             </div>
           </div>
-
-          <!-- <div class="mb-3">
-            <button class="btn btn-success w-100" (click)="continueLearning()">Continue Learning</button>
-          </div> -->
-
-          <div class="mb-2 small text-muted">Course info</div>
+ 
+          <div class="mb-2 small text-muted">Course Info</div>
           <ul class="list-unstyled small">
             <li><strong>{{ course.durationHrs }}h</strong> total length</li>
             <li>Level: {{ course.level }}</li>
           </ul>
-
+ 
           <div class="d-grid gap-2 mt-3">
             <button class="btn btn-outline-secondary" (click)="downloadResources()" >Resources</button>
-            <a class="btn btn-outline-primary" [routerLink]="['/student/courses']">Browse Courses</a>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div *ngIf="showSimpleToast"
+     class="alert alert-warning fixed-bottom start-50 translate-middle-x mb-3 shadow"
+     style="width: fit-content; z-index: 1000; transition: opacity 0.3s;"
+     role="alert">
+    <strong>{{ simpleToastMessage }}</strong>
 </div>
+</div>
+ 
+ 
+ 

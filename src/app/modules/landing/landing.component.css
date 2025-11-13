@@ -91,3 +91,153 @@ body {
       display: flex;
       gap: 20px;
     }
+
+    .section-title {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.values-section {
+    padding: 40px 0;
+    background: #fafafa;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.values-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.value-card {
+    text-align: center;
+    width: 260px;
+    padding: 30px 20px; 
+    background-color: #ffffff; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+
+    transition: all 300ms ease-in-out;
+}
+
+.value-card:hover {
+    transform: translateY(-8px); 
+    border: 1px solid #7e33ef;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.value-icon {
+    width: 60px;
+    margin-bottom: 15px;
+}
+
+.value-card h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.value-card p {
+    color: #777;
+    line-height: 1.6;
+}
+
+.teachers-section {
+    padding: 70px 0;
+}
+
+.teachers-grid {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.teacher-card {
+    background: #fff;
+    padding: 20px;
+    width: 260px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.teacher-img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.subject {
+    color: #777;
+    margin-top: 3px;
+}
+
+/* TESTIMONIAL SECTION */
+.testimonials-section {
+    padding: 70px 0;
+    background: #fafafa;
+}
+
+.testimonial-card {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    max-width: 700px;
+    margin: auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.student-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.comment {
+    color: #555;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .testimonial-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
