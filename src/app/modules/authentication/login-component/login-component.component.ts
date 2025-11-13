@@ -64,7 +64,7 @@ export class LoginComponentComponent implements OnInit {
 
           setTimeout(() => {
             errorModal.hide();
-          }, 1000);
+          }, 3000);
         }
       }
     });
