@@ -101,7 +101,7 @@
                 </div>
               </div>
 
-              <div *ngIf="reviews?.length; else noReviews">
+              <div *ngIf="reviews.length; else noReviews">
                 <div *ngFor="let r of reviews" class="border rounded p-3 mb-2">
                   <div class="d-flex justify-content-between">
                     <div><strong>{{ r.user || 'Student' }}</strong></div>
