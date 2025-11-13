@@ -1,32 +1,70 @@
-<div class="container mt-4">
-  <h3>My Assessment Marks</h3>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex align-items-center mb-4">
+        <h3 class="flex-grow-1 header-title">
+          <i class="fas fa-chart-line me-2"></i> My Assessment Marks
+        </h3>
+        
+        <!-- 👇 NEW DASHBOARD BUTTON ADDED HERE 👇 -->
+        <a [routerLink]="['/student/dash']" class="btn btn-outline-secondary btn-sm shadow-sm d-flex align-items-center">
+          <i class="fas fa-tachometer-alt me-2"></i> Go to Dashboard
+        </a>
+        <!-- 👆 END NEW BUTTON 👆 -->
 
-  <div *ngIf="loading">Loading...</div>
-  <div *ngIf="!loading && errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+      </div>
 
-  <table class="table table-bordered mt-3" *ngIf="!loading && attempts.length > 0">
-    <thead>
-      <tr>
-        <th>Assessment</th>
-        <th>Score</th>
-        <th>Attempted On</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let a of attempts; trackBy: trackByA">
-        <td>{{ a.assessmentTitle }}</td>
-        <td>{{ a.score }} / {{ a.totalQuestions }}</td>
-        <td>{{ a.attemptedAt | date:'medium' }}</td>
-        <td>
-          <a class="btn btn-sm btn-outline-primary" [routerLink]="['/student/take-assessment', a.assessmentId]">
-            Reattempt
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <div class="card shadow-lg border-0">
+        <div class="card-body p-4">
 
-  <div *ngIf="!loading && attempts.length === 0" class="text-muted">
-    No attempts yet.
+          <div *ngIf="loading" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading Attempts...</p>
+          </div>
+          <div *ngIf="!loading && errorMsg" class="alert alert-danger shadow-sm">
+            <i class="fas fa-exclamation-triangle me-2"></i> <strong>Error:</strong> {{ errorMsg }}
+          </div>
+
+          <div class="table-responsive" *ngIf="!loading && attempts.length > 0">
+            <table class="table table-marks align-middle">
+              <thead>
+                <tr>
+                  <th>Assessment</th>
+                  <th>Score</th>
+                  <th>Attempted On</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let a of attempts; trackBy: trackByA">
+                  <td class="assessment-title">{{ a.assessmentTitle }}</td>
+                  
+                  <td class="score-cell" >
+                    <!-- NOTE: You should ensure your component logic or a structural directive applies the appropriate score-pass/fail/neutral class here for color-coding -->
+                    {{ a.score }} / {{ a.totalQuestions }}
+                  </td>
+                  
+                  <td>{{ a.attemptedAt | date:'medium' }}</td>
+                  <td>
+                    <a class="btn btn-sm btn-outline-primary btn-reattempt shadow-sm" [routerLink]="['/student/take-assessment', a.assessmentId]">
+                      Reattempt
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div *ngIf="!loading && attempts.length === 0" class="text-center py-4">
+            <p class="text-muted mb-0">
+              <i class="fas fa-inbox me-2"></i> No assessment attempts recorded yet.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
+</div>

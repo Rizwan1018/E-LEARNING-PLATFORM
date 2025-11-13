@@ -1,0 +1,75 @@
+/* Custom styles for the Assessment UI */
+
+/* General page styling */
+.assessment-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Assessment Title Header */
+.assessment-header h3 {
+    font-weight: 700;
+    color: #007bff; /* Primary color */
+}
+
+.assessment-header p {
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+/* Styling for each Question Card */
+.question-card {
+    border: 1px solid #e9ecef; /* Light gray border */
+    border-left: 5px solid #007bff; /* Accent color on the left */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+    transition: transform 0.2s;
+}
+
+.question-card:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Question Text Styling */
+.question-card h6 {
+    font-weight: 600;
+    color: #343a40; /* Darker text for question */
+    margin-bottom: 15px;
+}
+
+/* Radio Button/Option Styling */
+.form-check {
+    padding-left: 2.5em; /* Increase space for radio button */
+}
+
+.form-check-input:checked ~ .form-check-label {
+    font-weight: 500;
+    color: #007bff; /* Highlight selected answer */
+}
+
+.form-check-label {
+    cursor: pointer;
+    padding-top: 2px;
+}
+
+/* Submit Button Styling */
+.submit-btn-section {
+    margin-top: 30px;
+    text-align: right;
+}
+
+.btn-primary {
+    /* Optional: Custom button color if needed, otherwise Bootstrap default is fine */
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 30px;
+    font-size: 1.1em;
+}
+
+.btn-primary:disabled {
+    opacity: 0.65;
+}
