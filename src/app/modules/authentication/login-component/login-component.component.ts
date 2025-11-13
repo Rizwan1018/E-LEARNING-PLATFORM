@@ -14,6 +14,7 @@ declare var bootstrap: any;
 export class LoginComponentComponent implements OnInit {
 
   
+  
   loginForm!: FormGroup;
 
   constructor(
@@ -63,7 +64,7 @@ export class LoginComponentComponent implements OnInit {
 
           setTimeout(() => {
             errorModal.hide();
-          }, 1000);
+          }, 3000);
         }
       }
     });

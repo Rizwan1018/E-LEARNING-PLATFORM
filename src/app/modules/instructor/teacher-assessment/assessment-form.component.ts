@@ -1,15 +1,5 @@
-
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  Validators,
-  AbstractControl,
-  ValidationErrors,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentService } from '../../../services/assessment.service';
 import { Assessment } from '../../../models/assessment';
@@ -20,10 +10,8 @@ import { Assessment } from '../../../models/assessment';
   templateUrl: './assessment-form.component.html',
 })
 export class AssessmentFormComponent implements OnInit {
-  submitted = false;
-
-  // Build in ngOnInit (avoid "fb used before init" errors)
   form!: FormGroup;
+  submitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -32,10 +20,22 @@ export class AssessmentFormComponent implements OnInit {
     private router: Router
   ) {}
 
-  /** Convenience getters */
-  get editing(): boolean {
-    return !!this.form?.get('id')?.value;
+  ngOnInit() {
+    this.form = this.fb.group({
+      id: [],
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(10)]],
+      questions: this.fb.array([]),
+    });
+
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.service.getAssessment(id).subscribe(a => this.setForm(a));
+    } else {
+      this.addQuestion(); // Start with one default question
+    }
   }
+
   get questions(): FormArray<FormGroup> {
     return this.form.get('questions') as FormArray<FormGroup>;
   }
@@ -43,153 +43,85 @@ export class AssessmentFormComponent implements OnInit {
     return this.questions.at(i).get('options') as FormArray;
   }
 
-  ngOnInit() {
-    // Root form
-    this.form = this.fb.group({
-      id: [null],
-      title: ['', [Validators.required, Validators.minLength(3)]],
-      description: ['', [Validators.required, Validators.minLength(10)]],
-      questions: this.fb.array<FormGroup>([]),
-    });
-
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.service.getAssessment(id).subscribe((a) => this.loadAssessment(a));
-    } else {
-      // Start with one question (4 options)
-      this.addQuestion();
-    }
+  get editing(): boolean {
+    return !!this.form.get('id')?.value;
   }
 
-  /** Load for Edit */
-  private loadAssessment(a: Assessment) {
-    this.questions.clear();
-    (a.questions || []).forEach((q) => this.questions.push(this.createQuestionGroup(q)));
+  ctrl(path: string | (string | number)[]): AbstractControl | null {
+    return this.form.get(path as any);
+  }
 
+  showInvalid(control: AbstractControl | null): boolean {
+    return !!control && control.invalid && (control.touched || control.dirty || this.submitted);
+  }
+
+  qGroup(q?: { text?: string, options?: string[], correctAnswer?: number }) {
+    const opts = q?.options?.length ? q.options : Array(4).fill('');
+    const grp = this.fb.group({
+      text: [q?.text || '', [Validators.required, Validators.minLength(3)]],
+      options: this.fb.array(opts.map(opt => this.fb.control(opt, Validators.required))),
+      correctAnswer: [q?.correctAnswer ?? 0, Validators.required],
+    }, { validators: correctAnswerInRangeValidator });
+    grp.get('options')?.valueChanges.subscribe(() =>
+      grp.get('correctAnswer')?.updateValueAndValidity()
+    );
+    return grp;
+  }
+
+  addQuestion() {
+    this.questions.push(this.qGroup());
+  }
+  removeQuestion(i: number) {
+    this.questions.removeAt(i);
+  }
+
+  setForm(a: Assessment) {
+    this.questions.clear();
+    (a.questions || []).forEach(q => this.questions.push(this.qGroup(q)));
     this.form.patchValue({
-      id: (a as any).id ?? null,
+      id: a.id ?? null,
       title: a.title ?? '',
       description: a.description ?? '',
     });
   }
 
-  private createQuestionGroup(q?: { text: string; options: string[]; correctAnswer: number }): FormGroup {
-    const optionsValues = q?.options?.length ? q.options : ['', '', '', ''];
-
-    const group = this.fb.group(
-      {
-        text: [q?.text || '', [Validators.required, Validators.minLength(3)]],
-        options: this.fb.array(
-          optionsValues.map((opt) => this.fb.control(opt, [Validators.required]))
-        ),
-        correctAnswer: [q?.correctAnswer ?? 0, [Validators.required]],
-      },
-      { validators: [correctAnswerInRangeValidator] }
-    );
-
-    // Keep validator in sync when options change
-    (group.get('options') as FormArray).valueChanges.subscribe(() => {
-      group.get('correctAnswer')?.updateValueAndValidity({ onlySelf: true });
-      group.updateValueAndValidity({ onlySelf: true });
-    });
-
-    return group;
-  }
-
-  addQuestion() {
-    this.questions.push(this.createQuestionGroup());
-    this.form.updateValueAndValidity();
-  }
-  removeQuestion(i: number) {
-    this.questions.removeAt(i);
-    this.form.updateValueAndValidity();
-  }
-
-  /** Submit */
   onSubmit() {
     this.submitted = true;
-    this.form.updateValueAndValidity({ onlySelf: false });
-
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      console.warn('Form invalid. Reasons:', this.collectErrors(this.form));
-      setTimeout(() => {
-        const firstInvalid = document.querySelector('.is-invalid, .invalid-feedback.d-block');
-        firstInvalid?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      });
       return;
     }
+    const payload = this.toAssessmentPayload();
+    const obs = payload.id ? this.service.updateAssessment(payload) : this.service.addAssessment(payload);
 
-    const payload: Assessment = this.toAssessmentPayload();
-
-    const obs = payload.id
-      ? this.service.updateAssessment(payload)
-      : this.service.addAssessment(payload);
-
-    obs.subscribe({
-      next: () => {
-        this.submitted = false;
-        this.router.navigate(['instructor/add-assessment']);
-      },
-      error: (err) => {
-        console.error('Save failed:', err);
-      }
+    obs.subscribe(() => {
+      this.submitted = false;
+      this.router.navigate(['instructor/add-assessment']);
     });
   }
 
   private toAssessmentPayload(): Assessment {
     const raw = this.form.getRawValue();
-
-    const cleanedQuestions = (raw.questions || []).map((q: any) => ({
+    
+    const questions = (raw.questions || []).map((q: any) => ({
       text: (q.text || '').trim(),
       options: (q.options || []).map((o: any) => String(o ?? '').trim()),
       correctAnswer: Number(q.correctAnswer),
     }));
-
     return {
       id: raw.id ?? undefined,
       title: (raw.title || '').trim(),
       description: (raw.description || '').trim(),
-      questions: cleanedQuestions,
+      questions,
     } as Assessment;
   }
 
-  ctrl(path: string | (string | number)[]): AbstractControl | null {
-    return Array.isArray(path) ? this.form.get(path as any) : this.form.get(path);
-  }
-  showInvalid(c: AbstractControl | null): boolean {
-    return !!c && c.invalid && (c.touched || c.dirty || this.submitted);
-  }
-
-  private collectErrors(control: AbstractControl, path: string[] = []): any[] {
-    const out: any[] = [];
-    if (control instanceof FormGroup) {
-      Object.keys(control.controls).forEach((key) => {
-        out.push(...this.collectErrors(control.get(key)!, [...path, key]));
-      });
-      if (control.errors) out.push({ path, errors: control.errors });
-    } else if (control instanceof FormArray) {
-      control.controls.forEach((c, i) => out.push(...this.collectErrors(c, [...path, String(i)])));
-      if (control.errors) out.push({ path, errors: control.errors });
-    } else {
-      if (control.errors) out.push({ path, errors: control.errors });
-    }
-    return out;
-  }
 }
 
 function correctAnswerInRangeValidator(group: AbstractControl): ValidationErrors | null {
-  const g = group as FormGroup;
-  const optionsFA = g.get('options') as FormArray | null;
-  const ansCtrl = g.get('correctAnswer');
-
-  if (!optionsFA || !ansCtrl) return null;
-
-  const len = optionsFA.length;
-  const ans = Number(ansCtrl.value);
-
-  if (Number.isNaN(ans)) return { answerNotNumber: true };
-  if (ans < 0 || ans >= len) return { answerOutOfRange: { min: 0, max: len - 1 } };
-
+  const options = (group.get('options') as FormArray)?.length;
+  const cA = Number(group.get('correctAnswer')?.value);
+  if (isNaN(cA)) return { answerNotNumber: true };
+  if (cA < 0 || cA >= options) return { answerOutOfRange: true };
   return null;
 }

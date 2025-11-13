@@ -1,0 +1,60 @@
+/* General page styling */
+.container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Page Header Title */
+.header-title {
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0;
+}
+
+/* Main Content Card */
+.card {
+    border-radius: 12px;
+}
+
+/* Custom Table Header Class (Instead of Bootstrap's default table-dark/primary) */
+.table-dark-custom {
+    background-color: #3f72af; /* Deep Blue header */
+    color: white;
+}
+.table-dark-custom th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    padding: 15px 20px;
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+/* Table Body Cell Styling */
+/* Use marks-table td to adjust padding from Bootstrap defaults */
+.marks-table td {
+    padding: 12px 20px;
+    vertical-align: middle;
+}
+
+/* Assessment Title Column */
+.assessment-title {
+    font-weight: 500;
+    color: #1a1a2e;
+}
+
+/* Score Column Styling (Color Coding Base) */
+.score-cell {
+    font-weight: 700;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+/* Action Button */
+.btn-reattempt {
+    border-radius: 50px; /* Pill shape */
+    font-weight: 600;
+    padding: 6px 18px;
+    font-size: 0.9rem;
+}
+

@@ -11,6 +11,7 @@ import { TeacherAssessmentMarksComponent } from './teacher-assessment/teacher-as
 
 const routes: Routes = [
   { path: '', component: InstructorDashboardComponent },
+  { path: 'insdash', component: InstructorDashboardComponent },
   { path: 'add-course', component: AddCourseComponent },
 
   // List page

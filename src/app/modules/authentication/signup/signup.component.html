@@ -30,13 +30,21 @@
       </div>
 
       <!-- Mobile -->
-      <div class="mb-3 text-start">
-        <input formControlName="mobile" type="text" class="form-control" placeholder="Phone Number">
-        <div *ngIf="f['mobile'].invalid && f['mobile'].touched" class="text-danger small mt-1">
-          <div *ngIf="f['mobile'].errors?.['required']">*Phone number is required.</div>
-          <div *ngIf="f['mobile'].errors?.['pattern']">*Must be a valid 10-digit number.</div>
+
+<div class="mb-3 text-start">
+     <input formControlName="mobile" type="text" class="form-control" placeholder="Phone Number">
+       <div *ngIf="f['mobile'].invalid && f['mobile'].touched" class="text-danger small mt-1">
+        <div *ngIf="f['mobile'].errors?.['required']">
+          *Phone number is required.
         </div>
+         <div *ngIf="!f['mobile'].errors?.['required'] && f['mobile'].errors?.['pattern']">
+           *Only digits allowed.
+         </div>
+       <div *ngIf="!f['mobile'].errors?.['required'] && !f['mobile'].errors?.['pattern'] && (f['mobile'].errors?.['minlength'] || f['mobile'].errors?.['maxlength'])">
+         *Must be a valid 10-digit number.
       </div>
+  </div>
+ </div>
 
       <!-- Password -->
       <div class="mb-3 text-start">

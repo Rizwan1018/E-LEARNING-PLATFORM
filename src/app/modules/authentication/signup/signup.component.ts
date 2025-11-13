@@ -19,7 +19,16 @@ export class SignupComponent {
     this.signupForm = this.formBuilder.group({
   fullName: ['', [Validators.required,Validators.pattern(/^[A-Za-z\s]+$/)]],
   email: ['', [Validators.required, Validators.email]],
-  mobile: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+  // mobile: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+
+
+ mobile: ['', [
+    Validators.required, 
+    Validators.pattern(/^[0-9]+$/), // This FAILS if any non-digit character is used.
+    Validators.minLength(10),       // This FAILS if less than 10 digits are used.
+    Validators.maxLength(10)        // This FAILS if more than 10 digits are used.
+]],
+
   password: ['', [
     Validators.required,
     Validators.minLength(8),

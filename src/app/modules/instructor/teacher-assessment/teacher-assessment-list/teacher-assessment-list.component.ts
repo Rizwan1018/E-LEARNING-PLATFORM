@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { AssessmentService } from '../../../../services/assessment.service';
 import { Assessment } from '../../../../models/assessment';
@@ -8,16 +8,22 @@ import { Assessment } from '../../../../models/assessment';
 @Component({
   selector: 'app-teacher-assessment-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './teacher-assessment-list.html'
 })
 export class TeacherAssessmentListComponent implements OnInit {
   assessments: Assessment[] = [];
+  instructorId : number | null = null;
 
   constructor(private service: AssessmentService, private router: Router) {}
 
   ngOnInit():void {
     this.load();
+
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user.role === 'INSTRUCTOR') {
+      this.instructorId = user.id;
+    }
   }
 
 

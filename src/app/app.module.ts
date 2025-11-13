@@ -18,6 +18,8 @@ import { ResetPasswordComponent } from './modules/authentication/reset-password/
 import { ProfileComponent } from './modules/profile/profile.component';
 import { PaymentHistoryComponent } from './modules/payment-history/payment-history.component';
 import { TeacherAssessmentMarksComponent } from './modules/instructor/teacher-assessment/teacher-assessment-marks/teacher-assessment-marks.component';
+import { InstructorNavbarComponent } from './modules/instructor/instructor-navbar/instructor-navbar.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
