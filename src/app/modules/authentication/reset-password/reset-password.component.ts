@@ -21,19 +21,28 @@ export class ResetPasswordComponent {
   }
 
   resetPassword() {
-    this.userService.resetPassword(this.email, this.newPassword, this.confirmPassword).subscribe({
-      next: () => {
-        // alert('Password reset successful');
-         new bootstrap.Modal(document.getElementById('statusSuccessModal')).show();
+  this.userService.resetPassword(this.email, this.newPassword, this.confirmPassword).subscribe({
+    next: () => {
+      const successModal = new bootstrap.Modal(document.getElementById('statusSuccessModal'));
+      successModal.show();
+
+      // Auto-close after 1 second and navigate to login
+      setTimeout(() => {
+        successModal.hide();
         this.router.navigate(['/login']);
-      },
-      error: err => {
-        // alert(err.error.message || 'Reset failed')
-         new bootstrap.Modal(document.getElementById('statusErrorsModal')).show()
-         console.log(err.error)
-      }
+      }, 1000);
+    },
+    error: err => {
+      const errorModal = new bootstrap.Modal(document.getElementById('statusErrorsModal'));
+      errorModal.show();
 
-    });
-  }
+      // Auto-close after 1 second
+      setTimeout(() => {
+        errorModal.hide();
+      }, 1000);
 
+      console.log(err.error);
+    }
+  });
+}
 }
