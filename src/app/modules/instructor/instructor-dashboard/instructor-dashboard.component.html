@@ -1,54 +1,82 @@
 <app-instructor-navbar></app-instructor-navbar>
 
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-start mb-4 p-3  header">
-    <div>
-      <h2 class="fw-bold">Welcome back, {{selectedInstructorName}}</h2>
-      <p class="text-muted">Manage your courses and track performance</p>
-    </div>
-    <div class="d-flex justify-content-end gap-4">
-    <button class="btn btn-primary px-4" routerLink="add-assessment">+ Create Assessment</button>
-    <button class="btn btn-primary px-4" routerLink="announcements/create" >+ Create Announcement</button>
-    <button class="btn btn-primary px-4" [routerLink]="['/instructor/add-course']" [queryParams]="{ instructorId: instructorId }" >+ Create Course</button>
+<div class="main-container">
 
-    </div>
-
-  </div>
-  <br>
-  <br>
-
-  <!-- My Courses -->
-  <div>
-    <div class="row g-4 p-3 cont">
-      <h4 class="fw-bold mb-3">My Courses</h4>
-      <div class="col-md-4" *ngFor="let course of courses">
-        <div class="card shadow-sm border-0 h-100">
-           <img *ngIf="course.thumbnail" [src]="'http://localhost:8080/' +course.thumbnail" class="card-img-top" alt="thumbnail" />          <div class="card-body">
-            <span class="badge bg-success mb-2" *ngIf="course.level === 'Beginner'">{{ course.level }}</span>
-            <span class="badge bg-danger mb-2" *ngIf="course.level === 'Advanced'">{{ course.level }}</span>
-            <span class="badge bg-warning text-dark mb-2" *ngIf="course.level === 'Intermediate'">{{ course.level }}</span>
-
-            <h5 class="fw-bold">{{ course.title }}</h5>
-            <p>{{ course.description }}</p>
-
-            <div class="d-flex justify-content-between align-items-center mt-2">
-              <small class="text-muted">Duration : {{ course.durationHrs }} hours</small>
-              
-              <small class=" fw-semibold text-dark">
-                ⭐ {{ course.avgRating }} ({{ course.studentsCount }})
-              </small>
-            </div>
-              <div class="mt-3">
-              <button class="btn btn-outline-secondary btn-sm me-2" routerLink="add-course">Edit</button>
-     
-            </div>
-          </div>
+    <!-- Header Banner -->
+    <div class="header-banner">
+        <div class="banner-content">
+            <h2 class="title">Welcome back, {{selectedInstructorName}}</h2>
+            <p class="subtitle">Manage your courses and track performance.</p>
         </div>
-      </div>
+        <div class="action-buttons">
+            <button class="action-btn primary" routerLink="add-assessment">
+                <i class="fas fa-plus-circle"></i> Create Assessment
+            </button>
+            <button class="action-btn primary" routerLink="announcements/create">
+                <i class="fas fa-bullhorn"></i> Create Announcement
+            </button>
+            <button class="action-btn primary" 
+                    [routerLink]="['/instructor/add-course']" 
+                    [queryParams]="{ instructorId: instructorId }">
+                <i class="fas fa-chalkboard-teacher"></i> Create Course
+            </button>
+        </div>
     </div>
 
-    <div *ngIf="courses.length === 0" class="alert alert-info mt-3">
-      You haven’t created any courses yet.
+    <!-- My Courses Section -->
+    <div class="content-section">
+        <h3 class="section-title">My Courses ({{ courses.length }})</h3>
+
+        <!-- Course Cards Grid -->
+        <div class="course-grid" *ngIf="courses.length > 0">
+            <div class="course-col" *ngFor="let course of courses">
+                <div class="course-card">
+                    <!-- Thumbnail -->
+                    <div class="thumbnail-container">
+                        <img *ngIf="course.thumbnail" 
+                             [src]="'http://localhost:8080/' + course.thumbnail" 
+                             class="card-thumbnail" 
+                             alt="{{ course.title }} thumbnail" />
+                        <div *ngIf="!course.thumbnail" class="thumbnail-placeholder">
+                            Course Image Not Available
+                        </div>
+                    </div>
+                    
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <!-- Level Badge -->
+                        <span class="level-badge beginner" *ngIf="course.level === 'Beginner'">{{ course.level }}</span>
+                        <span class="level-badge intermediate" *ngIf="course.level === 'Intermediate'">{{ course.level }}</span>
+                        <span class="level-badge advanced" *ngIf="course.level === 'Advanced'">{{ course.level }}</span>
+                        
+                        <h4 class="course-title">{{ course.title}}</h4>
+                        <p class="course-description">{{ course.description | slice:0:100 }}...</p>
+
+                        <!-- Meta Info -->
+                        <div class="meta-info">
+                            <small class="duration-info">
+                                <i class="far fa-clock"></i> {{ course.durationHrs }} hrs
+                            </small>
+                            <small class="rating-info">
+                                <i class="fas fa-star"></i> {{ course.avgRating || 'N/A' }} 
+                                ({{ course.studentsCount || 0 }})
+                            </small>
+                        </div>
+                        
+                        <!-- Actions -->
+                        <div class="card-actions">
+                            <button class="edit-btn" routerLink="add-course">
+                                <i class="fas fa-edit"></i> Edit Course
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="courses.length === 0" class="empty-state">
+            <i class="fas fa-info-circle"></i>
+            You haven’t created any courses yet. Click "Create Course" to get started!
+        </div>
     </div>
-  </div>
 </div>

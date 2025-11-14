@@ -1,0 +1,40 @@
+/* 1. Body/Background Improvement (Subtle) */
+body {
+    background-color: #f8f9fa; /* Light grey background for the whole page */
+}
+
+/* 2. Container Padding/Margin Adjustment */
+.container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Soft shadow for a lifted look */
+    border-radius: 8px; /* Rounded corners for the container */
+}
+
+/* 3. Header Styling */
+h2 {
+    color: #343a40; /* Darker header text */
+    font-weight: 600; /* Slightly bolder font */
+}
+
+/* 4. Table Refinements */
+.table th, .table td {
+    vertical-align: middle; /* Center content vertically in cells */
+}
+
+.table-dark {
+    background-color: #343a40; /* Darker header background */
+    color: white;
+}
+
+/* Ensure the Description column doesn't wrap title */
+.assessment-title-cell {
+    font-weight: 500;
+    color: #007bff; /* Highlight title color */
+}
+
+/* 5. Action Button Group Styling (Optional: to ensure consistent size) */
+.btn-sm {
+    min-width: 65px; /* Ensures buttons have a minimum width */
+}

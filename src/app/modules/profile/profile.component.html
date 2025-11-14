@@ -26,26 +26,9 @@
           <label for="firstName">Email Address :</label>
                 <input type="text" [value]="user.email" name="emailId" required class="bordered-input" readonly>
         </div>
-        <div class="form-group">
-          <label for="firstName">Contact details:</label>
-                <input type="text" [value]="user.contact" name="contactInfo" required class="bordered-input" readonly>
-        </div>
-
-        <div class="form-group">
-          <label for="headline">Headline</label>
-          <div class="input-with-limit">
-            <input type="text" [(ngModel)]="user.headline" maxlength="60" name="headline" class="bordered-input">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Bio</label>
-          <textarea [(ngModel)]="user.bio" name="bio" rows="4" class="bordered-input"></textarea>
-        </div>
+        
     </fieldset>
-    <div>
-        <button type="submit" class="btn save-btn">Save</button>
-    </div>
+    
     </form>
   </main>
 </div>

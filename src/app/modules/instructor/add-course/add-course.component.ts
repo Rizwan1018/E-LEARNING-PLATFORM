@@ -42,7 +42,8 @@ export class AddCourseComponent implements OnInit {
       tags: [''],
       description: [''],
       thumbnail: [''],
-      videoUrl: ['']
+      videoUrl: [''],
+      prerequisite : ['']
     });
 
 
@@ -178,6 +179,8 @@ export class AddCourseComponent implements OnInit {
       error: (err) => {
         console.error(err);
         this.message = ' Failed to delete course';
+        this.loadCourses(this.instructorId ?? undefined);
+
       }
     });
   }

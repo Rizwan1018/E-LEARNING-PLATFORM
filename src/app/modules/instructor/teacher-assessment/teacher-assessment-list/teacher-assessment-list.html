@@ -1,31 +1,38 @@
-<div class="container mt-4">
-      <h2>Teacher - Assessments</h2>
-
-      <button class="btn btn-success mb-3" [routerLink]="['/instructor']" [queryParams]="{instructorId : instructorId}">
-        Go to Instructor Dashboard
-      </button>
-
-      <button class="btn btn-primary mb-3 mx-1" (click)="add()">
-        Add Assessment for Student
-      </button>
-      
-      <table class="table table-bordered" *ngIf="assessments.length > 0">
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Actions</th>
-        </tr>
-        <tr *ngFor="let a of assessments">
-          <td>{{ a.title }}</td>
-          <td>{{ a.description }}</td>
-          <td>
-            <button class="btn btn-sm btn-info" (click)="edit(a)">Edit</button>
-            <button class="btn btn-sm btn-danger" (click)="deleteAssessment(a)">
-              Delete
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Teacher - Assessments</h2>
+        <div>
+            <button class="btn btn-success" [routerLink]="['/instructor']" [queryParams]="{instructorId : instructorId}">
+                <i class="fas fa-tachometer-alt"></i> Go to Dashboard
             </button>
-
-            <button class="btn btn-sm btn-secondary" (click)="viewMarks(a)">Marks</button>
-          </td>
-        </tr>
-      </table>
+            <button class="btn btn-primary ms-2" (click)="add()">
+                <i class="fas fa-plus"></i> Add New Assessment
+            </button>
+        </div>
     </div>
+    
+    <hr> <div *ngIf="assessments.length === 0" class="alert alert-info" role="alert">
+        No assessments found. Please add a new assessment.
+    </div>
+
+    <table class="table table-striped table-hover mt-3" *ngIf="assessments.length > 0">
+        <thead class="table-dark">
+            <tr>
+                <th style="width: 25%;">Title</th>
+                <th>Description</th>
+                <th class="text-center" style="width: 20%;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let a of assessments">
+                <td class="assessment-title-cell">{{ a.title }}</td>
+                <td>{{ a.description }}</td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-outline-info me-2" (click)="edit(a)">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger me-2" (click)="deleteAssessment(a)">Delete</button>
+                    <button class="btn btn-sm btn-outline-secondary" (click)="viewMarks(a)">Marks</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

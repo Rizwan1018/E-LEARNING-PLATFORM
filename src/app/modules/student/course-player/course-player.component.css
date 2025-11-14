@@ -1,56 +1,124 @@
+/* --- Custom Variables and Global Styles --- */
+:root {
+    --primary-color: #4a55e1; /* A nice blue/purple primary color */
+    --secondary-bg: #f8f9fa;
+    --border-color: #e9ecef;
+}
+
+body {
+    background-color: var(--secondary-bg);
+}
+
+/* --- Player and Card Styles --- */
+.card {
+    border-radius: 1rem !important; /* Larger rounded corners for a modern feel */
+}
+
 /* Video area */
 .player-wrap video {
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  max-height: 560px;
-  object-fit: cover;
-  background: black;
+    /* No border-radius here, as the card overflow-hidden handles it */
+    max-height: 600px;
+    object-fit: cover;
+    background: black;
 }
 
-/* Overlay meta */
-.video-meta .badge {
-  font-size: 0.85rem;
+/* --- Tab Navigation Styles (Nav Pills/Tabs Replacement) --- */
+.player-nav {
+    padding: 0 1rem;
+    background-color: white;
 }
 
-/* Sticky sidebar */
+.custom-tab-link {
+    color: #6c757d;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border: none !important;
+    border-radius: 0;
+    margin-right: 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-tab-link:hover {
+    color: var(--primary-color);
+    background-color: var(--secondary-bg);
+}
+
+.active-tab {
+    color: var(--primary-color) !important;
+    font-weight: 600 !important;
+    border-bottom: 3px solid var(--primary-color) !important;
+    background-color: white !important;
+}
+
+/* --- Sidebar (Sticky Card) Styles --- */
 .sticky-card {
-  position: sticky;
-  top: 90px;
+    position: sticky;
+    top: 90px; /* Offset below navbar */
 }
 
-/* course thumbnail */
-.thumb {
-  width: 78px;
-  height: 56px;
-  object-fit: cover;
-  border-radius: 6px;
+/* Course thumbnail in sidebar */
+.sidebar-thumb {
+    width: 90px;
+    height: 65px;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
 }
 
-/* rating stars */
-.bi {
-  font-size: 1.05rem;
-  margin-right: 2px;
+/* Info list style */
+.custom-info-list li {
+    line-height: 2.2;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 0.25rem;
+}
+.custom-info-list li i {
+    color: var(--primary-color);
 }
 
-/* make nav pills look slightly larger */
-.nav-pills .nav-link {
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+/* --- Progress Bar Styles --- */
+.custom-progress-track {
+    background-color: #e9eef2;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* compact progress bar */
-.progress {
-  height: 10px;
-  border-radius: 6px;
+.custom-progress-fill {
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    transition: width 0.6s ease;
 }
 
-/* small card body spacing */
-.card .card-body {
-  padding: 1rem;
+/* --- Action Button Styles --- */
+.btn-primary {
+    background-color: rgb(0, 0, 0);
+    border-color: var(--primary-color);
 }
 
-/* responsiveness */
+/* Ensure Completed button has good contrast */
+.btn-success {
+    background-color: #198754;
+    border-color: #198754;
+    color: white; /* Explicitly set white text */
+}
+
+.btn-outline-success {
+    color: #198754;
+    border-color: #198754;
+}
+
+/* Rating stars */
+.custom-star-rating {
+    font-size: 1.25rem;
+    transition: color 0.15s ease;
+}
+
+/* Alerts and Dividers */
+.border-dashed {
+    border-style: dashed !important;
+}
+
+/* Responsiveness */
 @media (max-width: 991px) {
-  .player-wrap video { max-height: 420px; }
-  .sticky-card { position: static; margin-top: 1rem; }
+    .player-wrap video { max-height: 420px; }
+    .sticky-card { position: static; margin-top: 1rem; }
+    .player-nav { padding: 0 0.5rem; }
 }

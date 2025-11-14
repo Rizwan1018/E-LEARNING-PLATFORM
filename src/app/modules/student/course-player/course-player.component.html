@@ -1,206 +1,230 @@
 <app-student-navbar></app-student-navbar>
- 
-<div class="container py-4" *ngIf="course">
-  <div class="row g-4">
-    <!-- LEFT: Video + Tabs -->
-    <div class="col-lg-8">
-      <div class="card shadow-sm">
-        <div class="card-body p-0">
-          <!-- Video -->
-          <div class="player-wrap bg-dark position-relative">
-            <video #videoRef class="w-100" controls [poster]="'http://localhost:8080/' + course.thumbnail"
-                   (ended)="onVideoEnded()">
-              <source [src]="'http://localhost:8080/' + course.videoUrl" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
- 
-            <!-- small overlay: duration / quality / mini-info -->
-            <div class="video-meta position-absolute top-0 end-0 m-3 text-white small">
-              <span class="badge bg-dark bg-opacity-50"> {{ course.durationHrs }} hrs</span>
-            </div>
-          </div>
- 
-          <!-- Tab nav below video -->
-          <nav class="nav nav-pills gap-2 p-3 border-top">
-            <button class="nav-link" [ngClass]="{ active: currentTab === 'overview' }" (click)="setTab('overview')">Overview</button>
-            <button class="nav-link" [ngClass]="{ active: currentTab === 'notes' }" (click)="setTab('notes')">Notes</button>
-            <button class="nav-link" [ngClass]="{ active: currentTab === 'reviews' }" (click)="setTab('reviews')">Reviews</button>
-            <button class="nav-link" [ngClass]="{ active: currentTab === 'assessments' }" (click)="setTab('assessments')">Assessments</button>
-            <button class="nav-link" [ngClass]="{ active: currentTab === 'announcements' }" (click)="setTab('announcements')">Announcements</button>
-           
-          </nav>
- 
-          <!-- Tab content -->
-          <div class="p-3">
-            <!-- OVERVIEW -->
-            <div *ngIf="currentTab === 'overview'">
-              <h4 class="mb-1">{{ course.title }}</h4>
-              <div class="small text-muted mb-2">{{ course.domain }} • {{ course.level }}</div>
-              <p class="mb-3">{{ course.description }}</p>
- 
-              <!-- Compact progress -->
-              <div class="mb-3">
-                <div class="d-flex align-items-center gap-3">
-                  <div class="flex-grow-1">
-                    <div class="progress" style="height: 10px;">
-                      <div class="progress-bar" role="progressbar" [style.width.%]="enrollment?.progress || 0">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="small text-muted">{{ enrollment?.progress || 0 }}%</div>
-                </div>
-              </div>
- 
-              <!-- Quick actions -->
-              <div class="d-flex gap-2">
-                <button class="btn btn-primary" (click)="togglePlay()" title="Play/Pause video">
-                  <i class="bi bi-play-fill"></i> Play
-                </button>
- 
-                <button class="btn btn-outline-primary" (click)="markDoneClicked()" [disabled]="!isWatched || isDone">
-                  <i class="bi bi-check2-circle"></i>
-                  {{ isDone ? 'Completed' : 'Mark as done' }}
-                </button>
- 
-                <div class="ms-auto d-flex align-items-center gap-2">
-                  <div class="small text-muted me-2">Your rating:</div>
-                  <div>
-                    <ng-container *ngFor="let s of [1,2,3,4,5]">
-                      <i class="bi"
-                         [ngClass]="(currentRating || 0) >= s ? 'bi-star-fill text-warning' : 'bi-star'"
-                         (click)="onStarClick(s)"
-                         [style.cursor]="isDone ? 'pointer' : 'not-allowed'"
-                         [attr.title]="isDone ? 'Rate ' + s + ' star' : 'Complete course to rate'"></i>
-                    </ng-container>
-                  </div>
-                </div>
-              </div>
-            </div>
- 
-            <!-- NOTES -->
-            <div *ngIf="currentTab === 'notes'">
-              <h5>My Notes</h5>
-              <textarea [(ngModel)]="notesText" class="form-control mb-2" rows="7" placeholder="Write notes for yourself..."></textarea>
-              <div class="d-flex gap-2">
-                <button class="btn btn-success" (click)="saveNotes()">Save Notes</button>
-                <button class="btn btn-outline-secondary" (click)="clearNotes()">Clear</button>
-                <small class="text-muted ms-auto align-self-center">Notes auto-saved locally</small>
-              </div>
-            </div>
- 
-            <!-- REVIEWS -->
-            <div *ngIf="currentTab === 'reviews'">
-              <h5>Reviews & Ratings</h5>
-              <div class="d-flex align-items-center gap-3 mb-3">
-                <div class="display-6 fw-bold">{{ course.avgRating ?? '—' }}</div>
-                <div>
-                  <div class="small text-muted">Average rating</div>
-                  <div class="small text-muted">{{ course.studentsCount || 0 }} students</div>
-                </div>
-              </div>
- 
-              <div *ngIf="reviews.length; else noReviews">
-                <div *ngFor="let r of reviews" class="border rounded p-3 mb-2">
-                  <div class="d-flex justify-content-between">
-                    <div><strong>{{ r.user || 'Student' }}</strong></div>
-                    <div class="small text-muted">{{ r.date | date:'short' }}</div>
-                  </div>
-                  <div class="mt-1">
-                    <ng-container *ngFor="let s of [1,2,3,4,5]">
-                      <i class="bi" [ngClass]="s <= r.rating ? 'bi-star-fill text-warning' : 'bi-star'"></i>
-                    </ng-container>
-                  </div>
-                  <p class="mb-0 mt-2">{{ r.comment }}</p>
-                </div>
-              </div>
-              <ng-template #noReviews>
-                <div class="text-muted">No reviews yet. Be the first to rate after completing the course.</div>
-              </ng-template>
-            </div>
- 
-            <!-- ASSESSMENTS -->
-            <div *ngIf="currentTab === 'assessments'">
-              <h5>Assessments</h5>
-              <div *ngIf="assessments.length; else noAssess">
-                <div *ngFor="let a of assessments" class="d-flex align-items-center justify-content-between border rounded p-3 mb-2">
-                  <div>
-                    <div class="fw-semibold">{{ a.title }}</div>
-                    <div class="small text-muted">{{ a.description }}</div>
-                  </div>
-                  <div>
-                    <a class="btn btn-primary btn-sm" [routerLink]="['/student/take-assessment', a.id]">Start</a>
-                  </div>
-                </div>
-              </div>
-              <ng-template #noAssess>
-                <div class="text-muted">No assessments for this course.</div>
-              </ng-template>
-            </div>
- 
-            <!-- announcements content -->
-            <div *ngIf="currentTab==='announcements'">
-              <div *ngIf="announcements.length; else noAnn">
-                <div class="list-group">
-                  <div class="list-group-item" *ngFor="let a of announcements">
-                    <div class="d-flex justify-content-between">
-                      <h6 class="mb-1">{{ a.title }}</h6>
-                      <small class="text-muted">{{ a.createdAt | date:'medium' }}</small>
-                    </div>
-                    <p class="mb-1">{{ a.message }}</p>
-                  </div>
-                </div>
-              </div>
-              <ng-template #noAnn>
-                <div class="alert alert-info">No announcements yet for this course.</div>
-              </ng-template>
-            </div>
- 
-          </div>
+
+<div class="bg-light-subtle min-vh-100 pb-5">
+    <div class="container py-4" *ngIf="course">
+        
+        <!-- Course Title Header (Above the Player) -->
+        <div class="mb-3">
+            <h1 class="fs-4 fw-bold text-dark mb-1">{{ course.title }}</h1>
+            <p class="small text-muted">{{ course.domain }} • {{ course.level }} • {{ course.durationHrs }}h</p>
         </div>
-      </div>
-    </div>
- 
-    <!-- RIGHT: Sticky Sidebar -->
-    <div class="col-lg-4">
-      <div class="card shadow-sm sticky-card">
-        <div class="card-body">
-          <div class="d-flex gap-3">
-            <img *ngIf="course.thumbnail" [src]="'http://localhost:8080/' + course.thumbnail" class="thumb" alt="thumb" />
-            <div class="flex-grow-1">
-              <div class="fw-semibold">{{ course.title }}</div>
-              <div class="small text-muted">{{ course.domain }} • {{ course.level }}</div>
+
+        <div class="row g-4">
+            
+            <!-- LEFT: Video Player & Tabs (75% width on large screens) -->
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                    <div class="card-body p-0">
+                        
+                        <!-- Video Player -->
+                        <div class="player-wrap bg-dark position-relative">
+                            <video #videoRef class="w-100" controls [poster]="'http://localhost:8080/' + course.thumbnail"
+                                (ended)="onVideoEnded()">
+                                <source [src]="'http://localhost:8080/' + course.videoUrl" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+
+                        <!-- Tab Navigation below video -->
+                        <!-- Use a more modern look with border-bottom and custom active class -->
+                        <nav class="player-nav border-top">
+                            <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
+                                <button class="nav-link custom-tab-link" [ngClass]="{ 'active-tab': currentTab === 'overview' }" (click)="setTab('overview')">Overview</button>
+                                <button class="nav-link custom-tab-link" [ngClass]="{ 'active-tab': currentTab === 'notes' }" (click)="setTab('notes')">Notes</button>
+                                <button class="nav-link custom-tab-link" [ngClass]="{ 'active-tab': currentTab === 'reviews' }" (click)="setTab('reviews')">Reviews</button>
+                                <button class="nav-link custom-tab-link" [ngClass]="{ 'active-tab': currentTab === 'assessments' }" (click)="setTab('assessments')">Assessments</button>
+                                <button class="nav-link custom-tab-link" [ngClass]="{ 'active-tab': currentTab === 'announcements' }" (click)="setTab('announcements')">Announcements</button>
+                            </div>
+                        </nav>
+
+                        <!-- Tab content -->
+                        <div class="p-4 tab-content-area">
+                            
+                            <!-- OVERVIEW -->
+                            <div *ngIf="currentTab === 'overview'">
+                                <h4 class="mb-3 text-primary-emphasis">Course Summary</h4>
+                                <p class="mb-4 text-secondary">{{ course.description }}</p>
+
+                                <!-- Quick actions & Rating -->
+                                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 border-top pt-4">
+                                    <div class="d-flex gap-2"> 
+                                        <!-- Mark as Done Button (Updated class for contrast when done) -->
+                                        <button 
+                                            class="btn fw-semibold" 
+                                            [ngClass]="isDone ? 'btn-success' : 'btn-outline-success'" 
+                                            (click)="markDoneClicked()" 
+                                            [disabled]="!isWatched || isDone">
+                                            <i class="fas me-1" [ngClass]="{ 'fa-check-circle': isDone, 'fa-circle': !isDone }"></i>
+                                            {{ isDone ? 'Completed' : 'Mark as done' }}
+                                        </button>
+                                    </div>
+
+                                    <!-- Rating -->
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="small text-muted me-2">Rate this course:</div>
+                                        <div>
+                                            <ng-container *ngFor="let s of [1,2,3,4,5]">
+                                                <i class="fas fa-star custom-star-rating"
+                                                    [ngClass]="(currentRating || 0) >= s ? 'text-warning' : 'text-secondary opacity-50'"
+                                                    (click)="onStarClick(s)"
+                                                    [style.cursor]="isDone ? 'pointer' : 'not-allowed'"
+                                                    [attr.title]="isDone ? 'Rate ' + s + ' star' : 'Complete course to rate'"></i>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- NOTES -->
+                            <div *ngIf="currentTab === 'notes'">
+                                <h5 class="mb-3 text-primary-emphasis">My Personal Notes</h5>
+                                <textarea [(ngModel)]="notesText" class="form-control mb-3 rounded-3" rows="7" placeholder="Write notes for yourself..."></textarea>
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <button class="btn btn-sm btn-success" (click)="saveNotes()">Save Notes</button>
+                                    <button class="btn btn-sm btn-outline-secondary" (click)="clearNotes()">Clear</button>
+                                </div>
+                                <small class="text-muted mt-2 d-block text-end">Notes auto-saved locally</small>
+                            </div>
+
+                            <!-- REVIEWS -->
+                            <div *ngIf="currentTab === 'reviews'">
+                                <h5 class="mb-3 text-primary-emphasis">Reviews & Ratings</h5>
+                                <div class="d-flex align-items-center gap-4 mb-4 p-3 bg-light rounded-3 border">
+                                    <div class="display-5 fw-bolder text-dark">{{ course.avgRating ?? '—' }}</div>
+                                    <div>
+                                        <div class="small text-muted">Average rating from:</div>
+                                        <div class="fw-semibold text-primary">{{ course.studentsCount || 0 }} students</div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="reviews.length; else noReviews">
+                                    <div *ngFor="let r of reviews" class="card shadow-sm mb-3 border-0">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <strong>{{ r.user || 'Student' }}</strong>
+                                                    <div class="mt-1">
+                                                        <ng-container *ngFor="let s of [1,2,3,4,5]">
+                                                            <i class="fas fa-star small" [ngClass]="s <= r.rating ? 'text-warning' : 'text-secondary opacity-50'"></i>
+                                                        </ng-container>
+                                                    </div>
+                                                </div>
+                                                <div class="small text-muted">{{ r.date | date:'short' }}</div>
+                                            </div>
+                                            <p class="mb-0 mt-2 border-top pt-2">{{ r.comment }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #noReviews>
+                                    <div class="alert alert-light text-center border-dashed">
+                                        <i class="fas fa-comment-dots me-2"></i> No reviews yet.
+                                    </div>
+                                </ng-template>
+                            </div>
+
+                            <!-- ASSESSMENTS -->
+                            <div *ngIf="currentTab === 'assessments'">
+                                <h5 class="mb-3 text-primary-emphasis">Available Assessments</h5>
+                                <div *ngIf="assessments.length; else noAssess">
+                                    <div *ngFor="let a of assessments" class="d-flex align-items-center justify-content-between border rounded-3 p-3 mb-2 bg-white shadow-sm">
+                                        <div>
+                                            <div class="fw-semibold text-primary">{{ a.title }}</div>
+                                            <div class="small text-muted">{{ a.description }}</div>
+                                        </div>
+                                        <div>
+                                            <a class="btn btn-sm btn-primary" [routerLink]="['/student/take-assessment', a.id]">
+                                                <i class="fas fa-flask me-1"></i> Start Test
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #noAssess>
+                                    <div class="alert alert-light text-center border-dashed">
+                                        <i class="fas fa-file-alt me-2"></i> No assessments for this course.
+                                    </div>
+                                </ng-template>
+                            </div>
+
+                            <!-- ANNOUNCEMENTS -->
+                            <div *ngIf="currentTab==='announcements'">
+                                <h5 class="mb-3 text-primary-emphasis">Course Announcements</h5>
+                                <div *ngIf="announcements.length; else noAnn">
+                                    <div class="list-group">
+                                        <div class="list-group-item list-group-item-action" *ngFor="let a of announcements">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-1 fw-bold">{{ a.title }}</h6>
+                                                <small class="text-muted">{{ a.createdAt | date:'medium' }}</small>
+                                            </div>
+                                            <p class="mb-1 text-secondary small">{{ a.message }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #noAnn>
+                                    <div class="alert alert-info text-center">
+                                        No announcements yet for this course.
+                                    </div>
+                                </ng-template>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
- 
-          <hr />
- 
-          <div class="mb-2">
-            <div class="small text-muted">Your progress</div>
-            <div class="d-flex align-items-center gap-2">
-              <div class="small text-muted">{{ enrollment?.progress || 0 }}%</div>
+
+            <!-- RIGHT: Sticky Sidebar (25% width on large screens) -->
+            <div class="col-lg-4">
+                <div class="card shadow-lg sticky-card border-0 rounded-4">
+                    <div class="card-body p-4">
+                        
+                        <!-- Course Thumbnail & Title (Compact Header) -->
+                        <div class="d-flex gap-3 align-items-center border-bottom pb-3 mb-3">
+                            <img *ngIf="course.thumbnail" [src]="'http://localhost:8080/' + course.thumbnail" class="sidebar-thumb rounded" alt="thumb" />
+                            <div class="flex-grow-1 overflow-hidden">
+                                <!-- FIX: Added text-truncate to prevent overflow -->
+                                <div class="fw-bold text-dark text-truncate">{{ course.title }}</div>
+                                <div class="small text-muted">{{ course.domain }}</div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar (Enhanced) -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="fw-semibold text-primary">Your Progress</div>
+                                <div class="fw-bolder text-dark">{{ enrollment?.progress || 0 }}%</div>
+                            </div>
+                            <div class="progress custom-progress-track" style="height: 12px;">
+                                <div class="progress-bar custom-progress-fill" role="progressbar" [style.width.%]="enrollment?.progress || 0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Info List -->
+                        <div class="mb-4">
+                            <div class="small fw-semibold text-muted mb-2">Course Info</div>
+                            <ul class="list-unstyled small custom-info-list">
+                                <li><i class="fas fa-clock me-2"></i> <strong>{{ course.durationHrs }}h</strong> total length</li>
+                                <li><i class="fas fa-layer-group me-2"></i> Level: {{ course.level }}</li>
+                                <li><i class="fas fa-calendar-alt me-2"></i> Enrolled: {{ enrollment?.enrollmentDate | date:'mediumDate' }}</li>
+                            </ul>
+                        </div>
+
+                        <!-- Resources Button -->
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-outline-primary fw-semibold" (click)="downloadResources()">
+                                <i class="fas fa-download me-2"></i> Download Resources
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
- 
-          <div class="mb-2 small text-muted">Course Info</div>
-          <ul class="list-unstyled small">
-            <li><strong>{{ course.durationHrs }}h</strong> total length</li>
-            <li>Level: {{ course.level }}</li>
-          </ul>
- 
-          <div class="d-grid gap-2 mt-3">
-            <button class="btn btn-outline-secondary" (click)="downloadResources()" >Resources</button>
-          </div>
         </div>
-      </div>
+
+        <!-- Toast for confirmation/feedback -->
+        <div *ngIf="showSimpleToast"
+            class="alert alert-success fixed-bottom start-50 translate-middle-x mb-3 shadow-lg rounded-3"
+            style="width: fit-content; z-index: 1000; transition: opacity 0.3s;"
+            role="alert">
+            <i class="fas fa-info-circle me-2"></i> <strong>{{ simpleToastMessage }}</strong>
+        </div>
     </div>
-  </div>
-  <div *ngIf="showSimpleToast"
-     class="alert alert-warning fixed-bottom start-50 translate-middle-x mb-3 shadow"
-     style="width: fit-content; z-index: 1000; transition: opacity 0.3s;"
-     role="alert">
-    <strong>{{ simpleToastMessage }}</strong>
 </div>
-</div>
- 
- 
- 

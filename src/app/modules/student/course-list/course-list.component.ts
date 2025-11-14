@@ -163,6 +163,7 @@ export class CourseListComponent implements OnInit {
           }, 800);
 
           this.load();
+          this.load();
          }); // refresh courses
         },
 
